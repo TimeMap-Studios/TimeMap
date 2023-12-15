@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/infoFragment"
+    tools:context=".ui.information.InfoFragment">
+
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_string"
+        android:textColor="@color/brown"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/nameContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.314" />
+
+    <TextView
+        android:id="@+id/subTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/subtitle_string"
+        android:textColor="@color/brown"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+
+    <LinearLayout
+        android:id="@+id/nameContainer"
+        android:layout_width="297dp"
+        android:layout_height="214dp"
+        android:background="@drawable/custom_border"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.342">
+
+        <TextView
+            android:id="@+id/guilleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/guille_name"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/martinName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/martin_name"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/manuelName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/manuel_name"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/joseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/jose_name"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="263dp"
+        android:background="@color/brown"
+        app:layout_constraintTop_toTopOf="@+id/nameContainer"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/signLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/sign_string"
+        android:textAlignment="center"
+        android:textColor="@color/brown"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/coffeeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lineSeparator"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/coffeeButton"
+        android:layout_width="211dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="68dp"
+        android:text="Buy me a coffee"
+        android:onClick="buyMeButtonClicked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
