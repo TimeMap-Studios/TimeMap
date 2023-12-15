@@ -7,14 +7,18 @@
         <item
             android:id="@+id/nav_day"
             android:icon="@drawable/ic_menu_day"
+            android:textColor="@color/beige"
             android:title="@string/menu_day" />
         <item
             android:id="@+id/nav_week"
             android:icon="@drawable/ic_menu_week"
-            android:title="@string/menu_week" />
+            android:title="@string/menu_week"
+            android:textColor="@color/beige"
+            />
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_menu_calendar"
+            android:textColor="@color/beige"
             android:title="@string/menu_calendar" />
     </group>
 </menu>

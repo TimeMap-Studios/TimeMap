@@ -56,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // Ocultar el menú lateral al hacer click
+    public void clickExitLateralMenu(View v) {
+        /*
+        NavigationView navigationView = binding.navView;
+        View menuLateral = navigationView.findViewById(R.id.app_bar_main);
+        binding.appBarMain.toolbar.setVisibility(View.GONE);
+        */
+        binding.navView.setVisibility(View.GONE);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
