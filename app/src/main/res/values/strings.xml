@@ -13,4 +13,5 @@
     <string name="menu_day">Today events</string>
     <string name="menu_week">Weekly view</string>
     <string name="menu_calendar">Calendar view</string>
+    <string name="menu_info">Info</string>
 </resources>

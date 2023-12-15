@@ -20,5 +20,10 @@
             android:icon="@drawable/ic_menu_calendar"
             android:textColor="@color/beige"
             android:title="@string/menu_calendar" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_menu_info"
+            android:textColor="@color/beige"
+            android:title="@string/menu_info" />
     </group>
 </menu>

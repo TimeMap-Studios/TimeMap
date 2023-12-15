@@ -58,12 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Ocultar el menú lateral al hacer click
     public void clickExitLateralMenu(View v) {
-        /*
-        NavigationView navigationView = binding.navView;
-        View menuLateral = navigationView.findViewById(R.id.app_bar_main);
-        binding.appBarMain.toolbar.setVisibility(View.GONE);
-        */
         binding.navView.setVisibility(View.GONE);
+        binding.appBarMain.fab.setVisibility(View.GONE);
     }
 
     @Override
