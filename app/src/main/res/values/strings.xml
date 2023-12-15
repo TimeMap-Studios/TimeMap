@@ -10,8 +10,19 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
     <string name="menu_day">Today events</string>
     <string name="menu_week">Weekly view</string>
     <string name="menu_calendar">Calendar view</string>
     <string name="menu_info">Info</string>
+
+    <!-- Strings para vista de informacion -->
+    <string name="guille_name">Guillermo de Carlos</string>
+    <string name="martin_name">Martín Ramonda</string>
+    <string name="jose_name">José García</string>
+    <string name="manuel_name">Manuel Martín</string>
+    <string name="subtitle_string">Aplicación desarrollada por:</string>
+    <string name="title_string">Información</string>
+    <string name="sign_string">Somos programadores independientes. Dependemos de las donaciones para mantener la aplicación</string>
+
 </resources>
