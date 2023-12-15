@@ -36,7 +36,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="49dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:insetTop="6dp"
         android:text="X"
