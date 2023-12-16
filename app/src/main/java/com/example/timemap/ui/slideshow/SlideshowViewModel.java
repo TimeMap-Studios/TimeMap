@@ -16,4 +16,8 @@ public class SlideshowViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

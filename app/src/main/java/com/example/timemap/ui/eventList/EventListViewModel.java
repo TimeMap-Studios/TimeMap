@@ -9,10 +9,14 @@ public class EventListViewModel extends ViewModel {
 
     public EventListViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("INFORMATION");
+        mText.setValue("Event list");
     }
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    protected void onCleared() {
+        super.onCleared();
     }
 }

@@ -6,11 +6,18 @@ import androidx.lifecycle.ViewModel;
 
 public class CoffeeViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
-    public CoffeeViewModel(){
+
+    public CoffeeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("Buy me a coffee");
     }
+
     public LiveData<String> getText() {
         return mText;
+    }
+
+
+    protected void onCleared() {
+        super.onCleared();
     }
 }

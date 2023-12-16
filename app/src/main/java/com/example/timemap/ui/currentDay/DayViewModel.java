@@ -7,12 +7,16 @@ import androidx.lifecycle.ViewModel;
 public class DayViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public DayViewModel(){
+    public DayViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("INFORMATION");
     }
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    protected void onCleared() {
+        super.onCleared();
     }
 }

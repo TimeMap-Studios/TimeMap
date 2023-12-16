@@ -7,12 +7,16 @@ import androidx.lifecycle.ViewModel;
 public class MonthViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public MonthViewModel(){
+    public MonthViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("INFORMATION");
     }
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    protected void onCleared() {
+        super.onCleared();
     }
 }
