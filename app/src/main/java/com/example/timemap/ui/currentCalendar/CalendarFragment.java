@@ -1,4 +1,4 @@
-package com.example.timemap.ui.coffee;
+package com.example.timemap.ui.currentCalendar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.timemap.databinding.FragmentCoffeeBinding;
+import com.example.timemap.databinding.FragmentCalendarBinding;
 
-public class CoffeeFragment extends Fragment {
-    FragmentCoffeeBinding binding;
+public class CalendarFragment extends Fragment {
+    FragmentCalendarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        CoffeeViewModel coffeeViewModel =
-                new ViewModelProvider(this).get(CoffeeViewModel.class);
-        binding = FragmentCoffeeBinding.inflate(inflater, container, false);
+        CalendarViewModel calendarViewModel =
+                new ViewModelProvider(this).get(CalendarViewModel.class);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
@@ -28,5 +27,4 @@ public class CoffeeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

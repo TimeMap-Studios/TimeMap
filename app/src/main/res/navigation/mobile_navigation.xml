@@ -3,30 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_day">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.timemap.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_day"
+        android:name="com.example.timemap.ui.currentDay.DayFragment"
+        android:label="@string/menu_day"
+        tools:layout="@layout/fragment_day" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.timemap.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_week"
+        android:name="com.example.timemap.ui.currentWeek.WeekFragment"
+        android:label="@string/menu_week"
+        tools:layout="@layout/fragment_week" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.timemap.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_calendar"
+        android:name="com.example.timemap.ui.currentCalendar.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar" />
+
+    <fragment
+        android:id="@+id/nav_events"
+        android:name="com.example.timemap.ui.eventList.EventListFragment"
+        android:label="Events"
+        tools:layout="@layout/fragment_event_list" />
 
     <fragment
         android:id="@+id/nav_information"
         android:name="com.example.timemap.ui.information.InfoFragment"
         android:label="Information"
-        tools:layout="@layout/fragment_slideshow"
-        />
+        tools:layout="@layout/fragment_info" />
 </navigation>

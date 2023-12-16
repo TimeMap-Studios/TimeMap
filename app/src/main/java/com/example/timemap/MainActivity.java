@@ -3,30 +3,40 @@ package com.example.timemap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.timemap.ui.coffee.CoffeeFragment;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timemap.databinding.ActivityMainBinding;
+import com.example.timemap.ui.coffee.CoffeeFragment;
+import com.example.timemap.ui.coffee.CoffeeViewModel;
+import com.example.timemap.ui.currentCalendar.CalendarViewModel;
+import com.example.timemap.ui.currentDay.DayViewModel;
+import com.example.timemap.ui.currentWeek.WeekViewModel;
+import com.example.timemap.ui.information.InfoViewModel;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.timemap.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        CoffeeViewModel coffeView = new ViewModelProvider(this).get(CoffeeViewModel.class);
+        DayViewModel dayView = new ViewModelProvider(this).get(DayViewModel.class);
+        CalendarViewModel monthView = new ViewModelProvider(this).get(CalendarViewModel.class);
+        WeekViewModel weekView = new ViewModelProvider(this).get(WeekViewModel.class);
+        InfoViewModel infoView = new ViewModelProvider(this).get(InfoViewModel.class);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -36,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_information)
+                R.id.nav_day, R.id.nav_week, R.id.nav_calendar, R.id.nav_events, R.id.nav_information)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -44,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
     public void buyMeButtonClicked(View view) {
+        CoffeeFragment coffeeFragment = new CoffeeFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.mainContent, new CoffeeFragment())
+                .replace(R.id.mainContent, coffeeFragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     // Ocultar el menú lateral al hacer click
     public void clickExitLateralMenu(View v) {
         binding.navView.setVisibility(View.GONE);
-        binding.appBarMain.fab.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -70,4 +82,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

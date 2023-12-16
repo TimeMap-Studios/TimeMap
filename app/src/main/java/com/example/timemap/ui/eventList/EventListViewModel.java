@@ -1,19 +1,22 @@
-package com.example.timemap.ui.home;
+package com.example.timemap.ui.eventList;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
-
+public class EventListViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public EventListViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("Event list");
     }
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    protected void onCleared() {
+        super.onCleared();
     }
 }

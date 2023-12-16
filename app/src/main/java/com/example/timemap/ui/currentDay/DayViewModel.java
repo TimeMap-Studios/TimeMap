@@ -1,21 +1,20 @@
-package com.example.timemap.ui.coffee;
+package com.example.timemap.ui.currentDay;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CoffeeViewModel extends ViewModel {
+public class DayViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public CoffeeViewModel() {
+    public DayViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Buy me a coffee");
+        mText.setValue("INFORMATION");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
-
 
     protected void onCleared() {
         super.onCleared();

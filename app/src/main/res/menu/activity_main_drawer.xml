@@ -13,15 +13,19 @@
             android:id="@+id/nav_week"
             android:icon="@drawable/ic_menu_week"
             android:title="@string/menu_week"
-            android:textColor="@color/beige"
-            />
+            android:textColor="@color/beige" />
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_menu_calendar"
             android:textColor="@color/beige"
             android:title="@string/menu_calendar" />
         <item
-            android:id="@+id/nav_info"
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_menu_list"
+            android:textColor="@color/beige"
+            android:title="@string/menu_event_list" />
+        <item
+            android:id="@+id/nav_information"
             android:icon="@drawable/ic_menu_info"
             android:textColor="@color/beige"
             android:title="@string/menu_info" />
