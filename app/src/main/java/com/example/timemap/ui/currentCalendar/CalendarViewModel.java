@@ -1,13 +1,13 @@
-package com.example.timemap.ui.currentMonth;
+package com.example.timemap.ui.currentCalendar;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MonthViewModel extends ViewModel {
+public class CalendarViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public MonthViewModel() {
+    public CalendarViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("INFORMATION");
     }

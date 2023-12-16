@@ -10,17 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.timemap.databinding.FragmentCoffeeBinding;
+import com.example.timemap.databinding.FragmentDayBinding;
 
 public class DayFragment extends Fragment {
-    FragmentCoffeeBinding binding;
+    FragmentDayBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         DayViewModel coffeeViewModel =
                 new ViewModelProvider(this).get(DayViewModel.class);
-        binding = FragmentCoffeeBinding.inflate(inflater,container,false);
+        binding = FragmentDayBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

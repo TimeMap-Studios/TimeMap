@@ -15,8 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.timemap.databinding.ActivityMainBinding;
 import com.example.timemap.ui.coffee.CoffeeFragment;
 import com.example.timemap.ui.coffee.CoffeeViewModel;
+import com.example.timemap.ui.currentCalendar.CalendarViewModel;
 import com.example.timemap.ui.currentDay.DayViewModel;
-import com.example.timemap.ui.currentMonth.MonthViewModel;
 import com.example.timemap.ui.currentWeek.WeekViewModel;
 import com.example.timemap.ui.information.InfoViewModel;
 import com.example.timemap.ui.slideshow.SlideshowViewModel;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         CoffeeViewModel coffeView = new ViewModelProvider(this).get(CoffeeViewModel.class);
         DayViewModel dayView = new ViewModelProvider(this).get(DayViewModel.class);
-        MonthViewModel monthView = new ViewModelProvider(this).get(MonthViewModel.class);
+        CalendarViewModel monthView = new ViewModelProvider(this).get(CalendarViewModel.class);
         WeekViewModel weekView = new ViewModelProvider(this).get(WeekViewModel.class);
         InfoViewModel infoView = new ViewModelProvider(this).get(InfoViewModel.class);
         SlideshowViewModel slideshowView = new ViewModelProvider(this).get(SlideshowViewModel.class);

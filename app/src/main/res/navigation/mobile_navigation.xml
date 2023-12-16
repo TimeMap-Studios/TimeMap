@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_calendar"
-        android:name="com.example.timemap.ui.currentMonth.MonthFragment"
+        android:name="com.example.timemap.ui.currentCalendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar" />
 

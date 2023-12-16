@@ -10,18 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.timemap.databinding.FragmentCoffeeBinding;
-import com.example.timemap.ui.currentMonth.MonthViewModel;
+import com.example.timemap.databinding.FragmentWeekBinding;
 
 public class WeekFragment extends Fragment {
-    FragmentCoffeeBinding binding;
+    FragmentWeekBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         WeekViewModel coffeeViewModel =
                 new ViewModelProvider(this).get(WeekViewModel.class);
-        binding = FragmentCoffeeBinding.inflate(inflater,container,false);
+        binding = FragmentWeekBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
