@@ -2,12 +2,18 @@ package com.example.timemap;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.timemap.ui.coffee.CoffeeFragment;
 import com.google.android.material.navigation.NavigationView;
+import android.widget.Toast;
 
+import com.example.timemap.ui.information.InfoFragment;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,15 +24,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timemap.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.timemap.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -36,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_information)
+                R.id.nav_day, R.id.nav_week, R.id.nav_calendar, R.id.nav_information)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     // Ocultar el menú lateral al hacer click
     public void clickExitLateralMenu(View v) {
         binding.navView.setVisibility(View.GONE);
-        binding.appBarMain.fab.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -70,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }
