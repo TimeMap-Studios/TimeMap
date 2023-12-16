@@ -16,7 +16,7 @@ public class CalendarFragment extends Fragment {
     FragmentCalendarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        CalendarViewModel coffeeViewModel =
+        CalendarViewModel calendarViewModel =
                 new ViewModelProvider(this).get(CalendarViewModel.class);
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
         return binding.getRoot();

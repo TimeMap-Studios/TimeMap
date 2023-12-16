@@ -19,7 +19,6 @@ import com.example.timemap.ui.currentCalendar.CalendarViewModel;
 import com.example.timemap.ui.currentDay.DayViewModel;
 import com.example.timemap.ui.currentWeek.WeekViewModel;
 import com.example.timemap.ui.information.InfoViewModel;
-import com.example.timemap.ui.slideshow.SlideshowViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         CalendarViewModel monthView = new ViewModelProvider(this).get(CalendarViewModel.class);
         WeekViewModel weekView = new ViewModelProvider(this).get(WeekViewModel.class);
         InfoViewModel infoView = new ViewModelProvider(this).get(InfoViewModel.class);
-        SlideshowViewModel slideshowView = new ViewModelProvider(this).get(SlideshowViewModel.class);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -56,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
     public void buyMeButtonClicked(View view) {
+        CoffeeFragment coffeeFragment = new CoffeeFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.mainContent, new CoffeeFragment())
+                .replace(R.id.mainContent, coffeeFragment)
                 .addToBackStack(null)
                 .commit();
     }

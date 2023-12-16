@@ -16,7 +16,7 @@ public class DayFragment extends Fragment {
     FragmentDayBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DayViewModel coffeeViewModel =
+        DayViewModel DayViewModel =
                 new ViewModelProvider(this).get(DayViewModel.class);
         binding = FragmentDayBinding.inflate(inflater, container, false);
         return binding.getRoot();

@@ -16,7 +16,7 @@ public class WeekFragment extends Fragment {
     FragmentWeekBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        WeekViewModel coffeeViewModel =
+        WeekViewModel WeekViewModel =
                 new ViewModelProvider(this).get(WeekViewModel.class);
         binding = FragmentWeekBinding.inflate(inflater, container, false);
         return binding.getRoot();

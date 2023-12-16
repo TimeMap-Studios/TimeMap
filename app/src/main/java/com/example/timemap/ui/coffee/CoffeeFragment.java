@@ -18,12 +18,15 @@ public class CoffeeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CoffeeViewModel coffeeViewModel =
                 new ViewModelProvider(this).get(CoffeeViewModel.class);
-        binding = FragmentCoffeeBinding.inflate(inflater,container,false);
+        binding = FragmentCoffeeBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }
