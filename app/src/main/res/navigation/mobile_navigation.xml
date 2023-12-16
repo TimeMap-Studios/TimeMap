@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_calendar" />
 
     <fragment
+        android:id="@+id/nav_events"
+        android:name="com.example.timemap.ui.eventList.EventListFragment"
+        android:label="Events"
+        tools:layout="@layout/event_list" />
+
+    <fragment
         android:id="@+id/nav_information"
         android:name="com.example.timemap.ui.information.InfoFragment"
         android:label="Information"

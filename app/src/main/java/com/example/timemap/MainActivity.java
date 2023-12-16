@@ -2,37 +2,41 @@ package com.example.timemap;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.timemap.ui.coffee.CoffeeFragment;
-import com.google.android.material.navigation.NavigationView;
-import android.widget.Toast;
-
-import com.example.timemap.ui.information.InfoFragment;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timemap.databinding.ActivityMainBinding;
+import com.example.timemap.ui.coffee.CoffeeFragment;
+import com.example.timemap.ui.coffee.CoffeeViewModel;
+import com.example.timemap.ui.currentDay.DayViewModel;
+import com.example.timemap.ui.currentMonth.MonthViewModel;
+import com.example.timemap.ui.currentWeek.WeekViewModel;
+import com.example.timemap.ui.information.InfoViewModel;
+import com.example.timemap.ui.slideshow.SlideshowViewModel;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CoffeeViewModel coffeView = new ViewModelProvider(this).get(CoffeeViewModel.class);
+        DayViewModel dayView = new ViewModelProvider(this).get(DayViewModel.class);
+        MonthViewModel monthView = new ViewModelProvider(this).get(MonthViewModel.class);
+        WeekViewModel weekView = new ViewModelProvider(this).get(WeekViewModel.class);
+        InfoViewModel infoView = new ViewModelProvider(this).get(InfoViewModel.class);
+        SlideshowViewModel slideshowView = new ViewModelProvider(this).get(SlideshowViewModel.class);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
