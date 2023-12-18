@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.timemap.databinding.ActivityMainBinding;
-import com.example.timemap.ui.coffee.CoffeeFragment;
 import com.example.timemap.ui.coffee.CoffeeViewModel;
 import com.example.timemap.ui.currentCalendar.CalendarViewModel;
 import com.example.timemap.ui.currentDay.DayViewModel;
@@ -52,15 +51,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-
-    public void buyMeButtonClicked(View view) {
-        CoffeeFragment coffeeFragment = new CoffeeFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.mainContent, coffeeFragment)
-                .addToBackStack(null)
-                .commit();
     }
 
     @Override
