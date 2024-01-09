@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentInfoBinding;
@@ -23,16 +25,12 @@ public class InfoFragment extends Fragment {
                 new ViewModelProvider(this).get(InfoViewModel.class);
         binding = FragmentInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
         Button coffee = root.findViewById(R.id.coffeeButton);
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {/*
-                CoffeeFragment coffeeFragment = new CoffeeFragment();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.mainContent, coffeeFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();*/
+            public void onClick(View v) {
+                navController.navigate(R.id.nav_coffee);
             }
         });
         return root;
@@ -43,6 +41,5 @@ public class InfoFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 
 }
