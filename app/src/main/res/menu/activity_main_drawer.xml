@@ -6,26 +6,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_day"
+            style="@style/AppTheme.NavItem"
             android:icon="@drawable/ic_menu_day"
             android:textColor="@color/beige"
             android:title="@string/menu_day" />
         <item
             android:id="@+id/nav_week"
+            style="@style/AppTheme.NavItem"
             android:icon="@drawable/ic_menu_week"
-            android:title="@string/menu_week"
-            android:textColor="@color/beige" />
+            android:textColor="@color/beige"
+            android:title="@string/menu_week" />
         <item
             android:id="@+id/nav_calendar"
+            style="@style/AppTheme.NavItem"
             android:icon="@drawable/ic_menu_calendar"
             android:textColor="@color/beige"
             android:title="@string/menu_calendar" />
         <item
             android:id="@+id/nav_events"
+            style="@style/AppTheme.NavItem"
             android:icon="@drawable/ic_menu_list"
             android:textColor="@color/beige"
             android:title="@string/menu_event_list" />
         <item
             android:id="@+id/nav_information"
+            style="@style/AppTheme.NavItem"
             android:icon="@drawable/ic_menu_info"
             android:textColor="@color/beige"
             android:title="@string/menu_info" />

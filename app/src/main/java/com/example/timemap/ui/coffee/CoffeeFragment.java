@@ -20,7 +20,6 @@ public class CoffeeFragment extends Fragment {
                 new ViewModelProvider(this).get(CoffeeViewModel.class);
         binding = FragmentCoffeeBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
