@@ -40,5 +40,5 @@
         android:name="com.example.timemap.ui.coffee.CoffeeFragment"
         android:label="Buy me a coffee"
         tools:layout="@layout/fragment_coffee" />
-    
+
 </navigation>
