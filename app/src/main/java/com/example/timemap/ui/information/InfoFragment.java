@@ -30,7 +30,7 @@ public class InfoFragment extends Fragment {
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.nav_coffee);
+                Navigation.findNavController(v).navigate(R.id.nav_cofee);
             }
         });
         return root;

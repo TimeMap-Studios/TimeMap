@@ -36,8 +36,9 @@
         tools:layout="@layout/fragment_info" />
 
     <fragment
-        android:id="@+id/nav_coffee"
+        android:id="@+id/nav_cofee"
         android:name="com.example.timemap.ui.coffee.CoffeeFragment"
-        android:label="Buy me a cofee"
+        android:label="Buy me a coffee"
         tools:layout="@layout/fragment_coffee" />
+
 </navigation>

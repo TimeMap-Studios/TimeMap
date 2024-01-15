@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.TimeMap" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/dark_brown</item>
         <!-- Customize your theme here. -->
+
+
     </style>
 
     <style name="Theme.TimeMap.NoActionBar">
@@ -22,4 +24,5 @@
     <style name="Theme.TimeMap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TimeMap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
