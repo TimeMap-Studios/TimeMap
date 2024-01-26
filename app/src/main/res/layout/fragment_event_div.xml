@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/background_light"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:id="@+id/eventDiv">
 
         <!-- Tu contenido aquí, por ejemplo, un TextView -->
         <LinearLayout

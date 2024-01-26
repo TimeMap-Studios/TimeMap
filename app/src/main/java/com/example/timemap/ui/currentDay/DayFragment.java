@@ -21,20 +21,22 @@ import com.example.timemap.ui.eventList.EventListFragment;
 public class DayFragment extends Fragment {
     private FragmentDayBinding binding;
 
+    EventListFragment eventList;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDayBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Crea una instancia del fragmento
-        EventListFragment eventList = new EventListFragment();
-
         // Obtiene el FragmentManager del fragmento actual
         FragmentManager fragmentManager = getParentFragmentManager();
 
+        // Crea una instancia del fragmento
+        eventList = new EventListFragment();
+
         // Inicia la transacción del fragmento
         fragmentManager.beginTransaction()
-                .replace(R.id.dayEventsContainer, eventList)
+                .add(R.id.dayEventsContainer, eventList)
                 .commit();
 
         return root;

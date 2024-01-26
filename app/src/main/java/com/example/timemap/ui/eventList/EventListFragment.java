@@ -19,6 +19,7 @@ import com.example.timemap.databinding.FragmentEventListBinding;
 import com.example.timemap.models.Event;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,20 +38,22 @@ public class EventListFragment extends Fragment {
                 new ViewModelProvider(this).get(EventListViewModel.class);
         binding = FragmentEventListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-/*
-        fragmentManager = requireParentFragment().getChildFragmentManager();
-        // Obtén la referencia al LinearLayout eventListLayout
-        contenedor = root.findViewById(R.id.eventListLayout);
-*/
+
+        fragmentManager = getParentFragmentManager();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            loadEvent(new Event("Ejemplo",
+                    LocalDate.now()));
+        }
+
         return root;
     }
 
     public void loadEvent(Event e){
         events.add(e);
-        EventDivFragment nuevoFragmento = new EventDivFragment(e);
-        // 4. Agregar el fragmento al contenedor
+        // Inicia la transacción del fragmento
         fragmentManager.beginTransaction()
-                .add(contenedor.getId(), nuevoFragmento)
+                .add(R.id.eventListLayout, new EventDivFragment(e))
                 .commit();
     }
 

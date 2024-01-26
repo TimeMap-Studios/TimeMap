@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.databinding.FragmentEventDivBinding;
 import com.example.timemap.databinding.FragmentEventListBinding;
 import com.example.timemap.models.Event;
 
@@ -19,24 +20,21 @@ import androidx.fragment.app.FragmentTransaction;
 public class EventDivFragment extends Fragment {
 
     private Event event;
+    private FragmentEventDivBinding binding;
+
     public EventDivFragment(Event event) {
         this.event = event;
     }
 
-    private FragmentEventListBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        // 3. Crear un Bundle para pasar datos al fragmento
-        Bundle bundle = new Bundle();
-        bundle.putString("titulo", event.getName());
-        bundle.putString("tiempo", event.getEndTime().toString());
-        this.setArguments(bundle);
-
-        EventDivViewModel EventDivViewModel =
-                new ViewModelProvider(this).get(EventDivViewModel.class);
-        binding = FragmentEventListBinding.inflate(inflater, container, false);
+        binding = FragmentEventDivBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Actualizar el TextView con el título
+        binding.eventText.setText(event.getName());
+        // Actualizar el TextView con el tiempo
+        binding.remainingTimeText.setText(event.getEndTime().toString());
+
         return root;
     }
 
