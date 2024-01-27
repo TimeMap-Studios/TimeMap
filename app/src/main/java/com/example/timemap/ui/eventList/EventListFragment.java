@@ -5,35 +5,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.ListFragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventListBinding;
 import com.example.timemap.models.Event;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.timemap.R;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class EventListFragment extends Fragment {
 
-    private List<Event> events;
-    private FragmentEventListBinding binding;
+    public static final String DEFAULT_FILTER = "*";
     FragmentManager fragmentManager;
-    private LinearLayout contenedor;
+    Spinner spinner;
+    ArrayAdapter<CharSequence> spinnerAdapter;
+    private FragmentEventListBinding binding;
+    private Map<Event, Fragment> events;
+    private Set<String> filters;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        events = new ArrayList<Event>();
+        events = new HashMap<>();
         EventListViewModel EventListViewModel =
                 new ViewModelProvider(this).get(EventListViewModel.class);
         binding = FragmentEventListBinding.inflate(inflater, container, false);
@@ -41,20 +47,157 @@ public class EventListFragment extends Fragment {
 
         fragmentManager = getParentFragmentManager();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            loadEvent(new Event("Ejemplo",
-                    LocalDate.now()));
-        }
+        // Spinner configuration
+        spinner = root.findViewById(R.id.spinner);
+        spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        clearFilters(); // Instantiates the filter list and adds the default filters
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Manejar el evento de selección aquí
+                String selectedFilter = spinnerAdapter.getItem(position).toString();
+                filterEvents(selectedFilter);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Manejar el caso cuando no hay ninguna selección
+            }
+        });
+
+        loadTestData();
+        //clearEventList();
         return root;
     }
 
-    public void loadEvent(Event e){
-        events.add(e);
-        // Inicia la transacción del fragmento
-        fragmentManager.beginTransaction()
-                .add(R.id.eventListLayout, new EventDivFragment(e))
-                .commit();
+    private void loadTestData() {
+        LocalDate aux = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            aux = LocalDate.now();
+        }
+        addEvents(
+                new Event("Examen de química", aux, "examen;química"),
+                new Event("Examen de matemáticas", aux, "examen;matemáticas"),
+                new Event("Deberes de química", aux, "deberes;química")
+        );
+    }
+
+    /**
+     * Hides the non selected filter events
+     *
+     * @param selectedFilter The events with this filter wont be hidden
+     */
+    private void filterEvents(String selectedFilter) {
+        events.forEach((event, fragment) -> {
+            if (!event.hasFilter(selectedFilter)) {
+                fragmentManager.beginTransaction().hide(fragment).commit();
+            } else {
+                fragmentManager.beginTransaction().show(fragment).commit();
+            }
+        });
+    }
+
+    /**
+     * Adds all the events in the collection
+     *
+     * @param events The collection of events
+     */
+    public void addEvents(Collection<Event> events) {
+        addEvents(events.toArray(new Event[events.size()]));
+    }
+
+    /**
+     * Adds as many events as provided as params
+     *
+     * @param events Events to add to the list
+     */
+    public void addEvents(Event... events) {
+        for (Event e : events) {
+            addEvent(e);
+        }
+    }
+
+    /**
+     * Adds an Event to the list
+     *
+     * @param e Event to add
+     * @return false if the list already contains the Event, false if it not
+     */
+    public boolean addEvent(Event e) {
+        if (events.containsKey(e)) return false;
+        EventDivFragment eventDivFragment = new EventDivFragment(e);
+        try {
+            fragmentManager.beginTransaction()
+                    .add(R.id.eventListLayout, eventDivFragment)
+                    .commit();
+            events.put(e, eventDivFragment);
+            addFilters(e);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            events.remove(e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Deletes an Event from the list
+     *
+     * @param e Event to delete from the list, then resets the filters
+     * @return true if the list contains the Event, false if it not
+     */
+    public boolean removeEvent(Event e) {
+        if (e == null) return false;
+        Fragment eventDivFragment = events.get(e);
+        if (eventDivFragment == null) return false;
+        fragmentManager.beginTransaction().remove(eventDivFragment).commitAllowingStateLoss();
+        events.remove(e);
+        resetFilters();
+        return true;
+    }
+
+    /**
+     * Clears all Events from the list
+     */
+    private void clearEventList() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        for (Fragment fragment : events.values()) {
+            transaction.remove(fragment);
+        }
+        transaction.commitAllowingStateLoss();
+        events.clear();
+    }
+
+    private void clearFilters() {
+        filters = new HashSet<>();
+        spinnerAdapter.clear();
+        spinnerAdapter.add(DEFAULT_FILTER);
+    }
+
+    /**
+     * Resets de filters taking them from the events list
+     */
+    private void resetFilters() {
+        clearFilters();
+        events.keySet().forEach(e -> {
+            addFilters(e);
+        });
+    }
+
+    /**
+     * Adds the filters from an event
+     *
+     * @param e The event to get the filters from
+     */
+    private void addFilters(Event e) {
+        e.getFilters().forEach(f -> {
+            if (!filters.contains(f)) {
+                filters.add(f);
+                spinnerAdapter.add(f);
+            }
+        });
     }
 
     @Override
