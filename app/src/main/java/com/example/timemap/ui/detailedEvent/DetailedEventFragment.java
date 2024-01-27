@@ -72,8 +72,10 @@ public class DetailedEventFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // Aquí puedes hacer algo con la fecha seleccionada, por ejemplo, mostrarla en el EditText
-                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        // Formatear el año a dos dígitos
+                        String formattedYear = String.valueOf(year % 100);
+                        // Mostrar la fecha seleccionada en el EditText
+                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + formattedYear);
                     }
                 }, year, month, day);
         datePickerDialog.show();
