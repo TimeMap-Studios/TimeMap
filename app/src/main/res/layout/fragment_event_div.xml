@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Contenido del fragmento -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventDiv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/custom_border"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Primer LinearLayout centrado verticalmente -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Contenido del primer LinearLayout -->
+        <TextView
+            android:id="@+id/remainingTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00-00-00"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- Segundo LinearLayout centrado verticalmente -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:background="@color/beige"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Contenido del segundo LinearLayout -->
+        <TextView
+            android:id="@+id/eventText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- - - - - -"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
