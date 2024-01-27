@@ -55,7 +55,7 @@ public class EventDivFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (this != null) updateTimeRemaining();
+                                    if (getActivity() != null) updateTimeRemaining();
                                 }
                             });
                         } catch (InterruptedException | NullPointerException e) {
