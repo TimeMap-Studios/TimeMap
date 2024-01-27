@@ -2,7 +2,7 @@ package com.example.timemap.models;
 
 import java.util.Calendar;
 
-public class CustomDateTime {
+public class CustomDateTime implements Comparable<CustomDateTime> {
     private int year;
     private int month;
     private int day;
@@ -224,9 +224,9 @@ public class CustomDateTime {
         long seconds = remainingSeconds % 60;
 
         if (days > 0) {
-            return String.format("%s%dd %02d:%02d:%02d", (sign > 0) ? "-" : "", days, hours, minutes, seconds);
+            return String.format("%s%02dd %02dh %02dm", (sign > 0) ? "-" : " ", days, hours, minutes);
         } else {
-            return String.format("%s%02d:%02d:%02d", (sign > 0) ? "-" : "", hours, minutes, seconds);
+            return String.format("%s%02dh %02dm %02ds", (sign > 0) ? "-" : " ", hours, minutes, seconds);
         }
     }
 
@@ -291,5 +291,41 @@ public class CustomDateTime {
     // Método auxiliar para decrementar el número de días (llama a addDays con días negativos)
     public void subtractDays(int days) {
         addDays(-days);
+    }
+
+    @Override
+    public int compareTo(CustomDateTime otherDateTime) {
+        // Comparar años
+        int yearComparison = Integer.compare(this.year, otherDateTime.year);
+        if (yearComparison != 0) {
+            return yearComparison;
+        }
+
+        // Comparar meses
+        int monthComparison = Integer.compare(this.month, otherDateTime.month);
+        if (monthComparison != 0) {
+            return monthComparison;
+        }
+
+        // Comparar días
+        int dayComparison = Integer.compare(this.day, otherDateTime.day);
+        if (dayComparison != 0) {
+            return dayComparison;
+        }
+
+        // Comparar horas
+        int hourComparison = Integer.compare(this.hour, otherDateTime.hour);
+        if (hourComparison != 0) {
+            return hourComparison;
+        }
+
+        // Comparar minutos
+        int minuteComparison = Integer.compare(this.minute, otherDateTime.minute);
+        if (minuteComparison != 0) {
+            return minuteComparison;
+        }
+
+        // Comparar segundos
+        return Integer.compare(this.second, otherDateTime.second);
     }
 }

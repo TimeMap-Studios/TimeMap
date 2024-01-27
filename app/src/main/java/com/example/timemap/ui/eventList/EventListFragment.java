@@ -22,9 +22,9 @@ import com.example.timemap.ui.eventDiv.EventDivFragment;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * (Component) This fragment can be incorporated in another views
@@ -171,7 +171,7 @@ public class EventListFragment extends Fragment {
     }
 
     private void clearFilters() {
-        filters = new HashSet<>();
+        filters = new TreeSet<>();
         spinnerAdapter.clear();
         spinnerAdapter.add(DEFAULT_FILTER);
     }

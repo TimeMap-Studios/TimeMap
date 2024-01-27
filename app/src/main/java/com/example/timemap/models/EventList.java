@@ -1,15 +1,15 @@
 package com.example.timemap.models;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class EventList {
     private static EventList instance;
     private Set<Event> events;
 
     public EventList() {
-        events = new HashSet<>();
+        events = new TreeSet<>();
         loadTestData();
     }
 
@@ -69,7 +69,7 @@ public class EventList {
     }
 
     public Set<Event> getEventsByDay(CustomDateTime date) {
-        Set<Event> events = new HashSet<>();
+        Set<Event> events = new TreeSet<>();
         this.events.forEach(e -> {
             if (e.isAtDay(date)) events.add(e);
         });

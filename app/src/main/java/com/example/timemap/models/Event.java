@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Event {
+public class Event implements Comparable<Event> {
     private String name;
     private CustomDateTime endTime;
     private Set<String> filters;
@@ -68,5 +68,17 @@ public class Event {
 
     public String getRemainingTime() {
         return endTime.timeRemaining(CustomDateTime.now());
+    }
+
+    @Override
+    public int compareTo(Event otherEvent) {
+        // Primero, comparar por endTime
+        int endTimeComparison = this.endTime.compareTo(otherEvent.endTime);
+        if (endTimeComparison != 0) {
+            return endTimeComparison;
+        }
+
+        // Si endTime es igual, comparar por nombre
+        return this.name.compareTo(otherEvent.name);
     }
 }
