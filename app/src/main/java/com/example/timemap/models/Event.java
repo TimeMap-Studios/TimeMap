@@ -3,17 +3,16 @@ package com.example.timemap.models;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.StringTools;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Event {
     private String name;
-    private LocalDate endTime;
+    private CustomDateTime endTime;
     private Set<String> filters;
 
-    public Event(String name, LocalDate endTime, String filters) {
+    public Event(String name, CustomDateTime endTime, String filters) {
         setFilters(filters);
         this.name = name;
         this.endTime = endTime;
@@ -27,11 +26,11 @@ public class Event {
         this.name = name;
     }
 
-    public LocalDate getEndTime() {
+    public CustomDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(CustomDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -59,5 +58,15 @@ public class Event {
             if (filter.equals(selectedFilter)) return true;
         }
         return false;
+    }
+
+    public boolean isAtDay(CustomDateTime date) {
+        if (date == null) return false;
+        if (date.sameDate(endTime)) return true;
+        return false;
+    }
+
+    public String getRemainingTime() {
+        return endTime.timeRemaining(CustomDateTime.now());
     }
 }

@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentWeekBinding;
 
+/**
+ * (View) Events of the week
+ **/
 public class WeekFragment extends Fragment {
     FragmentWeekBinding binding;
 

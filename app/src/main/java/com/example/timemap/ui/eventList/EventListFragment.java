@@ -1,6 +1,5 @@
 package com.example.timemap.ui.eventList;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +20,15 @@ import com.example.timemap.databinding.FragmentEventListBinding;
 import com.example.timemap.models.Event;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * (Component) This fragment can be incorporated in another views
+ **/
 public class EventListFragment extends Fragment {
 
     public static final String DEFAULT_FILTER = "*";
@@ -37,6 +38,7 @@ public class EventListFragment extends Fragment {
     private FragmentEventListBinding binding;
     private Map<Event, Fragment> events;
     private Set<String> filters;
+    private int hidden;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         events = new HashMap<>();
@@ -67,22 +69,9 @@ public class EventListFragment extends Fragment {
             }
         });
 
-        loadTestData();
-        //clearEventList();
         return root;
     }
 
-    private void loadTestData() {
-        LocalDate aux = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            aux = LocalDate.now();
-        }
-        addEvents(
-                new Event("Examen de química", aux, "examen;química"),
-                new Event("Examen de matemáticas", aux, "examen;matemáticas"),
-                new Event("Deberes de química", aux, "deberes;química")
-        );
-    }
 
     /**
      * Hides the non selected filter events
@@ -90,13 +79,24 @@ public class EventListFragment extends Fragment {
      * @param selectedFilter The events with this filter wont be hidden
      */
     private void filterEvents(String selectedFilter) {
+        hidden = 0;
         events.forEach((event, fragment) -> {
             if (!event.hasFilter(selectedFilter)) {
                 fragmentManager.beginTransaction().hide(fragment).commit();
+                hidden++;
             } else {
                 fragmentManager.beginTransaction().show(fragment).commit();
             }
         });
+        updateHiddenEventNumber();
+    }
+
+    private void updateHiddenEventNumber() {
+        if (hidden == 0) {
+            binding.hiddenText.setText("");
+        } else {
+            binding.hiddenText.setText(hidden + (hidden == 1 ? " Event was hidden" : " Events were hidden"));
+        }
     }
 
     /**

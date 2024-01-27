@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_events"
-        android:name="com.example.timemap.ui.eventList.EventListFragment"
+        android:name="com.example.timemap.ui.allEvents.AllEventsFragment"
         android:label="All events"
         tools:layout="@layout/fragment_all_events" />
 

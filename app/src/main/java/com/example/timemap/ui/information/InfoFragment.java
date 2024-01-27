@@ -16,6 +16,9 @@ import androidx.navigation.Navigation;
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentInfoBinding;
 
+/**
+ * (View) Info of the app
+ **/
 public class InfoFragment extends Fragment {
 
     private FragmentInfoBinding binding;

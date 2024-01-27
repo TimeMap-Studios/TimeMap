@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentCoffeeBinding;
 
+/**
+ * (View) View for donations
+ **/
 public class CoffeeFragment extends Fragment {
     FragmentCoffeeBinding binding;
 
