@@ -222,7 +222,7 @@ public class CustomDateTime {
         long hours = remainingSeconds / 3600;
         long minutes = (remainingSeconds % 3600) / 60;
         long seconds = remainingSeconds % 60;
-        
+
         if (days > 0) {
             return String.format("%s%dd %02d:%02d:%02d", (sign > 0) ? "-" : "", days, hours, minutes, seconds);
         } else {
@@ -256,5 +256,40 @@ public class CustomDateTime {
         totalSeconds += (dateTime.day - 1) * 24 * 3600;
 
         return totalSeconds;
+    }
+
+    public CustomDateTime addDays(int days) {
+        if (days == 0) {
+            return this; // No es necesario realizar cambios
+        }
+
+        int sign = (days > 0) ? 1 : -1;
+
+        while (days != 0) {
+            int maxDaysInMonth = maxDaysInMonth(this.year, this.month);
+            int daysToAdd = Math.min(Math.abs(days), maxDaysInMonth - this.day + 1);
+
+            this.day += sign * daysToAdd;
+            days -= sign * daysToAdd;
+
+            if (days != 0) {
+                // Si todavía hay días por agregar, avanzar al siguiente mes
+                this.month += sign;
+                if (this.month > 12) {
+                    this.month = 1;
+                    this.year += sign;
+                } else if (this.month < 1) {
+                    this.month = 12;
+                    this.year -= sign;
+                }
+            }
+        }
+
+        return this;
+    }
+
+    // Método auxiliar para decrementar el número de días (llama a addDays con días negativos)
+    public void subtractDays(int days) {
+        addDays(-days);
     }
 }
