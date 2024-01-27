@@ -25,10 +25,10 @@ public class EventList {
                 new Event("Examen de matemáticas", CustomDateTime.now(), "examen;matemáticas"),
                 new Event("Deberes de química", CustomDateTime.now(), "deberes;química"),
                 new Event("Sale el nuevo champ Smolder", new CustomDateTime(2024, 2, 7), "League of legends"),
-                new Event("Deberes de química", CustomDateTime.now().addDays(2), "deberes;química"),
-                new Event("Deberes de química", CustomDateTime.now().addDays(4), "deberes;química"),
-                new Event("Deberes de química", CustomDateTime.now().addDays(1), "deberes;química"),
-                new Event("Deberes de química", CustomDateTime.now().addDays(3), "deberes;química")
+                new Event("Entrega de filosofía", CustomDateTime.now().addDays(2), "proyecto;filosofía"),
+                new Event("Deberes de tecnología", CustomDateTime.now().addDays(4), "deberes;tecnología"),
+                new Event("Deberes de lengua", CustomDateTime.now().addDays(1), "deberes;lengua"),
+                new Event("Deberes de matemáticas", CustomDateTime.now().addDays(3), "deberes;matemáticas")
         );
     }
 
