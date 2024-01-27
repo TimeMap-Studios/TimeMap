@@ -118,6 +118,16 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
         return month;
     }
 
+    public String getMonthName() {
+        String[] monthNames = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+        if (month >= 1 && month <= 12) {
+            return monthNames[month - 1];
+        } else {
+            throw new IllegalArgumentException("Mes no válido");
+        }
+    }
+
     public int getDay() {
         return day;
     }
@@ -147,6 +157,17 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
             return false;
         }
         return true;
+    }
+
+    public Calendar getAsCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, this.year);
+        calendar.set(Calendar.MONTH, this.month - 1); // Calendar.MONTH es 0-based
+        calendar.set(Calendar.DAY_OF_MONTH, this.day);
+        calendar.set(Calendar.HOUR_OF_DAY, this.hour);
+        calendar.set(Calendar.MINUTE, this.minute);
+        calendar.set(Calendar.SECOND, this.second);
+        return calendar;
     }
 
     // Método para validar la hora
@@ -258,6 +279,61 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
         return totalSeconds;
     }
 
+    public CustomDateTime firstDayOfWeek() {
+        Calendar calendar = getAsCalendar();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        int daysToAdd = Calendar.MONDAY - dayOfWeek; // Calcula la cantidad de días para llegar al primer día de la semana (lunes)
+        if (dayOfWeek == Calendar.MONDAY) {
+            daysToAdd = 0; // Si ya es lunes, no es necesario agregar días
+        } else if (dayOfWeek > Calendar.MONDAY) {
+            daysToAdd += 7; // Si ya ha pasado el lunes, suma 7 días para obtener la próxima semana
+        }
+
+        calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
+
+        return new CustomDateTime(calendar);
+    }
+
+    public CustomDateTime[] currentWeek() {
+        CustomDateTime[] weekDaysArray = new CustomDateTime[7];
+        CustomDateTime firstDayOfWeek = firstDayOfWeek();
+        Calendar calendar = firstDayOfWeek.getAsCalendar();
+        for (int i = 0; i < 7; i++) {
+            weekDaysArray[i] = new CustomDateTime(calendar);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return weekDaysArray;
+    }
+
+    public CustomDateTime[] nextWeek() {
+        CustomDateTime[] nextWeekArray = new CustomDateTime[7];
+        CustomDateTime firstDayOfWeek = firstDayOfWeek(); // Obtener el primer día de la semana actual
+        Calendar calendar = firstDayOfWeek.getAsCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH, 7); // Avanzar una semana
+
+        for (int i = 0; i < 7; i++) {
+            nextWeekArray[i] = new CustomDateTime(calendar);
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Avanzar al siguiente día
+        }
+
+        return nextWeekArray;
+    }
+
+    public CustomDateTime[] previousWeek() {
+        CustomDateTime[] previousWeekArray = new CustomDateTime[7];
+        CustomDateTime firstDayOfWeek = firstDayOfWeek(); // Obtener el primer día de la semana actual
+        Calendar calendar = firstDayOfWeek.getAsCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH, -7); // Retroceder una semana
+
+        for (int i = 0; i < 7; i++) {
+            previousWeekArray[i] = new CustomDateTime(calendar);
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Avanzar al siguiente día
+        }
+
+        return previousWeekArray;
+    }
+
     public CustomDateTime addDays(int days) {
         if (days == 0) {
             return this; // No es necesario realizar cambios
@@ -288,44 +364,34 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
         return this;
     }
 
-    // Método auxiliar para decrementar el número de días (llama a addDays con días negativos)
+    public int weekOfYear() {
+        // Obtener el número de semana
+        return getAsCalendar().get(Calendar.WEEK_OF_YEAR);
+    }
+    
+
     public void subtractDays(int days) {
         addDays(-days);
     }
 
     @Override
     public int compareTo(CustomDateTime otherDateTime) {
-        // Comparar años
+
         int yearComparison = Integer.compare(this.year, otherDateTime.year);
-        if (yearComparison != 0) {
-            return yearComparison;
-        }
+        if (yearComparison != 0) return yearComparison;
 
-        // Comparar meses
         int monthComparison = Integer.compare(this.month, otherDateTime.month);
-        if (monthComparison != 0) {
-            return monthComparison;
-        }
+        if (monthComparison != 0) return monthComparison;
 
-        // Comparar días
         int dayComparison = Integer.compare(this.day, otherDateTime.day);
-        if (dayComparison != 0) {
-            return dayComparison;
-        }
+        if (dayComparison != 0) return dayComparison;
 
-        // Comparar horas
         int hourComparison = Integer.compare(this.hour, otherDateTime.hour);
-        if (hourComparison != 0) {
-            return hourComparison;
-        }
+        if (hourComparison != 0) return hourComparison;
 
-        // Comparar minutos
         int minuteComparison = Integer.compare(this.minute, otherDateTime.minute);
-        if (minuteComparison != 0) {
-            return minuteComparison;
-        }
+        if (minuteComparison != 0) return minuteComparison;
 
-        // Comparar segundos
         return Integer.compare(this.second, otherDateTime.second);
     }
 }

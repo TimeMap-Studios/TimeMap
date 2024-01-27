@@ -4,18 +4,31 @@ import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.StringTools;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Event implements Comparable<Event> {
+
+    private long eventId;
     private String name;
     private CustomDateTime endTime;
+    private String description;
     private Set<String> filters;
 
     public Event(String name, CustomDateTime endTime, String filters) {
         setFilters(filters);
         this.name = name;
         this.endTime = endTime;
+    }
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
     }
 
     public String getName() {
@@ -30,8 +43,28 @@ public class Event implements Comparable<Event> {
         return endTime;
     }
 
+    public void setEndTime(Calendar endTime) {
+        this.endTime = new CustomDateTime(endTime);
+    }
+
     public void setEndTime(CustomDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public Calendar getEndTimeAsCalendar() {
+        return endTime.getAsCalendar();
+    }
+
+    public String getRemainingTime() {
+        return endTime.timeRemaining(CustomDateTime.now());
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<String> getFilters() {
@@ -60,25 +93,35 @@ public class Event implements Comparable<Event> {
         return false;
     }
 
-    public boolean isAtDay(CustomDateTime date) {
+    public boolean isItAtDay(CustomDateTime date) {
         if (date == null) return false;
         if (date.sameDate(endTime)) return true;
         return false;
     }
 
-    public String getRemainingTime() {
-        return endTime.timeRemaining(CustomDateTime.now());
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Event otherEvent = (Event) obj;
+        return eventId == otherEvent.eventId &&
+                Objects.equals(name, otherEvent.name) &&
+                Objects.equals(endTime, otherEvent.endTime) &&
+                Objects.equals(description, otherEvent.description) &&
+                Objects.equals(filters, otherEvent.filters);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventId, name, endTime, description, filters);
     }
 
     @Override
     public int compareTo(Event otherEvent) {
-        // Primero, comparar por endTime
         int endTimeComparison = this.endTime.compareTo(otherEvent.endTime);
         if (endTimeComparison != 0) {
             return endTimeComparison;
         }
-
-        // Si endTime es igual, comparar por nombre
         return this.name.compareTo(otherEvent.name);
     }
 }

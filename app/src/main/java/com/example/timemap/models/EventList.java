@@ -68,15 +68,42 @@ public class EventList {
         return events;
     }
 
+    /**
+     * Empties the event list and adds all the events in the collection
+     *
+     * @param events The collection of events
+     */
+    public void setEvents(Collection<Event> events) {
+        events = new TreeSet<>();
+        addEvents(events.toArray(new Event[events.size()]));
+    }
+
+    /**
+     * Empties the event list and adds as many events as provided as params
+     *
+     * @param events Events to add to the list
+     */
+    public void setEvents(Event... events) {
+        this.events = new TreeSet<>();
+        addEvents(events);
+    }
+
     public Set<Event> getEventsByDay(CustomDateTime date) {
         Set<Event> events = new TreeSet<>();
         this.events.forEach(e -> {
-            if (e.isAtDay(date)) events.add(e);
+            if (e.isItAtDay(date)) events.add(e);
         });
         return events;
     }
 
     public Set<Event> getTodayEvents() {
         return getEventsByDay(CustomDateTime.today());
+    }
+
+    public Event getEventById(int id) {
+        for (Event e : events) {
+            if (e.getEventId() == id) return e;
+        }
+        return null;
     }
 }

@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventDivBinding;
 import com.example.timemap.models.Event;
 
@@ -18,6 +20,7 @@ import com.example.timemap.models.Event;
  **/
 public class EventDivFragment extends Fragment {
 
+    Thread ticTac;
     private Event event;
     private FragmentEventDivBinding binding;
     private boolean isUpdatingTime = true;
@@ -39,27 +42,33 @@ public class EventDivFragment extends Fragment {
     }
 
     private void startUpdatingTimeThread() {
-        new Thread(new Runnable() {
+        ticTac = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (isUpdatingTime) {
-                    try {
-                        // Esperar un segundo
-                        Thread.sleep(1000);
+                try {
+                    while (isUpdatingTime && this != null && !ticTac.isInterrupted()) {
+                        try {
+                            // Esperar un segundo
+                            Thread.sleep(1000);
 
-                        // Actualizar el tiempo restante en el hilo principal
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateTimeRemaining();
-                            }
-                        });
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                            // Actualizar el tiempo restante en el hilo principal
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (this != null) updateTimeRemaining();
+                                }
+                            });
+                        } catch (InterruptedException | NullPointerException e) {
+                            e.printStackTrace();
+                        }
                     }
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
                 }
             }
-        }).start();
+        });
+
+        ticTac.start();
     }
 
     public void updateName() {
@@ -72,7 +81,7 @@ public class EventDivFragment extends Fragment {
         String text = event.getRemainingTime();
         if (text == null || text.trim() == "") return;
         if (text.trim().charAt(0) == '-') {
-            binding.remainingTimeText.setTextColor(Color.RED);
+            binding.remainingTimeText.setTextColor(ContextCompat.getColor(requireContext(), R.color.cold_red));
         } else {
             binding.remainingTimeText.setTextColor(Color.BLACK);
         }
@@ -83,6 +92,7 @@ public class EventDivFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         // Detener el hilo cuando se destruye la vista
+        if (ticTac != null) if (!ticTac.isInterrupted()) ticTac.interrupt();
         isUpdatingTime = false;
         binding = null;
     }
