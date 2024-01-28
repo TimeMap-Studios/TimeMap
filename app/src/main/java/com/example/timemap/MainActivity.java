@@ -1,8 +1,11 @@
 package com.example.timemap;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,10 +23,13 @@ import com.example.timemap.ui.currentWeek.WeekViewModel;
 import com.example.timemap.ui.information.InfoViewModel;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View v = binding.appBarMain.toolbar.findViewById(R.id.action_add);
+
+        if (v != null) {
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Utiliza el NavController obtenido para la navegación
+                    navController.navigate(R.id.deatiledEvent);
+                }
+            });
+        }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
