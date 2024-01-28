@@ -56,6 +56,7 @@ public class EventDivFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     if (getActivity() != null) updateTimeRemaining();
+                                    else ticTac.interrupt();
                                 }
                             });
                         } catch (InterruptedException | NullPointerException e) {
