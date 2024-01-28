@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
 import com.example.timemap.databinding.FragmentWeekBinding;
+import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.models.Event;
+import com.example.timemap.models.EventList;
 import com.example.timemap.ui.currentWeek.WeekViewModel;
 
 import java.util.Calendar;
@@ -31,6 +33,7 @@ public class DetailedEventFragment extends Fragment {
     private EditText editDate;
     private EditText editTime;
 
+    private Calendar selectedDate;
     private Event event;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,6 +57,24 @@ public class DetailedEventFragment extends Fragment {
             }
         });
 
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEnebled(true);
+            }
+        });
+
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(saveEvent()) setEnebled(false);
+            }
+        });
+
+        setEnebled(false);
+
+        loadEvent(new Event("Examen Ingles",CustomDateTime.now(),"Deberes"));
+
         return binding.getRoot();
 
 
@@ -65,10 +86,10 @@ public class DetailedEventFragment extends Fragment {
         binding = null;
     }
     private void showDatePickerDialog() {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        selectedDate = Calendar.getInstance();
+        int year = selectedDate.get(Calendar.YEAR);
+        int month = selectedDate.get(Calendar.MONTH);
+        int day = selectedDate.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                 new DatePickerDialog.OnDateSetListener() {
@@ -103,9 +124,47 @@ public class DetailedEventFragment extends Fragment {
     public void loadEvent(Event event){
         if(event == null)return;
         this.event=event;
-        binding.tittleField.setText(event.getName());
-        binding.filtersField.setText(event.getFiltersAsString());
+        selectedDate=event.getEndTimeAsCalendar();
+        String formatYear = String.valueOf(event.getEndTime().getYear());
+        binding.editTittle.setText(event.getName());
+        binding.editFilter.setText(event.getFiltersAsString());
+        binding.editDescription.setText(event.getDescription());
+        binding.editDate.setText(event.getEndTime().getDay() + "/" + event.getEndTime().getMonth() + "/" + formatYear.substring(formatYear.length() - 2));
+        binding.editTime.setText(event.getEndTime().getHour() + ":" + event.getEndTime().getMinute());
+    }
 
+    public void editEvent(){
+        if(event == null)event = new Event();
+        setEnebled(true);
+    }
+
+    public void setEnebled(boolean activo){
+        binding.editTittle.setEnabled(activo);
+        binding.editFilter.setEnabled(activo);
+        binding.editDescription.setEnabled(activo);
+        binding.editDate.setEnabled(activo);
+        binding.editTime.setEnabled(activo);
+        setEditMode(activo);
+    }
+
+    public void setEditMode(boolean activo){
+        binding.btnEdit.setEnabled(!activo);
+        binding.btnSave.setEnabled(activo);
+    }
+
+    public boolean validate(){
+        return true;
+    }
+
+    public boolean saveEvent(){
+        if(!validate())return false;
+        if(event==null)return false;
+        event.setName(String.valueOf(binding.editTittle.getText()));
+        event.setFilters(String.valueOf(binding.editFilter.getText()));
+        event.setDescription(String.valueOf(binding.editDescription.getText()));
+        event.setEndTime(selectedDate);
+        EventList.getInstance().addEvent(event);
+        return true;
     }
 
 }
