@@ -7,18 +7,12 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.timemap.databinding.ActivityMainBinding;
-import com.example.timemap.ui.coffee.CoffeeViewModel;
-import com.example.timemap.ui.currentCalendar.CalendarViewModel;
-import com.example.timemap.ui.currentDay.DayViewModel;
-import com.example.timemap.ui.currentWeek.WeekViewModel;
-import com.example.timemap.ui.information.InfoViewModel;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,13 +26,10 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         instance = this;
-        CoffeeViewModel coffeView = new ViewModelProvider(this).get(CoffeeViewModel.class);
-        DayViewModel dayView = new ViewModelProvider(this).get(DayViewModel.class);
-        CalendarViewModel monthView = new ViewModelProvider(this).get(CalendarViewModel.class);
-        WeekViewModel weekView = new ViewModelProvider(this).get(WeekViewModel.class);
-        InfoViewModel infoView = new ViewModelProvider(this).get(InfoViewModel.class);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

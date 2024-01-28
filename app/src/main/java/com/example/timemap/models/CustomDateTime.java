@@ -129,6 +129,19 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         }
     }
 
+    public String getDayOfWeek() {
+        Calendar calendar = getAsCalendar();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        String[] dayOfWeekNames = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+
+        if (dayOfWeek >= 1 && dayOfWeek <= 7) {
+            return dayOfWeekNames[dayOfWeek - 1];
+        } else {
+            throw new IllegalArgumentException("Día de la semana no válido");
+        }
+    }
+
     public int getDay() {
         return day;
     }
