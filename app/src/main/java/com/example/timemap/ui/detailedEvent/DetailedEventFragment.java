@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
 import com.example.timemap.databinding.FragmentWeekBinding;
+import com.example.timemap.models.Event;
 import com.example.timemap.ui.currentWeek.WeekViewModel;
 
 import java.util.Calendar;
@@ -29,6 +30,8 @@ public class DetailedEventFragment extends Fragment {
     FragmentDetailedEventBinding binding;
     private EditText editDate;
     private EditText editTime;
+
+    private Event event;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         DetailedEventViewModel WeekViewModel =
@@ -96,4 +99,13 @@ public class DetailedEventFragment extends Fragment {
                 }, hour, minute, false);
         timePickerDialog.show();
     }
+
+    public void loadEvent(Event event){
+        if(event == null)return;
+        this.event=event;
+        binding.tittleField.setText(event.getName());
+        binding.filtersField.setText(event.getFiltersAsString());
+
+    }
+
 }

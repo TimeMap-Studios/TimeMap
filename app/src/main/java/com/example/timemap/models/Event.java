@@ -39,6 +39,12 @@ public class Event implements Comparable<Event> {
         return filters;
     }
 
+    public String getFiltersAsString(){
+        StringBuilder sb = new StringBuilder();
+        filters.forEach(f->{sb.append(f+";");});
+        return sb.toString();
+    }
+
     public void setFilters(String filters) {
         if (filters == null || filters.trim() == "") {
             this.filters = null;
