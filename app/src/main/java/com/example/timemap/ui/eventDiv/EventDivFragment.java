@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventDivBinding;
@@ -35,6 +36,13 @@ public class EventDivFragment extends Fragment {
 
         updateName();
 
+        binding.eventDiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetails();
+            }
+        });
+
         // Iniciar el hilo para actualizar el tiempo restante
         startUpdatingTimeThread();
 
@@ -48,10 +56,7 @@ public class EventDivFragment extends Fragment {
                 try {
                     while (isUpdatingTime && this != null && !ticTac.isInterrupted()) {
                         try {
-                            // Esperar un segundo
                             Thread.sleep(1000);
-
-                            // Actualizar el tiempo restante en el hilo principal
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -68,13 +73,19 @@ public class EventDivFragment extends Fragment {
                 }
             }
         });
-
         ticTac.start();
     }
 
     public void updateName() {
-        // Actualizar el TextView con el título
         binding.eventText.setText(event.getName());
+    }
+
+    private void showDetails() {
+        View v = this.getView();
+        if (v == null) return;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("event", event);
+        Navigation.findNavController(v).navigate(R.id.deatiledEvent, bundle);
     }
 
     public void updateTimeRemaining() {

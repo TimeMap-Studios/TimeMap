@@ -16,11 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
-import com.example.timemap.databinding.FragmentWeekBinding;
-import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.models.Event;
 import com.example.timemap.models.EventList;
-import com.example.timemap.ui.currentWeek.WeekViewModel;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -32,9 +29,9 @@ public class DetailedEventFragment extends Fragment {
     FragmentDetailedEventBinding binding;
     private EditText editDate;
     private EditText editTime;
-
     private Calendar selectedDate;
     private Event event;
+    private boolean eventCreationMode;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         DetailedEventViewModel WeekViewModel =
@@ -43,13 +40,20 @@ public class DetailedEventFragment extends Fragment {
         editDate = binding.editDate;
         editTime = binding.editTime;
 
-        // Asigna el onClickListener para mostrar el DatePickerDialog
+        if (getArguments() != null) {
+            Event event = (Event) getArguments().getSerializable("event");
+            if (event != null) {
+                loadEvent(event);
+            }
+        }
+
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
+
         editTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,13 +71,11 @@ public class DetailedEventFragment extends Fragment {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(saveEvent()) setEnebled(false);
+                if (saveEvent()) setEnebled(false);
             }
         });
 
         setEnebled(false);
-
-        loadEvent(new Event("Examen Ingles",CustomDateTime.now(),"Deberes"));
 
         return binding.getRoot();
 
@@ -85,6 +87,7 @@ public class DetailedEventFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
     private void showDatePickerDialog() {
         selectedDate = Calendar.getInstance();
         int year = selectedDate.get(Calendar.YEAR);
@@ -121,10 +124,10 @@ public class DetailedEventFragment extends Fragment {
         timePickerDialog.show();
     }
 
-    public void loadEvent(Event event){
-        if(event == null)return;
-        this.event=event;
-        selectedDate=event.getEndTimeAsCalendar();
+    public void loadEvent(Event event) {
+        if (event == null) return;
+        this.event = event;
+        selectedDate = event.getEndTimeAsCalendar();
         String formatYear = String.valueOf(event.getEndTime().getYear());
         binding.editTittle.setText(event.getName());
         binding.editFilter.setText(event.getFiltersAsString());
@@ -133,12 +136,17 @@ public class DetailedEventFragment extends Fragment {
         binding.editTime.setText(event.getEndTime().getHour() + ":" + event.getEndTime().getMinute());
     }
 
-    public void editEvent(){
-        if(event == null)event = new Event();
+    public void newEvent() {
+        eventCreationMode = true;
+        event = new Event();
+    }
+
+    public void editEvent() {
+        if (event == null) newEvent();
         setEnebled(true);
     }
 
-    public void setEnebled(boolean activo){
+    public void setEnebled(boolean activo) {
         binding.editTittle.setEnabled(activo);
         binding.editFilter.setEnabled(activo);
         binding.editDescription.setEnabled(activo);
@@ -147,23 +155,24 @@ public class DetailedEventFragment extends Fragment {
         setEditMode(activo);
     }
 
-    public void setEditMode(boolean activo){
+    public void setEditMode(boolean activo) {
         binding.btnEdit.setEnabled(!activo);
         binding.btnSave.setEnabled(activo);
     }
 
-    public boolean validate(){
+    public boolean validate() {
         return true;
     }
 
-    public boolean saveEvent(){
-        if(!validate())return false;
-        if(event==null)return false;
+    public boolean saveEvent() {
+        if (!validate()) return false;
+        if (event == null) return false;
         event.setName(String.valueOf(binding.editTittle.getText()));
         event.setFilters(String.valueOf(binding.editFilter.getText()));
         event.setDescription(String.valueOf(binding.editDescription.getText()));
         event.setEndTime(selectedDate);
-        EventList.getInstance().addEvent(event);
+        if (eventCreationMode) EventList.getInstance().addEvent(event);
+        else EventList.getInstance().editEvent(event);
         return true;
     }
 
