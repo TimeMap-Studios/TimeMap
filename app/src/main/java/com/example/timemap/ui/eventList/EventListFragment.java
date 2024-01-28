@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventListBinding;
+import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.models.Event;
+import com.example.timemap.models.EventList;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
 import java.util.Collection;
@@ -39,6 +41,7 @@ public class EventListFragment extends Fragment {
     private Map<Event, Fragment> events;
     private Set<String> filters;
     private int hidden;
+    private CustomDateTime[] currentWeek;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         events = new HashMap<>();
@@ -96,6 +99,15 @@ public class EventListFragment extends Fragment {
             binding.hiddenText.setText("");
         } else {
             binding.hiddenText.setText(hidden + (hidden == 1 ? " Event was hidden" : " Events were hidden"));
+        }
+    }
+
+    public void addWeek(CustomDateTime[] week) {
+        if (week == null) return;
+        clearEventList();
+        currentWeek = week;
+        for (CustomDateTime d : week) {
+            addEvents(EventList.getInstance().getEventsByDay(d));
         }
     }
 
@@ -168,6 +180,7 @@ public class EventListFragment extends Fragment {
         }
         transaction.commitAllowingStateLoss();
         events.clear();
+        clearFilters();
     }
 
     private void clearFilters() {
