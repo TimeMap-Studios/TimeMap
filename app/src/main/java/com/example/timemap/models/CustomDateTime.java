@@ -1,8 +1,9 @@
 package com.example.timemap.models;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class CustomDateTime implements Comparable<CustomDateTime> {
+public class CustomDateTime implements Comparable<CustomDateTime>, Serializable {
     private int year;
     private int month;
     private int day;
@@ -368,7 +369,7 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
         // Obtener el número de semana
         return getAsCalendar().get(Calendar.WEEK_OF_YEAR);
     }
-    
+
 
     public void subtractDays(int days) {
         addDays(-days);
