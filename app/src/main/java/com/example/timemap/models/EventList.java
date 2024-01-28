@@ -1,6 +1,7 @@
 package com.example.timemap.models;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -74,6 +75,10 @@ public class EventList {
             }
         }
         return false;
+    }
+
+    public long getNewEventId() {
+        return new Random().nextLong();
     }
 
     /**

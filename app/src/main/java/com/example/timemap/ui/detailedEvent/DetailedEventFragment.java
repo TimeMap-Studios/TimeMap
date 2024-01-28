@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.MainActivity;
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
 import com.example.timemap.models.Event;
 import com.example.timemap.models.EventList;
@@ -34,15 +35,19 @@ public class DetailedEventFragment extends Fragment {
     private boolean eventCreationMode;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (MainActivity.instance != null) MainActivity.instance.creatingEvent = true;
         DetailedEventViewModel WeekViewModel =
                 new ViewModelProvider(this).get(DetailedEventViewModel.class);
         binding = FragmentDetailedEventBinding.inflate(inflater, container, false);
         editDate = binding.editDate;
         editTime = binding.editTime;
 
+        eventCreationMode = true;
+
         if (getArguments() != null) {
             Event event = (Event) getArguments().getSerializable("event");
             if (event != null) {
+                eventCreationMode = false;
                 loadEvent(event);
             }
         }
@@ -75,7 +80,12 @@ public class DetailedEventFragment extends Fragment {
             }
         });
 
-        setEnebled(false);
+        if (eventCreationMode) {
+            event = new Event();
+            setEnebled(true);
+        } else {
+            setEnebled(false);
+        }
 
         return binding.getRoot();
 
@@ -136,16 +146,6 @@ public class DetailedEventFragment extends Fragment {
         binding.editTime.setText(event.getEndTime().getHour() + ":" + event.getEndTime().getMinute());
     }
 
-    public void newEvent() {
-        eventCreationMode = true;
-        event = new Event();
-    }
-
-    public void editEvent() {
-        if (event == null) newEvent();
-        setEnebled(true);
-    }
-
     public void setEnebled(boolean activo) {
         binding.editTittle.setEnabled(activo);
         binding.editFilter.setEnabled(activo);
@@ -167,13 +167,19 @@ public class DetailedEventFragment extends Fragment {
     public boolean saveEvent() {
         if (!validate()) return false;
         if (event == null) return false;
+        System.out.println("guardado solicitado");
         event.setName(String.valueOf(binding.editTittle.getText()));
         event.setFilters(String.valueOf(binding.editFilter.getText()));
         event.setDescription(String.valueOf(binding.editDescription.getText()));
         event.setEndTime(selectedDate);
-        if (eventCreationMode) EventList.getInstance().addEvent(event);
-        else EventList.getInstance().editEvent(event);
-        return true;
+        if (eventCreationMode) {
+            return EventList.getInstance().addEvent(event.setEventId(EventList.getInstance().getNewEventId()));
+        } else return EventList.getInstance().editEvent(event);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (MainActivity.instance != null) MainActivity.instance.creatingEvent = false;
+    }
 }
