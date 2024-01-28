@@ -21,35 +21,15 @@ public class EventList {
     private void loadTestData() {
         CustomDateTime aux = CustomDateTime.now();
         addEvents(
-                new Event("Examen de química", CustomDateTime.now(), "examen;química"),
-                new Event("Examen de matemáticas", CustomDateTime.now(), "examen;matemáticas"),
-                new Event("Deberes de química", CustomDateTime.now(), "deberes;química"),
-                new Event("Sale el nuevo champ Smolder", new CustomDateTime(2024, 2, 7), "League of legends"),
-                new Event("Entrega de filosofía", CustomDateTime.now().addDays(2), "proyecto;filosofía"),
-                new Event("Deberes de tecnología", CustomDateTime.now().addDays(4), "deberes;tecnología"),
-                new Event("Deberes de lengua", CustomDateTime.now().addDays(1), "deberes;lengua"),
-                new Event("Deberes de matemáticas", CustomDateTime.now().addDays(3), "deberes;matemáticas")
+                new Event("Examen de química", "", CustomDateTime.now(), "examen;química").setEventId(1),
+                new Event("Examen de matemáticas", "", CustomDateTime.now(), "examen;matemáticas").setEventId(2),
+                new Event("Deberes de química", "", CustomDateTime.now(), "deberes;química").setEventId(3),
+                new Event("Sale el nuevo champ Smolder", "", new CustomDateTime(2024, 2, 7), "League of legends").setEventId(4),
+                new Event("Entrega de filosofía", "", CustomDateTime.now().addDays(2), "proyecto;filosofía").setEventId(5),
+                new Event("Deberes de tecnología", "", CustomDateTime.now().addDays(4), "deberes;tecnología").setEventId(6),
+                new Event("Deberes de lengua", "", CustomDateTime.now().addDays(1), "deberes;lengua").setEventId(7),
+                new Event("Deberes de matemáticas", "", CustomDateTime.now().addDays(3), "deberes;matemáticas").setEventId(8)
         );
-    }
-
-    /**
-     * Adds all the events in the collection
-     *
-     * @param events The collection of events
-     */
-    public void addEvents(Collection<Event> events) {
-        addEvents(events.toArray(new Event[events.size()]));
-    }
-
-    /**
-     * Adds as many events as provided as params
-     *
-     * @param events Events to add to the list
-     */
-    public void addEvents(Event... events) {
-        for (Event e : events) {
-            addEvent(e);
-        }
     }
 
     /**
@@ -59,11 +39,46 @@ public class EventList {
      * @return false if the list already contains the Event, false if it not
      */
     public boolean addEvent(Event e) {
-        if (events.contains(e)) return false;
-        events.add(e);
-        return true;
+        if (e == null) return false;
+        if (true) { // implementar añadirlo a la base de datos
+            return events.add(e);
+        }
+        return false;
     }
 
+    /**
+     * Removes an Event to the list
+     *
+     * @param e Event to remove
+     * @return teue if the event is removed, false if the list does not contains the Event
+     */
+    public boolean removeEvent(Event e) {
+        if (e == null) return false;
+        if (true) { // implementar eliminarlo de la base de datos
+            return events.remove(e);
+        }
+        return false;
+    }
+
+    /**
+     * If the list contains a event with the same id, replaces it
+     *
+     * @param e Event to add
+     * @return false if the list already contains the Event, false if it not
+     */
+    public boolean editEvent(Event e) {
+        if (e == null) return false;
+        if (true) { // implementar editarlo en la base de datos
+            if (removeEvent(e)) {
+                return addEvent(e);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return
+     */
     public Set<Event> getEvents() {
         return events;
     }
@@ -86,6 +101,26 @@ public class EventList {
     public void setEvents(Event... events) {
         this.events = new TreeSet<>();
         addEvents(events);
+    }
+
+    /**
+     * Adds all the events in the collection
+     *
+     * @param events The collection of events
+     */
+    public void addEvents(Collection<Event> events) {
+        addEvents(events.toArray(new Event[events.size()]));
+    }
+
+    /**
+     * Adds as many events as provided as params
+     *
+     * @param events Events to add to the list
+     */
+    public void addEvents(Event... events) {
+        for (Event e : events) {
+            addEvent(e);
+        }
     }
 
     public Set<Event> getEventsByDay(CustomDateTime date) {

@@ -17,9 +17,10 @@ public class Event implements Comparable<Event> {
     private String description;
     private Set<String> filters;
 
-    public Event(String name, CustomDateTime endTime, String filters) {
+    public Event(String name, String description, CustomDateTime endTime, String filters) {
         setFilters(filters);
         this.name = name;
+        this.description = description;
         this.endTime = endTime;
     }
 
@@ -31,8 +32,9 @@ public class Event implements Comparable<Event> {
         return eventId;
     }
 
-    public void setEventId(long eventId) {
+    public Event setEventId(long eventId) {
         this.eventId = eventId;
+        return this;
     }
 
     public String getName() {
@@ -76,12 +78,6 @@ public class Event implements Comparable<Event> {
         return filters;
     }
 
-    public String getFiltersAsString(){
-        StringBuilder sb = new StringBuilder();
-        filters.forEach(f->{sb.append(f+";");});
-        return sb.toString();
-    }
-
     public void setFilters(String filters) {
         if (filters == null || filters.trim() == "") {
             this.filters = null;
@@ -92,6 +88,14 @@ public class Event implements Comparable<Event> {
                 if (f != "") this.filters.add(StringTools.capitalize(f));
             });
         }
+    }
+
+    public String getFiltersAsString() {
+        StringBuilder sb = new StringBuilder();
+        filters.forEach(f -> {
+            sb.append(f + ";");
+        });
+        return sb.toString();
     }
 
     public boolean hasFilter(String selectedFilter) {
@@ -109,8 +113,7 @@ public class Event implements Comparable<Event> {
         return false;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equalsAllFields(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Event otherEvent = (Event) obj;
@@ -121,9 +124,21 @@ public class Event implements Comparable<Event> {
                 Objects.equals(filters, otherEvent.filters);
     }
 
+    public int hashAllFields() {
+        return Objects.hash(eventId, name, endTime, description, filters);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Event otherEvent = (Event) obj;
+        return eventId == otherEvent.eventId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, name, endTime, description, filters);
+        return Objects.hash(eventId);
     }
 
     @Override
