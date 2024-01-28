@@ -3,13 +3,14 @@ package com.example.timemap.models;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.StringTools;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, Serializable {
 
     private long eventId;
     private String name;

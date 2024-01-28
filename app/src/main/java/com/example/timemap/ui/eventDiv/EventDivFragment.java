@@ -83,7 +83,9 @@ public class EventDivFragment extends Fragment {
     private void showDetails() {
         View v = this.getView();
         if (v == null) return;
-        Navigation.findNavController(v).navigate(R.id.deatiledEvent);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("event", event);
+        Navigation.findNavController(v).navigate(R.id.deatiledEvent, bundle);
     }
 
     public void updateTimeRemaining() {

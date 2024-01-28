@@ -36,7 +36,7 @@ public class EventList {
      * Adds an Event to the list
      *
      * @param e Event to add
-     * @return false if the list already contains the Event, false if it not
+     * @return false if the set already contains the Event, true if it not
      */
     public boolean addEvent(Event e) {
         if (e == null) return false;
@@ -47,10 +47,10 @@ public class EventList {
     }
 
     /**
-     * Removes an Event to the list
+     * Removes an Event from the set
      *
      * @param e Event to remove
-     * @return teue if the event is removed, false if the list does not contains the Event
+     * @return true if the event is removed, false if the set does not contains the Event
      */
     public boolean removeEvent(Event e) {
         if (e == null) return false;
@@ -64,7 +64,7 @@ public class EventList {
      * If the list contains a event with the same id, replaces it
      *
      * @param e Event to add
-     * @return false if the list already contains the Event, false if it not
+     * @return false if the set already contains the Event, false if it not
      */
     public boolean editEvent(Event e) {
         if (e == null) return false;
@@ -77,7 +77,7 @@ public class EventList {
     }
 
     /**
-     * @return
+     * @return The set of events
      */
     public Set<Event> getEvents() {
         return events;
@@ -86,7 +86,7 @@ public class EventList {
     /**
      * Empties the event list and adds all the events in the collection
      *
-     * @param events The collection of events
+     * @param events The set of events
      */
     public void setEvents(Collection<Event> events) {
         events = new TreeSet<>();
@@ -94,7 +94,7 @@ public class EventList {
     }
 
     /**
-     * Empties the event list and adds as many events as provided as params
+     * Empties the set of events and adds as many events as provided as params
      *
      * @param events Events to add to the list
      */

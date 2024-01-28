@@ -40,6 +40,13 @@ public class DetailedEventFragment extends Fragment {
         editDate = binding.editDate;
         editTime = binding.editTime;
 
+        if (getArguments() != null) {
+            Event event = (Event) getArguments().getSerializable("event");
+            if (event != null) {
+                loadEvent(event);
+            }
+        }
+
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
