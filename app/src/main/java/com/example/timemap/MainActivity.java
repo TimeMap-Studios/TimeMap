@@ -8,6 +8,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -82,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Ocultar el menú lateral al hacer click
     public void clickExitLateralMenu(View v) {
-        binding.navView.setVisibility(View.GONE);
-
+        // Cierra el menú lateral
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
