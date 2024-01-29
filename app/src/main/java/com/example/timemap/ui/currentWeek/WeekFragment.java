@@ -39,7 +39,7 @@ public class WeekFragment extends Fragment {
                 .add(R.id.weekEventsContainer, eventListFragment)
                 .commit();
 
-        week = CustomDateTime.today().currentWeek()[0].previousWeek();
+        week = CustomDateTime.now().currentWeek();
         root.post(new Runnable() {
             @Override
             public void run() {

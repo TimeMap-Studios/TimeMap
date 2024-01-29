@@ -115,7 +115,7 @@ public class EventListFragment extends Fragment {
         for (int i = 0; i < 6; i++) {
             Set<Event> tempEventList = EventList.getInstance().getEventsByDay(week[i]);
             if (tempEventList.size() > 0) {
-                addDayLabel(days[i]);
+                addDayLabel(days[i] + " " + week[i].getDay());
                 addEvents(tempEventList);
             }
         }

@@ -21,7 +21,7 @@ public class DayLabelFragment extends Fragment {
 
     public DayLabelFragment(FragmentActivity context, String dayName) {
         this.context = context;
-        this.dayName = dayName;
+        this.dayName = "✧ " + dayName + " ✧";
     }
 
     @Override
@@ -30,10 +30,10 @@ public class DayLabelFragment extends Fragment {
         TextView dayLabel = new TextView(context);
         dayLabel.setText(dayName);
         dayLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        dayLabel.setTextColor(ContextCompat.getColor(context, R.color.dark_brown));
+        dayLabel.setTextColor(ContextCompat.getColor(context, R.color.brown));
         dayLabel.setGravity(Gravity.CENTER);
-        dayLabel.setPaintFlags(dayLabel.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
+        //dayLabel.setPaintFlags(dayLabel.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        dayLabel.setAlpha(0.5f);
         return dayLabel;
     }
 }
