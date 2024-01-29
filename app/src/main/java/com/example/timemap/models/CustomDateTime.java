@@ -63,6 +63,7 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
             throw new IllegalArgumentException("Mes no válido");
         }
     }
+
     public static String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public String getWeekDayName() {

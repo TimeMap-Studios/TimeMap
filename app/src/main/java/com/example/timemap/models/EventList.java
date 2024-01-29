@@ -59,6 +59,12 @@ public class EventList {
         return false;
     }
 
+    /**
+     * Adds an Event to the list
+     *
+     * @param date The date you want to check if the set have events in
+     * @return false if the set don't have events in that day, true if theres at least one event in that day
+     */
     public boolean containsDate(CustomDateTime date){
         for(CustomDateTime day : days){
             if(date.isAtSameDate(day)) return true;
@@ -107,6 +113,9 @@ public class EventList {
         return events;
     }
 
+    /**
+     * @return The set of days that have any event in
+     */
     public Set<CustomDateTime> getDays() {
         return days;
     }
@@ -151,6 +160,11 @@ public class EventList {
         }
     }
 
+    /**
+     *
+     * @param date
+     * @return
+     */
     public Set<Event> getEventsByDay(CustomDateTime date) {
         Set<Event> events = new TreeSet<>();
         this.events.forEach(e -> {

@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
             return;
         }
         navController.navigate(R.id.deatiledEvent);
+
     }
 
     @Override
