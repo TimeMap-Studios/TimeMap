@@ -3,9 +3,7 @@ package com.example.timemap.models;
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -220,13 +218,39 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return this;
     }
 
-    public int weekOfYear() {
-        // Obtener el número de semana
-        return this.calendar.get(Calendar.WEEK_OF_YEAR);
+    public CustomDateTime addHours(int hours) {
+        this.calendar.add(Calendar.HOUR_OF_DAY, hours);
+        return this;
     }
 
-    public void subtractDays(int days) {
+    public CustomDateTime addMinutes(int minutes) {
+        this.calendar.add(Calendar.MINUTE, minutes);
+        return this;
+    }
+
+    public CustomDateTime addSeconds(int seconds) {
+        this.calendar.add(Calendar.SECOND, seconds);
+        return this;
+    }
+
+    public CustomDateTime addMilis(long millis) {
+        calendar.setTimeInMillis(calendar.getTimeInMillis() + millis);
+        return this;
+    }
+
+    public CustomDateTime subtractDays(int days) {
         this.calendar.add(Calendar.DAY_OF_MONTH, -days);
+        return this;
+    }
+
+    public CustomDateTime subtractMillis(long millis) {
+        calendar.setTimeInMillis(calendar.getTimeInMillis() - millis);
+        return this;
+    }
+
+    public int getWeekOfYear() {
+        // Obtener el número de semana
+        return this.calendar.get(Calendar.WEEK_OF_YEAR);
     }
 
     @Override
