@@ -17,13 +17,17 @@ import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.OnSwipeTouchListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 /**
  * (View) Events of the week
  **/
 public class WeekFragment extends Fragment {
     FragmentWeekBinding binding;
     EventListFragment eventListFragment;
-    private CustomDateTime[] week;
+    private Set<CustomDateTime> days;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         WeekViewModel WeekViewModel =
@@ -39,11 +43,11 @@ public class WeekFragment extends Fragment {
                 .add(R.id.weekEventsContainer, eventListFragment)
                 .commit();
 
-        week = CustomDateTime.now().currentWeek();
+        days = CustomDateTime.now().currentWeek();
         root.post(new Runnable() {
             @Override
             public void run() {
-                loadWeek(week);
+                loadWeek(days);
             }
         });
 
@@ -78,22 +82,27 @@ public class WeekFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void loadWeek(CustomDateTime[] week) {
+    private void loadWeek(Set<CustomDateTime> week) {
         if (week == null) return;
-        this.week = week;
-        binding.currentMonth.setText(week[0].getDay() + " " + week[0].getMonthName() + " - " + week[6].getDay() + " " + week[6].getMonthName());
-        binding.currentWeek.setText(week[0].weekOfYear() + "º year's week");
-        eventListFragment.addWeek(week);
+        this.days = week;
+        List<CustomDateTime> days = new ArrayList<>(week);
+        CustomDateTime first = days.get(0);
+        CustomDateTime last = days.get(6);
+        binding.currentMonth.setText(first.getDay() + " " + last.getMonthName() + " - " + first.getDay() + " " + last.getMonthName());
+        binding.currentWeek.setText(first.weekOfYear() + "º year's week");
+        eventListFragment.addDaysWithLabel(week);
     }
 
     private void loadPreviousWeek() {
-        if (week == null) return;
-        loadWeek(week[0].previousWeek());
+        if (days == null) return;
+        CustomDateTime first = days.stream().findFirst().orElse(null);
+        loadWeek(first.previousWeek());
     }
 
     private void loadNextWeek() {
-        if (week == null) return;
-        loadWeek(week[0].nextWeek());
+        if (days == null) return;
+        CustomDateTime first = days.stream().findFirst().orElse(null);
+        loadWeek(first.nextWeek());
     }
 
     @Override

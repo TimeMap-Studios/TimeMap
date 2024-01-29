@@ -34,7 +34,7 @@
                     android:id="@+id/tittleField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Título: "
+                    android:text="Títle: "
                     android:textSize="18dp" />
 
                 <EditText
@@ -62,7 +62,7 @@
                     android:id="@+id/filtersField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Filtros: "
+                    android:text="Filters: "
                     android:textSize="18dp" />
 
                 <EditText
@@ -90,7 +90,7 @@
                     android:id="@+id/descriptionField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descripcion: "
+                    android:text="Description: "
                     android:textSize="18dp" />
 
                 <EditText
@@ -127,7 +127,7 @@
                         android:id="@+id/datePickerLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fecha: "
+                        android:text="Date: "
                         android:textSize="18dp" />
 
                     <EditText
@@ -159,7 +159,7 @@
                         android:id="@+id/timePickerLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hora: "
+                        android:text="Time: "
                         android:textSize="18dp" />
 
                     <EditText
@@ -202,7 +202,7 @@
                         android:layout_height="60dp"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:text="Editar" />
+                        android:text="Edit" />
 
                     <!-- Botón de Guardar -->
                     <Button
@@ -211,7 +211,7 @@
                         android:layout_height="60dp"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:text="Guardar" />
+                        android:text="Save" />
                 </LinearLayout>
             </LinearLayout>
 

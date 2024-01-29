@@ -13,8 +13,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentAllEventsBinding;
+import com.example.timemap.models.Event;
 import com.example.timemap.models.EventList;
 import com.example.timemap.ui.eventList.EventListFragment;
+
+import java.util.List;
 
 /**
  * (View) All events
@@ -43,7 +46,7 @@ public class AllEventsFragment extends Fragment {
         root.post(new Runnable() {
             @Override
             public void run() {
-                eventListFragment.addEvents(EventList.getInstance().getEvents());
+                eventListFragment.addDaysWithLabel(EventList.getInstance().getDays());
             }
         });
 

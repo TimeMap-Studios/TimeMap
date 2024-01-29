@@ -8,9 +8,11 @@ import java.util.TreeSet;
 public class EventList {
     private static EventList instance;
     private Set<Event> events;
+    private Set<CustomDateTime> days;
 
     public EventList() {
         events = new TreeSet<>();
+        days = new TreeSet<>();
         loadTestData();
     }
 
@@ -41,7 +43,17 @@ public class EventList {
     public boolean addEvent(Event e) {
         if (e == null) return false;
         if (true) { // implementar añadirlo a la base de datos
-            return events.add(e);
+            if(events.add(e)){
+                if(!containsDate(e.getEndTime())) days.add(e.getEndTime());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsDate(CustomDateTime date){
+        for(CustomDateTime day : days){
+            if(date.isAtSameDate(day)) return true;
         }
         return false;
     }
@@ -85,6 +97,10 @@ public class EventList {
      */
     public Set<Event> getEvents() {
         return events;
+    }
+
+    public Set<CustomDateTime> getDays() {
+        return days;
     }
 
     /**
