@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentCalendarBinding;
 
+/**
+ * (View) Calendar with the events
+ **/
 public class CalendarFragment extends Fragment {
     FragmentCalendarBinding binding;
 
