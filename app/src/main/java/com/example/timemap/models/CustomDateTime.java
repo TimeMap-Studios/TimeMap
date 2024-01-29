@@ -3,7 +3,11 @@ package com.example.timemap.models;
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CustomDateTime implements Comparable<CustomDateTime>, Serializable {
 
@@ -91,6 +95,10 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return dateTime.calendar.getTimeInMillis() / 1000;
     }
 
+    public String getDayFullString(){
+        return getWeekDayName() + " " + getDay() + "/" + getMonth() + "/" + getYear();
+    }
+
     public String getTimeRemaining(CustomDateTime otherDateTime) {
         long totalSeconds = otherDateTime.calendar.getTimeInMillis() / 1000 - this.calendar.getTimeInMillis() / 1000;
 
@@ -153,13 +161,13 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return new CustomDateTime(temp);
     }
 
-    public CustomDateTime[] currentWeek() {
-        CustomDateTime[] weekDaysArray = new CustomDateTime[7];
+    public Set<CustomDateTime> currentWeek() {
+        Set<CustomDateTime> weekDaysArray = new TreeSet<>();
         CustomDateTime firstDayOfWeek = firstDayOfWeek();
-        Calendar temp = cloneCalendar(firstDayOfWeek.getCalendar());
+        Calendar calendar = cloneCalendar(firstDayOfWeek.getCalendar());
         for (int i = 0; i < 7; i++) {
-            weekDaysArray[i] = new CustomDateTime(temp);
-            temp = nextDayCalendar(temp);
+            weekDaysArray.add(new CustomDateTime(calendar));
+            calendar = nextDayCalendar(calendar);
         }
         return weekDaysArray;
     }
@@ -182,26 +190,26 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return buffer;
     }
 
-    public CustomDateTime[] nextWeek() {
-        CustomDateTime[] nextWeekArray = new CustomDateTime[7];
+    public Set<CustomDateTime> nextWeek() {
+        Set<CustomDateTime> nextWeekArray = new TreeSet<>();
         CustomDateTime firstDayOfWeek = firstDayOfWeek(); // Obtener el primer día de la semana actual
         Calendar calendar = cloneCalendar(firstDayOfWeek.getCalendar());
         calendar.add(Calendar.DAY_OF_MONTH, 7); // Avanzar una semana
         for (int i = 0; i < 7; i++) {
-            nextWeekArray[i] = new CustomDateTime(calendar);
+            nextWeekArray.add(new CustomDateTime(calendar));
             calendar = nextDayCalendar(calendar);
         }
 
         return nextWeekArray;
     }
 
-    public CustomDateTime[] previousWeek() {
-        CustomDateTime[] previousWeekArray = new CustomDateTime[7];
+    public Set<CustomDateTime> previousWeek() {
+        TreeSet<CustomDateTime> previousWeekArray = new TreeSet<>();
         CustomDateTime firstDayOfWeek = firstDayOfWeek(); // Obtener el primer día de la semana actual
         Calendar calendar = cloneCalendar(firstDayOfWeek.getCalendar());
         calendar.add(Calendar.DAY_OF_MONTH, -7); // Retroceder una semana
         for (int i = 0; i < 7; i++) {
-            previousWeekArray[i] = new CustomDateTime(calendar);
+            previousWeekArray.add(new CustomDateTime(calendar));
             calendar = nextDayCalendar(calendar); // Avanzar al siguiente día
         }
         return previousWeekArray;

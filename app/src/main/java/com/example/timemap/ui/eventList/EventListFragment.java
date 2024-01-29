@@ -43,7 +43,7 @@ public class EventListFragment extends Fragment {
     private Map<Event, Fragment> events;
     private Set<String> filters;
     private int hidden;
-    private CustomDateTime[] currentWeek;
+    private Set<CustomDateTime> days;
     private View root;
 
     private Set<Fragment> dayLabels;
@@ -107,17 +107,17 @@ public class EventListFragment extends Fragment {
         }
     }
 
-    public void addWeek(CustomDateTime[] week) {
-        if (week == null) return;
+    public void addDaysWithLabel(Set<CustomDateTime> days) {
+        if (days == null) return;
         clearEventList();
-        currentWeek = week;
-        for (int i = 0; i < 6; i++) {
-            Set<Event> tempEventList = EventList.getInstance().getEventsByDay(week[i]);
-            if (tempEventList.size() > 0) {
-                addDayLabel(week[i].getWeekDayName() + " " + week[i].getDay());
-                addEvents(tempEventList);
+        this.days = days;
+        days.forEach(d->{
+            Set<Event> dayEventsList = EventList.getInstance().getEventsByDay(d);
+            if (dayEventsList.size() > 0) {
+                addDayLabel(d.getDayFullString());
+                addEvents(dayEventsList);
             }
-        }
+        });
     }
 
     private void addDayLabel(String dayName) {
