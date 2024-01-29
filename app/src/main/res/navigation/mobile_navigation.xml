@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/deatiledEvent"
         android:name="com.example.timemap.ui.detailedEvent.DetailedEventFragment"
-        android:label="Detailed Event"
+        android:label="Event details"
         tools:layout="@layout/fragment_detailed_event" />
 
 </navigation>

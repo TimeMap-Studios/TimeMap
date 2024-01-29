@@ -15,6 +15,7 @@ import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentWeekBinding;
 import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.ui.eventList.EventListFragment;
+import com.example.timemap.utils.OnSwipeTouchListener;
 
 /**
  * (View) Events of the week
@@ -38,7 +39,7 @@ public class WeekFragment extends Fragment {
                 .add(R.id.weekEventsContainer, eventListFragment)
                 .commit();
 
-        week = CustomDateTime.today().currentWeek()[0].previousWeek();
+        week = CustomDateTime.now().currentWeek();
         root.post(new Runnable() {
             @Override
             public void run() {
@@ -49,18 +50,30 @@ public class WeekFragment extends Fragment {
         binding.previousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (week == null) return;
-                loadWeek(week[0].previousWeek());
+                loadPreviousWeek();
             }
         });
 
         binding.nextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (week == null) return;
-                loadWeek(week[0].nextWeek());
+                loadNextWeek();
             }
         });
+
+        OnSwipeTouchListener swipper = new OnSwipeTouchListener(getActivity()) {
+            @Override
+            public void onSwipeLeft() {
+                loadNextWeek();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                loadPreviousWeek();
+            }
+        };
+
+        root.setOnTouchListener(swipper);
 
         return binding.getRoot();
     }
@@ -71,6 +84,16 @@ public class WeekFragment extends Fragment {
         binding.currentMonth.setText(week[0].getDay() + " " + week[0].getMonthName() + " - " + week[6].getDay() + " " + week[6].getMonthName());
         binding.currentWeek.setText(week[0].weekOfYear() + "º year's week");
         eventListFragment.addWeek(week);
+    }
+
+    private void loadPreviousWeek() {
+        if (week == null) return;
+        loadWeek(week[0].previousWeek());
+    }
+
+    private void loadNextWeek() {
+        if (week == null) return;
+        loadWeek(week[0].nextWeek());
     }
 
     @Override

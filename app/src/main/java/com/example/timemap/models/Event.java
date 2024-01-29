@@ -59,11 +59,11 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     public Calendar getEndTimeAsCalendar() {
-        return endTime.getAsCalendar();
+        return endTime.getCalendar();
     }
 
     public String getRemainingTime() {
-        return endTime.timeRemaining(CustomDateTime.now());
+        return endTime.getTimeRemaining(CustomDateTime.now());
     }
 
     public String getDescription() {
@@ -110,7 +110,7 @@ public class Event implements Comparable<Event>, Serializable {
 
     public boolean isItAtDay(CustomDateTime date) {
         if (date == null) return false;
-        if (date.sameDate(endTime)) return true;
+        if (date.isAtSameDate(endTime)) return true;
         return false;
     }
 

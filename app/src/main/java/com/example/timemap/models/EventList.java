@@ -1,6 +1,7 @@
 package com.example.timemap.models;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,7 +20,6 @@ public class EventList {
     }
 
     private void loadTestData() {
-        CustomDateTime aux = CustomDateTime.now();
         addEvents(
                 new Event("Examen de química", "", CustomDateTime.now(), "examen;química").setEventId(1),
                 new Event("Examen de matemáticas", "", CustomDateTime.now(), "examen;matemáticas").setEventId(2),
@@ -74,6 +74,10 @@ public class EventList {
             }
         }
         return false;
+    }
+
+    public long getNewEventId() {
+        return new Random().nextLong();
     }
 
     /**
@@ -132,7 +136,7 @@ public class EventList {
     }
 
     public Set<Event> getTodayEvents() {
-        return getEventsByDay(CustomDateTime.today());
+        return getEventsByDay(CustomDateTime.now());
     }
 
     public Event getEventById(int id) {

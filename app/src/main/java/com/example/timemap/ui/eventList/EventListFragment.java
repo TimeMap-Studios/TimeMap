@@ -20,10 +20,12 @@ import com.example.timemap.databinding.FragmentEventListBinding;
 import com.example.timemap.models.CustomDateTime;
 import com.example.timemap.models.Event;
 import com.example.timemap.models.EventList;
+import com.example.timemap.ui.eventDiv.DayLabelFragment;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,13 +44,17 @@ public class EventListFragment extends Fragment {
     private Set<String> filters;
     private int hidden;
     private CustomDateTime[] currentWeek;
+    private View root;
+
+    private Set<Fragment> dayLabels;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         events = new HashMap<>();
+        dayLabels = new HashSet<>();
         EventListViewModel EventListViewModel =
                 new ViewModelProvider(this).get(EventListViewModel.class);
         binding = FragmentEventListBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
 
         fragmentManager = getParentFragmentManager();
 
@@ -74,7 +80,6 @@ public class EventListFragment extends Fragment {
 
         return root;
     }
-
 
     /**
      * Hides the non selected filter events
@@ -106,9 +111,19 @@ public class EventListFragment extends Fragment {
         if (week == null) return;
         clearEventList();
         currentWeek = week;
-        for (CustomDateTime d : week) {
-            addEvents(EventList.getInstance().getEventsByDay(d));
+        for (int i = 0; i < 6; i++) {
+            Set<Event> tempEventList = EventList.getInstance().getEventsByDay(week[i]);
+            if (tempEventList.size() > 0) {
+                addDayLabel(week[i].getWeekDayName() + " " + week[i].getDay());
+                addEvents(tempEventList);
+            }
         }
+    }
+
+    private void addDayLabel(String dayName) {
+        DayLabelFragment dayLabelFragment = new DayLabelFragment(requireActivity(), dayName);
+        dayLabels.add(dayLabelFragment);
+        addFragment(dayLabelFragment);
     }
 
     /**
@@ -154,6 +169,19 @@ public class EventListFragment extends Fragment {
         return true;
     }
 
+    public boolean addFragment(Fragment fragment) {
+        try {
+            fragmentManager.beginTransaction()
+                    .add(R.id.eventListLayout, fragment)
+                    .commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Deletes an Event from the list
      *
@@ -176,6 +204,9 @@ public class EventListFragment extends Fragment {
     private void clearEventList() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         for (Fragment fragment : events.values()) {
+            transaction.remove(fragment);
+        }
+        for (Fragment fragment : dayLabels) {
             transaction.remove(fragment);
         }
         transaction.commitAllowingStateLoss();
