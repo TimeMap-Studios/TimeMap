@@ -24,6 +24,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentCoffeeBinding;
 
+/**
+ * (View) View for donations
+ **/
 public class CoffeeFragment extends Fragment {
     FragmentCoffeeBinding binding;
     private WebView webView;

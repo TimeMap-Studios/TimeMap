@@ -9,6 +9,9 @@
 
     <color name="dark_brown">#1A120B</color>
     <color name="brown">#3C2A21</color>
-    <color name="dark_beige">#D5CEA3</color>
+    <color name="dark_beige">#D3CAB1
+    </color>  <!-- Antiguo <color name="dark_beige">#D5CEA3</color> -->
     <color name="beige">#E5E5CB</color>
+
+    <color name="cold_red">#A25564</color>
 </resources>
