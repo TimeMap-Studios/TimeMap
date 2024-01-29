@@ -88,7 +88,7 @@ public class WeekFragment extends Fragment {
         List<CustomDateTime> days = new ArrayList<>(week);
         CustomDateTime first = days.get(0);
         CustomDateTime last = days.get(6);
-        binding.currentMonth.setText(first.getDay() + " " + last.getMonthName() + " - " + first.getDay() + " " + last.getMonthName());
+        binding.currentMonth.setText(first.getDay() + " " + first.getMonthName() + " - " + last.getDay() + " " + last.getMonthName());
         binding.currentWeek.setText(first.weekOfYear() + "º year's week");
         eventListFragment.addDaysWithLabel(week);
     }
