@@ -35,7 +35,7 @@ import java.util.TreeSet;
  **/
 public class EventListFragment extends Fragment {
 
-    public static final String DEFAULT_FILTER = "*";
+    public static final String DEFAULT_FILTER = " - - - - - - - - -";
     FragmentManager fragmentManager;
     Spinner spinner;
     ArrayAdapter<CharSequence> spinnerAdapter;
@@ -201,7 +201,7 @@ public class EventListFragment extends Fragment {
     /**
      * Clears all Events from the list
      */
-    private void clearEventList() {
+    public void clearEventList() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         for (Fragment fragment : events.values()) {
             transaction.remove(fragment);
