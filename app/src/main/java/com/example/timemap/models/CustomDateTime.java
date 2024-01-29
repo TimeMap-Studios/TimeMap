@@ -51,8 +51,8 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return this.calendar.get(Calendar.MONTH) + 1; // Calendar.MONTH es 0-based
     }
 
+    public static String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public String getMonthName() {
-        String[] monthNames = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
         int month = this.getMonth();
         if (month >= 1 && month <= 12) {
@@ -60,6 +60,11 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         } else {
             throw new IllegalArgumentException("Mes no válido");
         }
+    }
+    public static String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    public String getWeekDayName() {
+        return dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
     }
 
     public int getDay() {

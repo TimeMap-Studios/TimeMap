@@ -36,7 +36,6 @@ import java.util.TreeSet;
 public class EventListFragment extends Fragment {
 
     public static final String DEFAULT_FILTER = "*";
-    public static String[] days = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
     FragmentManager fragmentManager;
     Spinner spinner;
     ArrayAdapter<CharSequence> spinnerAdapter;
@@ -115,7 +114,7 @@ public class EventListFragment extends Fragment {
         for (int i = 0; i < 6; i++) {
             Set<Event> tempEventList = EventList.getInstance().getEventsByDay(week[i]);
             if (tempEventList.size() > 0) {
-                addDayLabel(days[i] + " " + week[i].getDay());
+                addDayLabel(week[i].getWeekDayName() + " " + week[i].getDay());
                 addEvents(tempEventList);
             }
         }
