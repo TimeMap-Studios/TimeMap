@@ -36,14 +36,31 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         this.calendar = calendar;
     }
 
-    public CustomDateTime(long totalSeconds) {
+    /**
+     * CustomDateTime of the millisecond provided as param
+     * @param milliseconds the milliseconds since January 1, 1970
+     */
+    public CustomDateTime(long milliseconds) {
         this.calendar = Calendar.getInstance();
-        this.calendar.setTimeInMillis(totalSeconds * 1000);
+        this.calendar.setTimeInMillis(milliseconds);
     }
 
+    /**
+     * miliseconds since January 1, 1970
+     * @return the miliseconds since January 1, 1970
+     */
+    public long getAsMilliseconds() {
+        return calendar.getTimeInMillis();
+    }
+
+    /**
+     * Get the CustomDateTime of this moment
+     * @return the CustomDateTime of this moment
+     */
     public static CustomDateTime now() {
         return new CustomDateTime(Calendar.getInstance());
     }
+
 
     public int getYear() {
         return this.calendar.get(Calendar.YEAR);
@@ -53,21 +70,25 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return this.calendar.get(Calendar.MONTH) + 1; // Calendar.MONTH es 0-based
     }
 
-    public static String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    public static final String[] MONTH_NAMES = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public String getMonthName() {
 
         int month = this.getMonth();
         if (month >= 1 && month <= 12) {
-            return monthNames[month - 1];
+            return MONTH_NAMES[month - 1];
         } else {
-            throw new IllegalArgumentException("Mes no válido");
+            throw new IllegalArgumentException("No válid!");
         }
     }
 
-    public static String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-
+    public static final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     public String getWeekDayName() {
-        return dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        int day = Calendar.DAY_OF_WEEK;
+        if (day >= 1 && day <= 7) {
+            return DAY_NAMES[day- 1];
+        } else {
+            throw new IllegalArgumentException("No válid!");
+        }
     }
 
     public int getDay() {
@@ -88,10 +109,6 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
 
     public Calendar getCalendar() {
         return (Calendar) this.calendar.clone();
-    }
-
-    private long getTimeInSeconds(CustomDateTime dateTime) {
-        return dateTime.calendar.getTimeInMillis() / 1000;
     }
 
     public String getDayFullString(){
