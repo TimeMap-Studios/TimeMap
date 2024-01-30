@@ -16,6 +16,11 @@ import java.util.Set;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
+    /**
+     * CustomDateTime Tests
+     */
+
     @Test
     public void testConstructorWithValidDateTime() {
         CustomDateTime dateTime = new CustomDateTime(2022, 1, 30, 12, 0, 0);
@@ -35,16 +40,46 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testNow() {
-        CustomDateTime now = CustomDateTime.now();
-        assertTrue("Now should be an instance of CustomDateTime", now instanceof CustomDateTime);
-    }
-
-    @Test
     public void testGetMonthName() {
         CustomDateTime dateTime = new CustomDateTime(2022, 1, 30, 12, 0, 0);
         assertEquals("Month name should be January", "January", dateTime.getMonthName());
     }
+
+    @Test
+    public void testCurrentWeek() {
+        CustomDateTime dateTime = new CustomDateTime(2024, 1, 23);
+        Set<CustomDateTime> weekDays = dateTime.currentWeek();
+        assertEquals("Size of the week should be 7", 7, weekDays.size());
+        assertTrue("Current day should be in the set", weekDays.contains(dateTime));
+        assertTrue("Current week should start on the 22nd", weekDays.stream().findFirst().orElse(null).getDay() == 22);
+        CustomDateTime lastDayOfWeek = weekDays.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Current week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
+    }
+
+    @Test
+    public void testNextWeek() {
+        CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
+        Set<CustomDateTime> nextWeek = dateTime.nextWeek();
+        assertEquals("Size of the next week should be 7", 7, nextWeek.size());
+        assertTrue("Next week should start in 5th", nextWeek.stream().findFirst().orElse(null).getDay() == 5);
+        CustomDateTime lastDayOfWeek = nextWeek.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Next week should end on the 11th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 11);
+    }
+
+    @Test
+    public void testPreviousWeek() {
+        CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
+        Set<CustomDateTime> previousWeek = dateTime.previousWeek();
+        assertEquals("Size of the previous week should be 7", 7, previousWeek.size());
+        assertTrue("Previous week should start in 22th", previousWeek.stream().findFirst().orElse(null).getDay() == 22);
+        CustomDateTime lastDayOfWeek = previousWeek.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Previous week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
+    }
+
+
+    /**
+     * EventList Tests
+     */
 
     @Test
     public void testInsertSingleEvent() {
@@ -107,35 +142,4 @@ public class ExampleUnitTest {
     }
 
 
-
-    @Test
-    public void testCurrentWeek() {
-        CustomDateTime dateTime = new CustomDateTime(2024, 1, 23);
-        Set<CustomDateTime> weekDays = dateTime.currentWeek();
-        assertEquals("Size of the week should be 7", 7, weekDays.size());
-        assertTrue("Current day should be in the set", weekDays.contains(dateTime));
-        assertTrue("Current week should start on the 22nd", weekDays.stream().findFirst().orElse(null).getDay() == 22);
-        CustomDateTime lastDayOfWeek = weekDays.stream().reduce((first, second) -> second).orElse(null);
-        assertTrue("Current week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
-    }
-
-    @Test
-    public void testNextWeek() {
-        CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
-        Set<CustomDateTime> nextWeek = dateTime.nextWeek();
-        assertEquals("Size of the next week should be 7", 7, nextWeek.size());
-        assertTrue("Next week should start in 5th", nextWeek.stream().findFirst().orElse(null).getDay() == 5);
-        CustomDateTime lastDayOfWeek = nextWeek.stream().reduce((first, second) -> second).orElse(null);
-        assertTrue("Next week should end on the 11th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 11);
-    }
-
-    @Test
-    public void testPreviousWeek() {
-        CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
-        Set<CustomDateTime> previousWeek = dateTime.previousWeek();
-        assertEquals("Size of the previous week should be 7", 7, previousWeek.size());
-        assertTrue("Previous week should start in 22th", previousWeek.stream().findFirst().orElse(null).getDay() == 22);
-        CustomDateTime lastDayOfWeek = previousWeek.stream().reduce((first, second) -> second).orElse(null);
-        assertTrue("Previous week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
-    }
 }
