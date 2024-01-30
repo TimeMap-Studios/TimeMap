@@ -30,7 +30,8 @@ public class ExampleUnitTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorWithInvalidDateTime() {
         // Attempt to create an invalid date
-        new CustomDateTime(2022, 2, 30, 12, 0, 0);
+        CustomDateTime date = new CustomDateTime(2022, 2, 30, 12, 0, 0);
+        assertTrue("day should be 30", date.getDay() == 30);
     }
 
     @Test
@@ -106,15 +107,15 @@ public class ExampleUnitTest {
     }
 
 
-/*
+
     @Test
     public void testCurrentWeek() {
-        CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
+        CustomDateTime dateTime = new CustomDateTime(2024, 1, 23);
         Set<CustomDateTime> weekDays = dateTime.currentWeek();
         assertEquals("Size of the week should be 7", 7, weekDays.size());
-        assertTrue("Current day should be in the set", weekDays.contains(dateTime));
         System.out.println("Current week starts in: " +  weekDays.stream().findFirst().orElse(null).getDay());
-        assertTrue("Current week should start in 29", weekDays.stream().findFirst().orElse(null).getDay() == 29);
+        assertTrue("Current day should be in the set", weekDays.contains(dateTime));
+        assertTrue("Current week should start in 29", weekDays.stream().findFirst().orElse(null).getDay() == 22);
     }
 
     @Test
@@ -133,5 +134,5 @@ public class ExampleUnitTest {
         assertEquals("Size of the previous week should be 7", 7, previousWeek.size());
         System.out.println("Previous week starts in: " +  previousWeek.stream().findFirst().orElse(null).getDay());
         assertTrue("Previous week should start in 22", previousWeek.stream().findFirst().orElse(null).getDay() == 22);
-    }*/
+    }
 }
