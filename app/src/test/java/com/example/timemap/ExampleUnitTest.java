@@ -113,9 +113,10 @@ public class ExampleUnitTest {
         CustomDateTime dateTime = new CustomDateTime(2024, 1, 23);
         Set<CustomDateTime> weekDays = dateTime.currentWeek();
         assertEquals("Size of the week should be 7", 7, weekDays.size());
-        System.out.println("Current week starts in: " +  weekDays.stream().findFirst().orElse(null).getDay());
         assertTrue("Current day should be in the set", weekDays.contains(dateTime));
-        assertTrue("Current week should start in 29", weekDays.stream().findFirst().orElse(null).getDay() == 22);
+        assertTrue("Current week should start on the 22nd", weekDays.stream().findFirst().orElse(null).getDay() == 22);
+        CustomDateTime lastDayOfWeek = weekDays.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Current week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
     }
 
     @Test
@@ -123,8 +124,9 @@ public class ExampleUnitTest {
         CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
         Set<CustomDateTime> nextWeek = dateTime.nextWeek();
         assertEquals("Size of the next week should be 7", 7, nextWeek.size());
-        System.out.println("Next week starts in: " + nextWeek.stream().findFirst().orElse(null).getDay());
-        assertTrue("Next week should start in 5", nextWeek.stream().findFirst().orElse(null).getDay() == 5);
+        assertTrue("Next week should start in 5th", nextWeek.stream().findFirst().orElse(null).getDay() == 5);
+        CustomDateTime lastDayOfWeek = nextWeek.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Next week should end on the 11th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 11);
     }
 
     @Test
@@ -132,7 +134,8 @@ public class ExampleUnitTest {
         CustomDateTime dateTime = new CustomDateTime(2024, 1, 30);
         Set<CustomDateTime> previousWeek = dateTime.previousWeek();
         assertEquals("Size of the previous week should be 7", 7, previousWeek.size());
-        System.out.println("Previous week starts in: " +  previousWeek.stream().findFirst().orElse(null).getDay());
-        assertTrue("Previous week should start in 22", previousWeek.stream().findFirst().orElse(null).getDay() == 22);
+        assertTrue("Previous week should start in 22th", previousWeek.stream().findFirst().orElse(null).getDay() == 22);
+        CustomDateTime lastDayOfWeek = previousWeek.stream().reduce((first, second) -> second).orElse(null);
+        assertTrue("Previous week should end on the 28th", lastDayOfWeek != null && lastDayOfWeek.getDay() == 28);
     }
 }
