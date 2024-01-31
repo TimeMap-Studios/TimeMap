@@ -47,4 +47,10 @@
         android:label="Event details"
         tools:layout="@layout/fragment_detailed_event" />
 
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.timemap.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
