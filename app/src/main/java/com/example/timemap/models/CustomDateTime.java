@@ -110,7 +110,6 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
      * @throws IllegalArgumentException if the month is not within the valid range.
      */
     public String getMonthName() {
-
         int month = this.getMonth();
         if (month >= 1 && month <= 12) {
             return MONTH_NAMES[month - 1];
@@ -127,7 +126,7 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
      * @throws IllegalArgumentException if the day is not within the valid range.
      */
     public String getWeekDayName() {
-        int day = Calendar.DAY_OF_WEEK;
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
         if (day >= 1 && day <= 7) {
             return DAY_NAMES[day- 1];
         } else {
