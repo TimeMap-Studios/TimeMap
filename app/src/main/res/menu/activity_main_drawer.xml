@@ -34,5 +34,11 @@
             android:icon="@drawable/ic_menu_info"
             android:textColor="@color/beige"
             android:title="@string/menu_info" />
+        <item
+            android:id="@+id/settings"
+            style="@style/AppTheme.NavItem"
+            android:icon="@drawable/ic_menu_info"
+            android:textColor="@color/beige"
+            android:title="@string/menu_settings" />
     </group>
 </menu>
