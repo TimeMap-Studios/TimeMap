@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.timemap.models.CustomDateTime;
-import com.example.timemap.models.Event;
-import com.example.timemap.models.EventList;
+import com.example.timemap.model.CustomDateTime;
+import com.example.timemap.model.Event;
+import com.example.timemap.model.EventList;
 
 import java.util.Set;
 

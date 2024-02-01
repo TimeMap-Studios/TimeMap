@@ -1,4 +1,4 @@
-package com.example.timemap.models;
+package com.example.timemap.model;
 
 import java.util.Collection;
 import java.util.Random;

@@ -13,11 +13,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentAllEventsBinding;
-import com.example.timemap.models.Event;
-import com.example.timemap.models.EventList;
+import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventList.EventListFragment;
-
-import java.util.List;
 
 /**
  * A view representing all events. Displays a list of all events with labels for each day.

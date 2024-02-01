@@ -1,4 +1,4 @@
-package com.example.timemap.models;
+package com.example.timemap.model;
 
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.StringTools;

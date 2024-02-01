@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventDivBinding;
-import com.example.timemap.models.Event;
+import com.example.timemap.model.Event;
 
 /**
  * A fragment component designed to be incorporated into other views, displaying details of an event.
