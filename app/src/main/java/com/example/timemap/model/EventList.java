@@ -5,22 +5,45 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Represents a list of events with methods to add, remove, edit, and retrieve events.
+ */
 public class EventList {
     private static EventList instance;
     private Set<Event> events;
     private Set<CustomDateTime> days;
 
+<<<<<<< HEAD
+=======
+    /**
+     * Constructs an EventList instance, initializes sets, and loads test data.
+     */
+>>>>>>> main
     public EventList() {
         events = new TreeSet<>();
         days = new TreeSet<>();
         loadTestData();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Gets the singleton instance of EventList.
+     *
+     * @return The singleton instance of EventList.
+     */
+>>>>>>> main
     public static EventList getInstance() {
         if (instance == null) instance = new EventList();
         return instance;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Loads test data into the event list.
+     */
+>>>>>>> main
     private void loadTestData() {
         addEvents(
                 new Event("Chemistry Exam", "", CustomDateTime.now().subtractDays(1), "exam;chemistry").setEventId(1),
@@ -43,6 +66,7 @@ public class EventList {
     }
 
     /**
+<<<<<<< HEAD
      * Adds an Event to the list
      * @param e Event to add
      * @return false if the set already contains the Event, true if it not
@@ -54,18 +78,44 @@ public class EventList {
                 if(!containsDate(e.getEndTime())) days.add(e.getEndTime());
                 return true;
             }
+=======
+     * Adds an Event to the list.
+     *
+     * @param e Event to add.
+     * @return false if the set already contains the Event, true if it does not.
+     */
+    public boolean addEvent(Event e) {
+        if (e == null) return false;
+        // TODO: Implement adding to the database
+        if (events.add(e)) {
+            if (!containsDate(e.getEndTime())) days.add(e.getEndTime());
+            return true;
+>>>>>>> main
         }
         return false;
     }
 
+<<<<<<< HEAD
     public boolean containsDate(CustomDateTime date){
         for(CustomDateTime day : days){
             if(date.isAtSameDate(day)) return true;
+=======
+    /**
+     * Checks if the set contains events on a specific date.
+     *
+     * @param date The date to check.
+     * @return false if the set doesn't have events on that day, true if there's at least one event.
+     */
+    public boolean containsDate(CustomDateTime date) {
+        for (CustomDateTime day : days) {
+            if (date.isAtSameDate(day)) return true;
+>>>>>>> main
         }
         return false;
     }
 
     /**
+<<<<<<< HEAD
      * Removes an Event from the set
      * @param e Event to remove
      * @return true if the event is removed, false if the set does not contains the Event
@@ -74,11 +124,36 @@ public class EventList {
         if (e == null) return false;
         if (true) { // implementar eliminarlo de la base de datos
             return events.remove(e);
+=======
+     * Removes an Event from the set.
+     *
+     * @param e Event to remove.
+     * @return true if the event is removed, false if the set does not contain the Event.
+     */
+    public boolean removeEvent(Event e) {
+        if (e == null) return false;
+        // TODO: Implement removing from the database
+        return events.remove(e);
+    }
+
+    /**
+     * Edits an Event in the list.
+     *
+     * @param e Event to edit.
+     * @return false if the set already contains the Event, false if it does not.
+     */
+    public boolean editEvent(Event e) {
+        if (e == null) return false;
+        // TODO: Implement editing in the database
+        if (removeEvent(e)) {
+            return addEvent(e);
+>>>>>>> main
         }
         return false;
     }
 
     /**
+<<<<<<< HEAD
      * If the list contains a event with the same id, replaces it
      * @param e Event to add
      * @return false if the set already contains the Event, false if it not
@@ -93,33 +168,68 @@ public class EventList {
         return false;
     }
 
+=======
+     * Generates a new unique event ID using a random long value.
+     *
+     * @return A new unique event ID.
+     */
+>>>>>>> main
     public long getNewEventId() {
         return new Random().nextLong();
     }
 
     /**
+<<<<<<< HEAD
      * @return The set of events
+=======
+     * Gets the set of events.
+     *
+     * @return The set of events.
+>>>>>>> main
      */
     public Set<Event> getEvents() {
         return events;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Gets the set of days that have any event.
+     *
+     * @return The set of days.
+     */
+>>>>>>> main
     public Set<CustomDateTime> getDays() {
         return days;
     }
 
     /**
+<<<<<<< HEAD
      * Empties the event list and adds all the events in the collection
      * @param events The set of events
      */
     public void setEvents(Collection<Event> events) {
         events = new TreeSet<>();
+=======
+     * Empties the event list and adds all the events in the collection.
+     *
+     * @param events The set of events.
+     */
+    public void setEvents(Collection<Event> events) {
+        this.events = new TreeSet<>();
+>>>>>>> main
         addEvents(events.toArray(new Event[events.size()]));
     }
 
     /**
+<<<<<<< HEAD
      * Empties the set of events and adds as many events as provided as params
      * @param events Events to add to the list
+=======
+     * Empties the set of events and adds as many events as provided as parameters.
+     *
+     * @param events Events to add to the list.
+>>>>>>> main
      */
     public void setEvents(Event... events) {
         this.events = new TreeSet<>();
@@ -127,17 +237,29 @@ public class EventList {
     }
 
     /**
+<<<<<<< HEAD
      * Adds all the events in the collection
      * @param events The collection of events
+=======
+     * Adds all the events in the collection.
+     *
+     * @param events The collection of events.
+>>>>>>> main
      */
     public void addEvents(Collection<Event> events) {
         addEvents(events.toArray(new Event[events.size()]));
     }
 
     /**
+<<<<<<< HEAD
      * Adds as many events as provided as params
      * cargar de la base de datos aqui
      * @param events Events to add to the list
+=======
+     * Adds as many events as provided as parameters.
+     *
+     * @param events Events to add to the list.
+>>>>>>> main
      */
     public void addEvents(Event... events) {
         for (Event e : events) {
@@ -145,6 +267,15 @@ public class EventList {
         }
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Retrieves a set of events occurring on a specific date.
+     *
+     * @param date The date to check for events.
+     * @return The set of events on the given date.
+     */
+>>>>>>> main
     public Set<Event> getEventsByDay(CustomDateTime date) {
         Set<Event> events = new TreeSet<>();
         this.events.forEach(e -> {
@@ -153,10 +284,27 @@ public class EventList {
         return events;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Retrieves a set of events occurring today.
+     *
+     * @return The set of events happening today.
+     */
+>>>>>>> main
     public Set<Event> getTodayEvents() {
         return getEventsByDay(CustomDateTime.now());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Retrieves an event by its ID.
+     *
+     * @param id The ID of the event to retrieve.
+     * @return The event with the specified ID, or null if not found.
+     */
+>>>>>>> main
     public Event getEventById(int id) {
         for (Event e : events) {
             if (e.getEventId() == id) return e;

@@ -31,11 +31,15 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * (Component) This fragment can be incorporated in another views
- **/
+ * This fragment is designed to be incorporated into other views to display a list of events
+ * with filtering capabilities.
+ */
 public class EventListFragment extends Fragment {
 
+    // Constants
     public static final String DEFAULT_FILTER = " - - - - - - - - -";
+
+    // UI components and variables
     FragmentManager fragmentManager;
     Spinner spinner;
     ArrayAdapter<CharSequence> spinnerAdapter;
@@ -45,10 +49,14 @@ public class EventListFragment extends Fragment {
     private int hidden;
     private Set<CustomDateTime> days;
     private View root;
-
     private Set<Fragment> dayLabels;
 
+    /**
+     * Initializes the fragment's UI components and sets up event handling.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        // Initialization
         events = new HashMap<>();
         dayLabels = new HashSet<>();
         EventListViewModel EventListViewModel =
@@ -64,7 +72,11 @@ public class EventListFragment extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         clearFilters(); // Instantiates the filter list and adds the default filters
+
+        // Spinner item selection listener
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            // Handle the selection event
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Manejar el evento de selección aquí
@@ -74,7 +86,7 @@ public class EventListFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Manejar el caso cuando no hay ninguna selección
+                // Manejar el caso cuando no hay ninguna selección, en este caso no es posible
             }
         });
 
@@ -82,9 +94,9 @@ public class EventListFragment extends Fragment {
     }
 
     /**
-     * Hides the non selected filter events
+     * Hides the events that do not match the selected filter.
      *
-     * @param selectedFilter The events with this filter wont be hidden
+     * @param selectedFilter The filter to be applied.
      */
     private void filterEvents(String selectedFilter) {
         hidden = 0;
@@ -99,6 +111,10 @@ public class EventListFragment extends Fragment {
         updateHiddenEventNumber();
     }
 
+    /**
+     * updateHiddenEventNumber:
+     * Updates the UI to display the number of hidden events.
+     */
     private void updateHiddenEventNumber() {
         if (hidden == 0) {
             binding.hiddenText.setText("");
@@ -107,6 +123,12 @@ public class EventListFragment extends Fragment {
         }
     }
 
+    /**
+     * Adds days with labels to the event list, displaying associated events.
+     * Clears the existing event list and populates it with events from the given days.
+     *
+     * @param days A set of CustomDateTime representing the days to be added.
+     */
     public void addDaysWithLabel(Set<CustomDateTime> days) {
         if (days == null) return;
         clearEventList();
@@ -120,6 +142,12 @@ public class EventListFragment extends Fragment {
         });
     }
 
+    /**
+     * Adds a DayLabelFragment with the given dayName to the event list.
+     * The DayLabelFragment displays the name of the day above associated events.
+     *
+     * @param dayName The name of the day to be displayed on the label.
+     */
     private void addDayLabel(String dayName) {
         DayLabelFragment dayLabelFragment = new DayLabelFragment(requireActivity(), dayName);
         dayLabels.add(dayLabelFragment);
@@ -169,6 +197,12 @@ public class EventListFragment extends Fragment {
         return true;
     }
 
+    /**
+     * Adds a generic Fragment to the event list.
+     *
+     * @param fragment The Fragment to be added to the event list.
+     * @return true if the addition is successful, false otherwise.
+     */
     public boolean addFragment(Fragment fragment) {
         try {
             fragmentManager.beginTransaction()
@@ -214,6 +248,10 @@ public class EventListFragment extends Fragment {
         clearFilters();
     }
 
+    /**
+     * Clears the current filters and initializes the filter set with the default filter.
+     * Also updates the spinnerAdapter to reflect the changes.
+     */
     private void clearFilters() {
         filters = new TreeSet<>();
         spinnerAdapter.clear();
@@ -244,6 +282,10 @@ public class EventListFragment extends Fragment {
         });
     }
 
+    /**
+     * onDestroyView:
+     * Cleans up resources when the fragment's view is destroyed.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

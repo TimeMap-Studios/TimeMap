@@ -13,36 +13,46 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentAllEventsBinding;
+<<<<<<< HEAD
 import com.example.timemap.model.Event;
+=======
+>>>>>>> main
 import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventList.EventListFragment;
 
-import java.util.List;
-
 /**
- * (View) All events
- **/
+ * A view representing all events. Displays a list of all events with labels for each day.
+ */
 public class AllEventsFragment extends Fragment {
+    // UI components and variables
     EventListFragment eventListFragment;
     private FragmentAllEventsBinding binding;
 
+    /**
+     * onCreateView:
+     * Inflates the fragment layout, initializes UI elements, and sets up event handling.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate views.
+     * @param container          The parent view that this fragment's UI should be attached to.
+     * @param savedInstanceState Bundle containing the saved state of the fragment.
+     * @return The root view of the fragment.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Initialization
         binding = FragmentAllEventsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Obtiene el FragmentManager del fragmento actual
+        // Get the fragment manager
         FragmentManager fragmentManager = getParentFragmentManager();
 
-        // Crea una instancia del fragmento
+        // Create and add the EventListFragment to the layout
         eventListFragment = new EventListFragment();
-
-        // Inicia la transacción del fragmento
         fragmentManager.beginTransaction()
                 .add(R.id.allEventsContainer, eventListFragment)
                 .commit();
 
-        // Hay que agregar los eventos de esta forma porque si no el fragmento no está todavía creado cando se añaden
+        // Load events for all days
         root.post(new Runnable() {
             @Override
             public void run() {
@@ -53,6 +63,10 @@ public class AllEventsFragment extends Fragment {
         return root;
     }
 
+    /**
+     * onDestroyView:
+     * Cleans up resources when the fragment's view is destroyed.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

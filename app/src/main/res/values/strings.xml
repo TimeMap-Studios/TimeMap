@@ -16,6 +16,7 @@
     <string name="menu_calendar">Calendar view</string>
     <string name="menu_info">Info</string>
     <string name="menu_event_list">All events</string>
+    <string name="menu_settings">Settings</string>
 
     <!-- Strings para vista de informacion -->
     <string name="guille_name">Guillermo de Carlos</string>
@@ -24,6 +25,7 @@
     <string name="manuel_name">Manuel Martín</string>
     <string name="subtitle_string">Aplicación desarrollada por:</string>
     <string name="title_string">Información</string>
+
     <string name="sign_string">Somos programadores independientes. Dependemos de las donaciones para mantener la aplicación</string>
 
 </resources>
