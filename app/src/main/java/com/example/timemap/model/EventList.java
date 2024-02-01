@@ -32,7 +32,6 @@ public class EventList {
         return instance;
     }
 
-
     /**
      * Loads test data into the event list.
      */
@@ -58,18 +57,19 @@ public class EventList {
     }
 
     /**
-     * Adds an Event to the list
-     * @param e Event to add
-     * @return false if the set already contains the Event, true if it not
+     * Adds an Event to the list.
+     *
+     * @param e Event to add.
+     * @return false if the set already contains the Event, true if it does not.
      */
     public boolean addEvent(Event e) {
         if (e == null) return false;
-        if (true) { // implementar añadirlo a la base de datos
-            if(events.add(e)){
-                if(!containsDate(e.getEndTime())) days.add(e.getEndTime());
-                return true;
-            }
+        // TODO: Implement adding to the database
+        if (events.add(e)) {
+            if (!containsDate(e.getEndTime())) days.add(e.getEndTime());
+            return true;
         }
+        return false;
     }
 
     /**
@@ -81,22 +81,20 @@ public class EventList {
     public boolean containsDate(CustomDateTime date) {
         for (CustomDateTime day : days) {
             if (date.isAtSameDate(day)) return true;
-
         }
         return false;
     }
 
     /**
-     * Removes an Event from the set
-     * @param e Event to remove
-     * @return true if the event is removed, false if the set does not contains the Event
+     * Removes an Event from the set.
+     *
+     * @param e Event to remove.
+     * @return true if the event is removed, false if the set does not contain the Event.
      */
-    public boolean removeEvent(Event e){
+    public boolean removeEvent(Event e) {
         if (e == null) return false;
-        if (true) { // implementar eliminarlo de la base de datos
-            return events.remove(e);
-
-        }
+        // TODO: Implement removing from the database
+        return events.remove(e);
     }
 
     /**
@@ -124,18 +122,13 @@ public class EventList {
     }
 
     /**
-<<<<<<< HEAD
-     * @return The set of events
-=======
      * Gets the set of events.
      *
      * @return The set of events.
->>>>>>> main
      */
     public Set<Event> getEvents() {
         return events;
     }
-
 
     /**
      * Gets the set of days that have any event.
@@ -147,11 +140,13 @@ public class EventList {
     }
 
     /**
-     * Empties the event list and adds all the events in the collection
-     * @param events The set of events
+     * Empties the event list and adds all the events in the collection.
+     *
+     * @param events The set of events.
      */
     public void setEvents(Collection<Event> events) {
-        events = new TreeSet<>();
+        this.events = new TreeSet<>();
+        addEvents(events.toArray(new Event[events.size()]));
     }
 
     /**
