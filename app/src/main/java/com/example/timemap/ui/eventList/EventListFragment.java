@@ -17,9 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentEventListBinding;
-import com.example.timemap.models.CustomDateTime;
-import com.example.timemap.models.Event;
-import com.example.timemap.models.EventList;
+import com.example.timemap.model.CustomDateTime;
+import com.example.timemap.model.Event;
+import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventDiv.DayLabelFragment;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 

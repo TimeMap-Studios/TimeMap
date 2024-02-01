@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentDayBinding;
-import com.example.timemap.models.CustomDateTime;
-import com.example.timemap.models.EventList;
+import com.example.timemap.model.CustomDateTime;
+import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.OnSwipeTouchListener;
 

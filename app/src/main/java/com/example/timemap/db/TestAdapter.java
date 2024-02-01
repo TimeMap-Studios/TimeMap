@@ -49,7 +49,7 @@ public class TestAdapter {
 
     public Cursor getTestData() {
         try {
-            String sql ="SELECT * FROM myTable";
+            String sql ="SELECT * FROM user";
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur != null) {
                 mCur.moveToNext();

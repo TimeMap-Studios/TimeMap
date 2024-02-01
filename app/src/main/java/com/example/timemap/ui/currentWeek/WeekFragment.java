@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentWeekBinding;
-import com.example.timemap.models.CustomDateTime;
+import com.example.timemap.model.CustomDateTime;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.OnSwipeTouchListener;
 
