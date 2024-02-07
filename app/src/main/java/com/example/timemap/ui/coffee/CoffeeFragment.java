@@ -69,8 +69,6 @@ public class CoffeeFragment extends Fragment {
         webView.setVisibility(View.VISIBLE);
 
 
-
-
     }
     @Override
     public void onDestroyView() {
