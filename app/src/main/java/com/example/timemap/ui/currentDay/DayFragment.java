@@ -12,50 +12,46 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentDayBinding;
-import com.example.timemap.models.CustomDateTime;
-import com.example.timemap.models.EventList;
+import com.example.timemap.model.CustomDateTime;
+import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventList.EventListFragment;
 import com.example.timemap.utils.OnSwipeTouchListener;
 
 /**
- * (View) Events of the day
- **/
+ * A view representing events of a specific day. Displays a list of events for the selected day with navigation options.
+ */
 public class DayFragment extends Fragment {
+
+    // UI components and variables
     EventListFragment eventListFragment;
     private FragmentDayBinding binding;
-
     private CustomDateTime day;
 
+    /**
+     * onCreateView:
+     * Inflates the fragment layout, initializes UI elements, and sets up event handling.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate views.
+     * @param container          The parent view that this fragment's UI should be attached to.
+     * @param savedInstanceState Bundle containing the saved state of the fragment.
+     * @return The root view of the fragment.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Initialization
         binding = FragmentDayBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Obtiene el FragmentManager del fragmento actual
+        // Get the fragment manager
         FragmentManager fragmentManager = getParentFragmentManager();
 
-        // Crea una instancia del fragmento
+        // Create and add the EventListFragment to the layout
         eventListFragment = new EventListFragment();
-
-        // Inicia la transacción del fragmento
         fragmentManager.beginTransaction()
                 .add(R.id.dayEventsContainer, eventListFragment)
                 .commit();
 
-        binding.previousDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                previousDay();
-            }
-        });
-
-        binding.nextDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextDay();
-            }
-        });
-
+        // Set the current day initially to the current date
         root.post(new Runnable() {
             @Override
             public void run() {
@@ -63,6 +59,21 @@ public class DayFragment extends Fragment {
             }
         });
 
+        // Set up click listeners for navigating to previous and next days
+        binding.previousDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousDay();
+            }
+        });
+        binding.nextDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextDay();
+            }
+        });
+
+        // Set up swipe gestures for navigating to previous and next days
         OnSwipeTouchListener swipper = new OnSwipeTouchListener(getActivity()) {
             @Override
             public void onSwipeLeft() {
@@ -80,6 +91,11 @@ public class DayFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Sets the selected day, updates UI elements, and loads events for the specified day.
+     *
+     * @param day The CustomDateTime representing the selected day.
+     */
     public void setDay(CustomDateTime day){
         this.day = day;
         eventListFragment.clearEventList();
@@ -87,14 +103,23 @@ public class DayFragment extends Fragment {
         eventListFragment.addEvents(EventList.getInstance().getEventsByDay(day));
     }
 
+    /**
+     * Navigates to the previous day, updating UI and loading events accordingly.
+     */
     public void previousDay(){
         setDay(day.subtractDays(1));
     }
 
+    /**
+     * Navigates to the next day, updating UI and loading events accordingly.
+     */
     public void nextDay(){
         setDay(day.addDays(1));
     }
 
+    /**
+     * Cleans up resources when the fragment's view is destroyed.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
