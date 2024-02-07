@@ -36,23 +36,24 @@ public class EventList {
      * Loads test data into the event list.
      */
     private void loadTestData() {
+        User user = new User("test", "test@test.com", "test");
         addEvents(
-                new Event("Chemistry Exam", "", CustomDateTime.now().subtractDays(1), "exam;chemistry").setEventId(1),
-                new Event("Mathematics Exam", "", CustomDateTime.now().addHours(2).addSeconds(17), "exam;mathematics").setEventId(2),
-                new Event("Chemistry Homework", "", CustomDateTime.now().addMinutes(5), "homework;chemistry").setEventId(3),
-                new Event("New Champ Smolder Release", "", new CustomDateTime(2024, 2, 7), "League of Legends").setEventId(4),
-                new Event("Philosophy Project Submission", "", CustomDateTime.now().addDays(2), "project;philosophy").setEventId(5),
-                new Event("Technology Homework", "", CustomDateTime.now().addDays(4), "homework;technology").setEventId(6),
-                new Event("Language Homework", "", CustomDateTime.now().addDays(1).addMinutes(15), "homework;language").setEventId(7),
-                new Event("Mathematics Homework", "", CustomDateTime.now().addDays(3).addMinutes(7), "homework;mathematics").setEventId(8),
-                new Event("Physics Exam", "", CustomDateTime.now().addDays(5).addMinutes(2), "exam;physics").setEventId(9),
-                new Event("Literature Homework", "", CustomDateTime.now().addDays(2).addMinutes(51), "homework;literature").setEventId(10),
-                new Event("Biology Project Presentation", "", CustomDateTime.now().addDays(7).addMinutes(23), "project;biology").setEventId(11),
-                new Event("History Quiz", "", CustomDateTime.now().subtractDays(3).addMinutes(2), "quiz;history").setEventId(12),
-                new Event("Computer Science Coding Assignment", "", CustomDateTime.now().subtractDays(6).addMinutes(87), "assignment;computer science").setEventId(13),
-                new Event("Art Exhibition", "", CustomDateTime.now().addDays(8).addMinutes(35), "event;art").setEventId(14),
-                new Event("Music Concert", "", CustomDateTime.now().addDays(4).addMinutes(43), "event;music").setEventId(15),
-                new Event("Sports Tournament", "", CustomDateTime.now().addDays(9).addMinutes(32), "event;sports").setEventId(16)
+                new Event("Chemistry Exam", "", CustomDateTime.now().subtractDays(1), "exam;chemistry",user).setEventId(1),
+                new Event("Mathematics Exam", "", CustomDateTime.now().addHours(2).addSeconds(17), "exam;mathematics",user).setEventId(2),
+                new Event("Chemistry Homework", "", CustomDateTime.now().addMinutes(5), "homework;chemistry",user).setEventId(3),
+                new Event("New Champ Smolder Release", "", new CustomDateTime(2024, 2, 7), "League of Legends",user).setEventId(4),
+                new Event("Philosophy Project Submission", "", CustomDateTime.now().addDays(2), "project;philosophy",user).setEventId(5),
+                new Event("Technology Homework", "", CustomDateTime.now().addDays(4), "homework;technology",user).setEventId(6),
+                new Event("Language Homework", "", CustomDateTime.now().addDays(1).addMinutes(15), "homework;language",user).setEventId(7),
+                new Event("Mathematics Homework", "", CustomDateTime.now().addDays(3).addMinutes(7), "homework;mathematics",user).setEventId(8),
+                new Event("Physics Exam", "", CustomDateTime.now().addDays(5).addMinutes(2), "exam;physics",user).setEventId(9),
+                new Event("Literature Homework", "", CustomDateTime.now().addDays(2).addMinutes(51), "homework;literature",user).setEventId(10),
+                new Event("Biology Project Presentation", "", CustomDateTime.now().addDays(7).addMinutes(23), "project;biology",user).setEventId(11),
+                new Event("History Quiz", "", CustomDateTime.now().subtractDays(3).addMinutes(2), "quiz;history",user).setEventId(12),
+                new Event("Computer Science Coding Assignment", "", CustomDateTime.now().subtractDays(6).addMinutes(87), "assignment;computer science",user).setEventId(13),
+                new Event("Art Exhibition", "", CustomDateTime.now().addDays(8).addMinutes(35), "event;art",user).setEventId(14),
+                new Event("Music Concert", "", CustomDateTime.now().addDays(4).addMinutes(43), "event;music",user).setEventId(15),
+                new Event("Sports Tournament", "", CustomDateTime.now().addDays(9).addMinutes(32), "event;sports",user).setEventId(16)
         );
     }
 

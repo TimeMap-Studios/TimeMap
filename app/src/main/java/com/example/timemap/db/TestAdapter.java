@@ -1,12 +1,19 @@
 package com.example.timemap.db;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.timemap.model.Event;
+import com.example.timemap.model.User;
+
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TestAdapter {
 
@@ -47,19 +54,47 @@ public class TestAdapter {
         mDbHelper.close();
     }
 
-    public Cursor getTestData() {
+    public Set<Event> getUserEvents(User user) {
         try {
-            String sql ="SELECT * FROM user";
+            String sql ="SELECT * FROM event WHERE 'user_id' = " + user.getId() + ";";
+            Set<Event> dbEvents = new TreeSet<>();
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur != null) {
-                mCur.moveToNext();
+                while(mCur.moveToNext()){
+                    Event e = new Event();
+                    e.setEventId(mCur.getLong(0));
+                    e.setName(mCur.getString(1));
+                    e.setDescription(mCur.getString(2));
+                    e.setEndTime(mCur.getLong(3));
+                    //e.setUser(mCur.getString(4));
+                    e.setFilters(mCur.getString(5));
+                    dbEvents.add(e);
+                }
+                return dbEvents;
             }
-            return mCur;
         } catch (SQLException mSQLException) {
             Log.e(TAG, "getTestData >>"+ mSQLException.toString());
             throw mSQLException;
         }
+        return null;
     }
 
-
+    public User getUser(String pass) {
+        try{
+            String sql = "SELECT *  FROM user WHERE 'password' = '" + pass + "';";
+            @SuppressLint("Recycle") Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToFirst();
+                User user = new User();
+                user.setId(mCur.getLong(0));
+                user.setUsername(mCur.getString(1));
+                user.setEmail(mCur.getString(2));
+                user.setPass(mCur.getString(3));
+                return user;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

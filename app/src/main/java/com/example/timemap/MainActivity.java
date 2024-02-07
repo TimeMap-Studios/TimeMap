@@ -46,14 +46,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
         super.onCreate(savedInstanceState);
 
-        TestAdapter mDbHelper = new TestAdapter(this);
-        mDbHelper.createDatabase();
-        mDbHelper.open();
-
-        Cursor testdata = mDbHelper.getTestData();
-        System.out.println(testdata.getString(1));
-        mDbHelper.close();
-
         // Initialize the instance variable for singleton pattern
         instance = this;
 
