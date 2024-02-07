@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
         this.context = context;
-        this.DATABASE_PATH = "/data/data/"+context.getPackageName()+"/databases/";
+        DATABASE_PATH = "/data/data/"+context.getPackageName()+"/databases/";
     }
 
     @Override
@@ -82,10 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
-
-        if (dbExist) {
-
-        } else {
+        if (!dbExist) {
             this.getReadableDatabase();
             try {
                 copyDataBase();

@@ -1,5 +1,6 @@
 package com.example.timemap;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.timemap.databinding.ActivityMainBinding;
+import com.example.timemap.db.TestAdapter;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.google.android.material.navigation.NavigationView;
 
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        TestAdapter mDbHelper = new TestAdapter(this);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor testdata = mDbHelper.getTestData();
+        System.out.println(testdata.getString(1));
+        mDbHelper.close();
 
         // Initialize the instance variable for singleton pattern
         instance = this;
