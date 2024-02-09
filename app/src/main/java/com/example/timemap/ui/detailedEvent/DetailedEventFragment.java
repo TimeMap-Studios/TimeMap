@@ -88,8 +88,6 @@ public class DetailedEventFragment extends Fragment {
         }
 
         return binding.getRoot();
-
-
     }
 
     @Override

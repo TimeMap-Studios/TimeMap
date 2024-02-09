@@ -7,14 +7,14 @@ import com.example.timemap.model.User;
 import java.util.Set;
 
 public class UserController {
-    private UserController instance;
+    private static UserController instance;
     private TestAdapter dbHelper;
     private UserController(){
         dbHelper = new TestAdapter(MainActivity.instance.getApplicationContext());
         dbHelper.createDatabase();
     }
 
-    public UserController getInstance(){
+    public static UserController getInstance(){
         if(instance==null){
             instance = new UserController();
         }
@@ -33,9 +33,9 @@ public class UserController {
 
     }
 */
-    public User getCurrentUser(String pass){
+    public User getCurrentUser(String pass, String username){
         dbHelper.open();
-        User user = dbHelper.getUser(pass);
+        User user = dbHelper.getUser(pass, username);
         dbHelper.close();
         return user;
     }

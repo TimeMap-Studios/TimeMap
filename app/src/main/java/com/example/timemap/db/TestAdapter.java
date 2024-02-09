@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import com.example.timemap.model.Event;
@@ -79,17 +80,16 @@ public class TestAdapter {
         return null;
     }
 
-    public User getUser(String pass) {
+    public User getUser(String pass, String username) {
         try{
-            String sql = "SELECT *  FROM user WHERE 'password' = '" + pass + "';";
-            @SuppressLint("Recycle") Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                mCur.moveToFirst();
+            String sql = "SELECT *  FROM user WHERE password = ? AND username = ?;";
+            @SuppressLint("Recycle") Cursor cursor = mDb.rawQuery(sql, new String[]{pass, username});
+            if (cursor != null && cursor.moveToFirst()) {
                 User user = new User();
-                user.setId(mCur.getLong(0));
-                user.setUsername(mCur.getString(1));
-                user.setEmail(mCur.getString(2));
-                user.setPass(mCur.getString(3));
+                user.setId(cursor.getLong(0));
+                user.setUsername(cursor.getString(1));
+                user.setEmail(cursor.getString(2));
+                user.setPass(cursor.getString(3));
                 return user;
             }
         } catch (Exception e) {
