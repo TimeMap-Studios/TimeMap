@@ -1,6 +1,5 @@
 package com.example.timemap.ui.login;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +37,15 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 // Lógica de inicio de sesión
                 // Consultar base de datos para verificar credenciales
-                User currentUser = UserController.getInstance().getCurrentUser(binding.introducePass.getText().toString(), binding.introduceUser.getText().toString());
+                User currentUser = UserController.getInstance().getLoginUser(binding.introducePass.getText().toString(), binding.introduceUser.getText().toString());
                 if(currentUser==null){
-                    Toast.makeText(MainActivity.instance.getApplicationContext(), "No existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.instance.getApplicationContext(), "incorrect username or password", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(MainActivity.instance.getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
-                    //abrir ventana de usuario---
+                    //setear currentUser
+                    UserController.getInstance().setCurrentUser(currentUser);
+                    //abrir ventana de usuario--- la linea de abajo no funciona
+                    //MainActivity.instance.getNavController().navigate(R.id.homeView);
                 }
             }
         });
@@ -52,8 +53,8 @@ public class LoginFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica de registro
                 // abrir ventana de registro
+                MainActivity.instance.getNavController().navigate(R.id.registerFragment);
             }
         });
 

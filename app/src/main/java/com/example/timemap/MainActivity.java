@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
                 }
             });
         }
-        navController.navigate(R.id.registerFragment);
+        navController.navigate(R.id.loginFragment);
     }
 
     /**
@@ -142,5 +142,9 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     public void onConfirmation(boolean confirmed) {
         if (confirmed)
             navController.navigate(R.id.deatiledEvent);
+    }
+
+    public NavController getNavController(){
+        return navController;
     }
 }

@@ -16,9 +16,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class DatabaseController {
-
-    protected static final String TAG = "DataAdapter";
-
     private final Context mContext;
     private SQLiteDatabase mDb;
     private DatabaseHelper mDbHelper;
@@ -32,7 +29,7 @@ public class DatabaseController {
         try {
             mDbHelper.createDataBase();
         } catch (IOException mIOException) {
-            Log.e(TAG, mIOException.toString() + "  UnableToCreateDatabase");
+            Log.e("creationError",mIOException.toString() + "  UnableToCreateDatabase");
             throw new Error("UnableToCreateDatabase");
         }
         return this;
@@ -44,7 +41,7 @@ public class DatabaseController {
             mDbHelper.close();
             mDb = mDbHelper.getReadableDatabase();
         } catch (SQLException mSQLException) {
-            Log.e(TAG, "open >>"+ mSQLException.toString());
+            Log.e("openError", "open >>"+ mSQLException.toString());
             throw mSQLException;
         }
         return this;
@@ -54,29 +51,53 @@ public class DatabaseController {
         mDbHelper.close();
     }
 
-    public Set<Event> getUserEvents(User user) {
+    // QUERIES DOWN BELOW
+    public Set<Event> getUserEvents(User currentUser) {
         try {
-            String sql ="SELECT * FROM event WHERE 'user_id' = " + user.getId() + ";";
+            String sql ="SELECT * FROM event WHERE 'user_id' = ?";
             Set<Event> dbEvents = new TreeSet<>();
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                while(mCur.moveToNext()){
+            Cursor cursor = mDb.rawQuery(sql, new String[]{String.valueOf(currentUser.getId())});
+            if (cursor != null && cursor.moveToFirst()) {
+                while(cursor.moveToNext()){
                     Event e = new Event();
-                    e.setEventId(mCur.getLong(0));
-                    e.setName(mCur.getString(1));
-                    e.setDescription(mCur.getString(2));
-                    e.setEndTime(mCur.getLong(3));
-                    //e.setUser(mCur.getString(4));
-                    e.setFilters(mCur.getString(5));
+                    e.setEventId(cursor.getLong(0));
+                    e.setName(cursor.getString(1));
+                    e.setDescription(cursor.getString(2));
+                    e.setEndTime(cursor.getLong(3));
+                    e.setUser(currentUser);
+                    e.setFilters(cursor.getString(5));
                     dbEvents.add(e);
                 }
                 return dbEvents;
             }
-        } catch (SQLException mSQLException) {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
+        } catch (Exception ex) {
+            Log.e("", "getUserEvents(User user) >>"+ ex.toString());
+            throw ex;
         }
         return null;
+    }
+
+    public boolean addNewEvent(Event newEvent){
+        mDb.beginTransaction();
+        //review
+        try {
+            ContentValues values = new ContentValues();
+            values.put("name",newEvent.getName());
+            values.put("description",newEvent.getDescription());
+            values.put("limit",newEvent.getRemainingTime());
+            values.put("user_id",newEvent.getUser().getId());
+            values.put("tag", newEvent.getFiltersAsString());
+            mDb.insert("event", null, values);
+            mDb.setTransactionSuccessful();
+            return true;
+        }
+        catch(Exception e){
+            Log.e("addNewEvent",e.getMessage());
+            return false;
+        }
+        finally{
+            mDb.endTransaction();
+        }
     }
 
     public User queryGetUser(String pass, String username) {
@@ -92,6 +113,7 @@ public class DatabaseController {
                 return user;
             }
         } catch (Exception e) {
+            Log.e("queryGetUser", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
         }
         return null;
@@ -104,6 +126,7 @@ public class DatabaseController {
             return cursor.moveToFirst();
         }
         catch (Exception e){
+            Log.e("queryEmailExists", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
         }
     }
@@ -115,6 +138,7 @@ public class DatabaseController {
             return cursor.moveToFirst();
         }
         catch (Exception e){
+            Log.e("queryUserExists", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
         }
     }

@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 public class UserController {
     private static UserController instance;
     private DatabaseController dbController;
+    private User currentUser;
     private UserController(){
         dbController = new DatabaseController(MainActivity.instance.getApplicationContext());
         dbController.createDatabase();
@@ -38,14 +39,14 @@ public class UserController {
         return result;
     }
 
-    public boolean userExists(String user){
+    public boolean usernameExists(String user){
         dbController.open();
         boolean result = dbController.queryUserExists(user);
         dbController.close();
         return result;
     }
 
-    public User getCurrentUser(String pass, String username){
+    public User getLoginUser(String pass, String username){
         dbController.open();
         User user = dbController.queryGetUser(hashSha256(pass), username);
         dbController.close();
@@ -74,5 +75,13 @@ public class UserController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

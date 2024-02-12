@@ -73,7 +73,7 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(MainActivity.instance.getApplicationContext(), "This e-mail is already registered", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(UserController.getInstance().userExists(username.getText().toString())){
+        else if(UserController.getInstance().usernameExists(username.getText().toString())){
             Toast.makeText(MainActivity.instance.getApplicationContext(), "Unavailable username", Toast.LENGTH_SHORT).show();
             return false;
         }

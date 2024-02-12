@@ -1,5 +1,7 @@
 package com.example.timemap.model;
 
+import com.example.timemap.controller.EventController;
+
 import java.util.Collection;
 import java.util.Random;
 import java.util.Set;
@@ -20,6 +22,7 @@ public class EventList {
         events = new TreeSet<>();
         days = new TreeSet<>();
         loadTestData();
+        //EventController.getInstance().getCurrentUserEvents();
     }
 
     /**
@@ -65,7 +68,7 @@ public class EventList {
      */
     public boolean addEvent(Event e) {
         if (e == null) return false;
-        // TODO: Implement adding to the database
+        EventController.getInstance().addEvent(e);
         if (events.add(e)) {
             if (!containsDate(e.getEndTime())) days.add(e.getEndTime());
             return true;
