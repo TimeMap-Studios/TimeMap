@@ -3,6 +3,7 @@ package com.example.timemap.ui.detailedEvent;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -223,18 +224,26 @@ public class DetailedEventFragment extends Fragment {
     }
 
     public boolean validate() {
-        return true;
+        return !(binding.editTittle.getText().toString().isEmpty() ||
+                binding.editFilter.getText().toString().isEmpty() ||
+                binding.editDescription.getText().toString().isEmpty() ||
+                selectedDate==null);
+
     }
 
     public boolean saveEvent() {
+        Log.e("Error","no llega validate");
         if (!validate()) return false;
+        Log.e("Error"," llega validate");
         if (event == null) return false;
         System.out.println("guardado solicitado");
         event.setName(String.valueOf(binding.editTittle.getText()));
         event.setFilters(String.valueOf(binding.editFilter.getText()));
         event.setDescription(String.valueOf(binding.editDescription.getText()));
+        Log.e("Error","no llega2");
         event.setEndTime(selectedDate);
         if (eventCreationMode) {
+            Log.e("Error","no llega");
             return EventList.getInstance().addEvent(event.setEventId(EventList.getInstance().getNewEventId()));
         } else return EventList.getInstance().editEvent(event);
     }
@@ -255,7 +264,7 @@ public class DetailedEventFragment extends Fragment {
     }
 
     private void deleteEvent() {
-        if (event != null) {
+        if (event != null && event.getEventId()!=0) {
             ConfirmationDialog.askForConfirmation(requireContext(), "¿Estás seguro de que deseas eliminar este evento?", new ConfirmationDialog.ConfirmationCallback() {
                 @Override
                 public void onConfirmation(boolean confirmed) {
@@ -300,12 +309,14 @@ public class DetailedEventFragment extends Fragment {
 
     public void resetForm(){
         setEditMode(true);
+        setEnebled(true);
+        eventCreationMode=true;
         binding.editTittle.setText("");
         binding.editFilter.setText("");
         binding.editDescription.setText("");
         binding.editDate.setText("");
         binding.editTime.setText("");
-        selectedDate=null;
+        selectedDate = Calendar.getInstance();
         event=new Event();
     }
 
