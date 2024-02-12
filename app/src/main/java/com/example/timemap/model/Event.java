@@ -252,4 +252,9 @@ public class Event implements Comparable<Event>, Serializable {
         }
         return this.name.compareTo(otherEvent.name);
     }
+
+    public boolean deleteEvent() {
+        // Aquí puedes implementar la lógica para eliminar el evento de la lista de eventos.
+        return EventList.getInstance().removeEvent(this);
+    }
 }

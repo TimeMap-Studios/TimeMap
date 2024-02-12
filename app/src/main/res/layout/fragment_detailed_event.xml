@@ -212,6 +212,15 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:text="Save" />
+
+                    <!-- Botón de Eliminar -->
+                    <Button
+                        android:id="@+id/btnDelete"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="Delete Event"/>
                 </LinearLayout>
             </LinearLayout>
 
