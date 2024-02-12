@@ -5,18 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import com.example.timemap.model.Event;
 import com.example.timemap.model.User;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class TestAdapter {
+public class DatabaseController {
 
     protected static final String TAG = "DataAdapter";
 
@@ -24,12 +22,12 @@ public class TestAdapter {
     private SQLiteDatabase mDb;
     private DatabaseHelper mDbHelper;
 
-    public TestAdapter(Context context) {
+    public DatabaseController(Context context) {
         this.mContext = context;
         mDbHelper = new DatabaseHelper(mContext);
     }
 
-    public TestAdapter createDatabase() throws SQLException {
+    public DatabaseController createDatabase() throws SQLException {
         try {
             mDbHelper.createDataBase();
         } catch (IOException mIOException) {
@@ -39,7 +37,7 @@ public class TestAdapter {
         return this;
     }
 
-    public TestAdapter open() throws SQLException {
+    public DatabaseController open() throws SQLException {
         try {
             mDbHelper.openDataBase();
             mDbHelper.close();
@@ -82,8 +80,8 @@ public class TestAdapter {
 
     public User getUser(String pass, String username) {
         try{
-            String sql = "SELECT *  FROM user WHERE password = ? AND username = ?;";
-            @SuppressLint("Recycle") Cursor cursor = mDb.rawQuery(sql, new String[]{pass, username});
+            String sql = "SELECT * FROM user WHERE pass = ? AND username = ?";
+            @SuppressLint("Recycle") Cursor cursor = mDb.rawQuery(sql, new String[]{ pass, username });
             if (cursor != null && cursor.moveToFirst()) {
                 User user = new User();
                 user.setId(cursor.getLong(0));

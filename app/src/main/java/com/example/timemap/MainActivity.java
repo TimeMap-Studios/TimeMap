@@ -1,6 +1,5 @@
 package com.example.timemap;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.timemap.databinding.ActivityMainBinding;
-import com.example.timemap.db.TestAdapter;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.google.android.material.navigation.NavigationView;
 

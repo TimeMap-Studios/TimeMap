@@ -1,5 +1,7 @@
 package com.example.timemap.model;
 
+import com.example.timemap.controller.UserController;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,7 +15,7 @@ public class User {
     public User(String username, String email, String pass) {
         this.username = username;
         this.email = email;
-        this.pass = hashSha256(pass);
+        this.pass = UserController.getInstance().hashSha256(pass);
     }
 
     public User(){}
@@ -48,22 +50,5 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    private String hashSha256(String pass) {
-        try {
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            sha256.update(pass.getBytes("UTF-8"));
-            byte[] digest = sha256.digest();
-
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < digest.length; i++) {
-                sb.append(String.format("%02x", digest[i]));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

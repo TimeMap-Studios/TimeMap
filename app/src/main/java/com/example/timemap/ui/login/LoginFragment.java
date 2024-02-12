@@ -1,5 +1,6 @@
 package com.example.timemap.ui.login;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 // Lógica de inicio de sesión
                 // Consultar base de datos para verificar credenciales
-                User currentUser = UserController.getInstance().getCurrentUser(binding.passField.getText().toString(), binding.userField.getText().toString());
+                User currentUser = UserController.getInstance().getCurrentUser(binding.introducePass.getText().toString(), binding.introduceUser.getText().toString());
                 if(currentUser==null){
                     Toast.makeText(MainActivity.instance.getApplicationContext(), "No existe", Toast.LENGTH_SHORT).show();
                 }

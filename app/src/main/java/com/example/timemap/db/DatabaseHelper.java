@@ -44,17 +44,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /***
      * Check if the database exists on device or not
      */
-    private boolean checkDataBase() {
+    private boolean tryCreate() {
         SQLiteDatabase tempDB = null;
         try {
             String myPath = DATABASE_PATH + DATABASE_NAME;
             tempDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
-            Log.e("timemap - check", e.getMessage());
+            Log.e("timemap - error", e.getMessage());
         }
-        if (tempDB != null)
-            tempDB.close();
-        return tempDB != null ? true : false;
+        if (tempDB != null){tempDB.close();}
+        return tempDB != null;
     }
     public void copyDataBase() throws IOException {
         try {
@@ -81,11 +80,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         timemapDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
     public void createDataBase() throws IOException {
-        boolean dbExist = checkDataBase();
+        boolean dbExist = tryCreate();
         if (!dbExist) {
             this.getReadableDatabase();
             try {
                 copyDataBase();
+                Log.e("timemap - create", "base de datos copiada en el dispositivo virtual");
             } catch (IOException e) {
                 Log.e("timemap - create", e.getMessage());
             }

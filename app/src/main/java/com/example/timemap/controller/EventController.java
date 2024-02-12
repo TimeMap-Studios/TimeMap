@@ -1,21 +1,17 @@
 package com.example.timemap.controller;
 
-import android.database.Cursor;
-
 import com.example.timemap.MainActivity;
-import com.example.timemap.db.TestAdapter;
-import com.example.timemap.model.Event;
+import com.example.timemap.db.DatabaseController;
 
-import java.util.Set;
 /*
 * Implementa métodos dao
 * */
 public class EventController {
     private EventController instance;
-    private TestAdapter dbHelper;
+    private DatabaseController dbController;
     private EventController(){
-        dbHelper = new TestAdapter(MainActivity.instance.getApplicationContext());
-        dbHelper.createDatabase();
+        dbController = new DatabaseController(MainActivity.instance.getApplicationContext());
+        dbController.createDatabase();
     }
 
     public EventController getInstance(){
