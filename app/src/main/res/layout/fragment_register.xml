@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/registerTitle"
-        android:layout_width="298dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Regístrate, es gratis "
+        android:layout_marginBottom="20dp"
+        android:text="Sign up, it's free"
+        android:textAlignment="center"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="355dp"
+        android:id="@+id/userNameBox"
+        android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:background="@drawable/custom_border"
-        android:gravity="left"
+        android:gravity="start"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,22 +38,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="username: "
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/newUserTextBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="355dp"
+        android:id="@+id/emailBox"
+        android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:background="@drawable/custom_border"
-        android:gravity="left"
+        android:gravity="start"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="e-mail: "
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/emailTextBox"
@@ -80,11 +80,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="355dp"
+        android:id="@+id/firstPassBox"
+        android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:background="@drawable/custom_border"
-        android:gravity="left"
+        android:gravity="start"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="password: "
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/firstPassTextBox"
@@ -111,12 +112,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="355dp"
+        android:id="@+id/secondPassBox"
+        android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:background="@drawable/custom_border"
-        android:gravity="left"
+        android:gravity="start"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,8 +130,8 @@
             android:id="@+id/secondPassField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="repite: "
-            android:textSize="18dp" />
+            android:text="repeat: "
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/secondPassTextBox"
@@ -146,12 +147,8 @@
         android:id="@+id/registroButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.416" />
+        android:text="SIGN UP"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
                 }
             });
         }
-        navController.navigate(R.id.loginFragment);
+        navController.navigate(R.id.registerFragment);
     }
 
     /**

@@ -29,7 +29,7 @@ public class LoginFragment extends Fragment {
         LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
-        // Aquí puedes inicializar tus vistas y botones, y asignarles acciones
+
         loginButton = binding.btnLogin;
         registerButton = binding.btnRegister;
 
