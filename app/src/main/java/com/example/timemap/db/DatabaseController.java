@@ -1,6 +1,7 @@
 package com.example.timemap.db;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -78,7 +79,7 @@ public class DatabaseController {
         return null;
     }
 
-    public User getUser(String pass, String username) {
+    public User queryGetUser(String pass, String username) {
         try{
             String sql = "SELECT * FROM user WHERE pass = ? AND username = ?";
             @SuppressLint("Recycle") Cursor cursor = mDb.rawQuery(sql, new String[]{ pass, username });
@@ -94,5 +95,41 @@ public class DatabaseController {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public boolean queryEmailExists(String email){
+        try{
+            String query = "SELECT * from user WHERE email = ?";
+            Cursor cursor = mDb.rawQuery(query,new String[]{email});
+            return cursor.moveToFirst();
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean queryUserExists(String user){
+        try{
+            String query = "SELECT * from user WHERE username = ?";
+            Cursor cursor = mDb.rawQuery(query,new String[]{user});
+            return cursor.moveToFirst();
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addNewUser(User newUser){
+        mDb.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("username", newUser.getUsername());
+            values.put("email", newUser.getEmail());
+            values.put("pass", newUser.getPass());
+            mDb.insert("user", null, values);
+            mDb.setTransactionSuccessful();
+        } finally {
+            mDb.endTransaction();
+        }
     }
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
+import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.databinding.FragmentRegisterBinding;
 
@@ -44,7 +45,10 @@ public class RegisterFragment extends Fragment {
             registerButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
                     // recoger datos y comprobar
-                    checkEmptyFields();
+                    if(checkEmptyFields()){
+                        UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
+                        // proceder al login
+                    }
                 }
             });
         }
@@ -57,12 +61,20 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(MainActivity.instance.getApplicationContext(), "Fill the empty fields to continue", Toast.LENGTH_SHORT).show();
             return false;
         }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()){
+            Toast.makeText(MainActivity.instance.getApplicationContext(), "Wrong e-mail format", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         else if(!firstPass.getText().toString().equalsIgnoreCase(secondPass.getText().toString())){
             Toast.makeText(MainActivity.instance.getApplicationContext(), "Passwords must match", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()){
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "Wrong e-mail format", Toast.LENGTH_SHORT).show();
+        else if (UserController.getInstance().emailExists(email.getText().toString())) {
+            Toast.makeText(MainActivity.instance.getApplicationContext(), "This e-mail is already registered", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(UserController.getInstance().userExists(username.getText().toString())){
+            Toast.makeText(MainActivity.instance.getApplicationContext(), "Unavailable username", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

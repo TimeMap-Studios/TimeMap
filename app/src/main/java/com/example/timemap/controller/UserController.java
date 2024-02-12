@@ -23,10 +23,6 @@ public class UserController {
         return instance;
     }
 /*
-    public boolean addUser(User newUser){
-
-    }
-
     public boolean removeUser(User user){
 
     }
@@ -35,11 +31,32 @@ public class UserController {
 
     }
 */
+    public boolean emailExists(String email){
+        dbController.open();
+        boolean result = dbController.queryEmailExists(email);
+        dbController.close();
+        return result;
+    }
+
+    public boolean userExists(String user){
+        dbController.open();
+        boolean result = dbController.queryUserExists(user);
+        dbController.close();
+        return result;
+    }
+
     public User getCurrentUser(String pass, String username){
         dbController.open();
-        User user = dbController.getUser(hashSha256(pass), username);
+        User user = dbController.queryGetUser(hashSha256(pass), username);
         dbController.close();
         return user;
+    }
+
+    public void registerNewUser(String username, String email, String pass){
+        dbController.open();
+        User newUser = new User(username,email,pass);
+        dbController.addNewUser(newUser);
+        dbController.close();
     }
 
     public String hashSha256(String pass) {
