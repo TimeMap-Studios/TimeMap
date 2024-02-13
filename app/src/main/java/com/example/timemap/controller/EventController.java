@@ -35,7 +35,8 @@ public class EventController {
     }
 
     public boolean updateEvent(Event event){
-
+        dbController.open();
+        return dbController.updateEvent(event);
     }
 
     public Set<Event> getCurrentUserEvents(){

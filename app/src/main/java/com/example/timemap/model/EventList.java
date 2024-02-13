@@ -99,7 +99,7 @@ public class EventList {
      */
     public boolean removeEvent(Event e) {
         if (e == null) return false;
-        if (!EventController.getInstance().removeEvent(e)) return false;
+        if(!EventController.getInstance().removeEvent(e)) return false;
         return events.remove(e);
     }
 
@@ -111,7 +111,7 @@ public class EventList {
      */
     public boolean editEvent(Event e) {
         if (e == null) return false;
-        if(!EventController.getInstance().removeEvent(e)) return false;
+        if (!EventController.getInstance().updateEvent(e)) return false;
         if (removeEvent(e)) {
             return addEvent(e);
         }

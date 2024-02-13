@@ -261,5 +261,4 @@ public class Event implements Comparable<Event>, Serializable {
     public User getUser(){
         return user;
     }
-
 }
