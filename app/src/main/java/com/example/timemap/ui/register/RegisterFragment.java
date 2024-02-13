@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
@@ -50,9 +51,9 @@ public class RegisterFragment extends Fragment {
         secondPass = binding.secondPassTextBox;
 
         // Set up the toast for displaying messages
-        timemapToast = new Toast(MainActivity.instance.getApplicationContext());
+        timemapToast = new Toast(LoginActivity.getInstance().getApplicationContext());
         timemapToast.setDuration(Toast.LENGTH_SHORT);
-        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) LoginActivity.getInstance().findViewById(R.id.toastContainer)));
         toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
         if(registerButton!=null){

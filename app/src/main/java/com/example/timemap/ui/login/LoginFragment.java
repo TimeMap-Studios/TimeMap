@@ -8,30 +8,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.model.User;
+import com.example.timemap.ui.register.RegisterFragment;
 
 /*
 * Fragment representing the login screen of the application.
 * */
 public class LoginFragment extends Fragment {
-    FragmentLoginBinding binding;
+    private FragmentLoginBinding binding;
     private Button loginButton;
     private Button registerButton;
-    private User user;
     private Toast timemapToast;
     private TextView toastText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(MainActivity.instance != null) MainActivity.instance.creatingEvent = true;
 
-        LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        //LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
 
@@ -40,9 +41,9 @@ public class LoginFragment extends Fragment {
         registerButton = binding.btnRegister;
 
         // Custom toast
-        timemapToast = new Toast(MainActivity.instance.getApplicationContext());
+        timemapToast = new Toast(LoginActivity.getInstance().getApplicationContext());
         timemapToast.setDuration(Toast.LENGTH_SHORT);
-        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) LoginActivity.getInstance().findViewById(R.id.toastContainer)));
         toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +68,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // abrir ventana de registro
-                MainActivity.instance.getNavController().navigate(R.id.registerFragment);
+                LoginActivity.getInstance().loadRegisterFragment();
             }
         });
 
