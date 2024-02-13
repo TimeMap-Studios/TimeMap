@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/***
+ * Clase con lógica de creacion de la base de datos. Incluye métodos para validar, abrir y cerrar conexion a la base de datos.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "timemap.db";
@@ -42,7 +45,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super.close();
     }
     /***
-     * Check if the database exists on device or not
+     * Check if the database exists on device or not.
+     * Crea base de datos temporal con el path del dispositivo virtual. Si la base de datos se ha creado y existe, cierra la conexion y devulve true.
+     * De lo contrario devuelve false.
      */
     private boolean tryCreate() {
         SQLiteDatabase tempDB = null;
@@ -55,6 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (tempDB != null){tempDB.close();}
         return tempDB != null;
     }
+    /***
+    * Copia la base de datos desde la carpeta assets hasta el directorio virtual.
+    * */
     public void copyDataBase() throws IOException {
         try {
             InputStream myInput = context.getAssets().open(DATABASE_NAME);
@@ -75,10 +83,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e("timemap - copyDatabase", e.getMessage());
         }
     }
+
+    /***
+     * lanza una excepcion si la base de datos no se abre.
+     * @throws SQLException
+     */
     public void openDataBase() throws SQLException {
         String myPath = DATABASE_PATH + DATABASE_NAME;
         timemapDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
+    /***
+    * Comprueba si la base de datos existe a través del método tryCreate().
+     * si no existe, copia la base de datos de la carpeta assets al dispositivo virtual.
+    * */
     public void createDataBase() throws IOException {
         boolean dbExist = tryCreate();
         if (!dbExist) {

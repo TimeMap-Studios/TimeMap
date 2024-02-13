@@ -19,6 +19,9 @@ import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.databinding.FragmentRegisterBinding;
 
+/*
+* Fragment for the registration view.
+* */
 public class RegisterFragment extends Fragment {
     private RegisterViewModel registerViewModel;
     FragmentRegisterBinding binding;
@@ -39,13 +42,14 @@ public class RegisterFragment extends Fragment {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
 
+        // Get references to UI components
         registerButton = binding.registroButton;
         username = binding.newUserTextBox;
         email = binding.emailTextBox;
         firstPass = binding.firstPassTextBox;
         secondPass = binding.secondPassTextBox;
 
-        //Iniciar Toast
+        // Set up the toast for displaying messages
         timemapToast = new Toast(MainActivity.instance.getApplicationContext());
         timemapToast.setDuration(Toast.LENGTH_SHORT);
         timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
@@ -66,6 +70,7 @@ public class RegisterFragment extends Fragment {
         return binding.getRoot();
     }
 
+    // Validation for the registration form fields
     private boolean checkEmptyFields(){
         if(username.getText().toString().isEmpty() || email.getText().toString().isEmpty() || firstPass.getText().toString().isEmpty() || secondPass.getText().toString().isEmpty()){
             toastText.setText("Fill the empty fields to continue");

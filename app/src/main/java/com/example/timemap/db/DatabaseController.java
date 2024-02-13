@@ -15,16 +15,21 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
+/***
+ * Clase que se encarga de manejar la base de datos SQLite. Las conexiones se abren desde las clases controladoras, pero siempre se cierran desde aqui.
+ * */
 public class DatabaseController {
     private final Context mContext;
     private SQLiteDatabase mDb;
     private DatabaseHelper mDbHelper;
 
+    // Constructor. Recibe el contexto de la aplicacion e instancia un DatabaseHelper
     public DatabaseController(Context context) {
         this.mContext = context;
         mDbHelper = new DatabaseHelper(mContext);
     }
 
+    // Crea la base de datos a través de la instancia de DatabaseHelper
     public DatabaseController createDatabase() throws SQLException {
         try {
             mDbHelper.createDataBase();
@@ -35,6 +40,7 @@ public class DatabaseController {
         return this;
     }
 
+    // Abre la base de datos a través de la instancia de DatabaseHelper
     public DatabaseController open() throws SQLException {
         try {
             mDbHelper.openDataBase();

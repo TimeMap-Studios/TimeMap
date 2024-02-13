@@ -8,7 +8,7 @@ import java.util.Set;
 
 /*
 * Implementa métodos dao para evento interactuando con DatabaseController
-* */
+*/
 public class EventController {
     private static EventController instance;
     private DatabaseController dbController;
@@ -16,7 +16,6 @@ public class EventController {
         dbController = new DatabaseController(MainActivity.instance.getApplicationContext());
         dbController.createDatabase();
     }
-
     public static EventController getInstance(){
         if(instance==null){
             instance = new EventController();
@@ -24,6 +23,7 @@ public class EventController {
         return instance;
     }
 
+    // Métodos dao
     public boolean addEvent(Event newEvent){
         dbController.open();
         return dbController.addNewEvent(newEvent);
@@ -39,6 +39,7 @@ public class EventController {
         return dbController.updateEvent(event);
     }
 
+    // recoge current user desde UserController. se obvia que currentUser ya está seteado
     public Set<Event> getCurrentUserEvents(){
         dbController.open();
         return dbController.getUserEvents(UserController.getInstance().getCurrentUser());

@@ -16,6 +16,9 @@ import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.model.User;
 
+/*
+* Fragment representing the login screen of the application.
+* */
 public class LoginFragment extends Fragment {
     FragmentLoginBinding binding;
     private Button loginButton;
@@ -32,27 +35,27 @@ public class LoginFragment extends Fragment {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
 
+        // Get references to UI components
         loginButton = binding.btnLogin;
         registerButton = binding.btnRegister;
 
+        // Custom toast
         timemapToast = new Toast(MainActivity.instance.getApplicationContext());
         timemapToast.setDuration(Toast.LENGTH_SHORT);
         timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
-
         toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica de inicio de sesión
-                // Consultar base de datos para verificar credenciales
+                // verify user exists in database
                 User currentUser = UserController.getInstance().getLoginUser(binding.introducePass.getText().toString(), binding.introduceUser.getText().toString());
                 if(currentUser==null){
                     toastText.setText("incorrect username or password");
                     timemapToast.show();
                 }
                 else{
-                    //setear currentUser
+                    //set currentUser in UserController to currentUser
                     UserController.getInstance().setCurrentUser(currentUser);
                     //abrir ventana de usuario--- la linea de abajo no funciona
                     //MainActivity.instance.getNavController().navigate(R.id.homeView);
