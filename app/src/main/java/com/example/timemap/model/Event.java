@@ -17,13 +17,15 @@ public class Event implements Comparable<Event>, Serializable {
     private String name;
     private CustomDateTime endTime;
     private String description;
+    private User user;
     private Set<String> filters;
 
-    public Event(String name, String description, CustomDateTime endTime, String filters) {
+    public Event(String name, String description, CustomDateTime endTime, String filters, User user) {
         setFilters(filters);
         this.name = name;
         this.description = description;
         this.endTime = endTime;
+        this.user = user;
     }
 
     public Event() {
@@ -252,9 +254,11 @@ public class Event implements Comparable<Event>, Serializable {
         }
         return this.name.compareTo(otherEvent.name);
     }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public boolean deleteEvent() {
-        // Aquí puedes implementar la lógica para eliminar el evento de la lista de eventos.
-        return EventList.getInstance().removeEvent(this);
+    public User getUser(){
+        return user;
     }
 }
