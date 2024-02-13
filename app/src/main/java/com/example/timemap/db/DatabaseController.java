@@ -212,4 +212,44 @@ public class DatabaseController {
             mDb.close();
         }
     }
+
+    public boolean updateUser(User user){
+        int updatedRows = 0;
+        mDb.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            values.put("username", user.getUsername());
+            values.put("email", user.getEmail());
+            values.put("pass", user.getPass());
+            String selection = "id = ?";
+            String[] selectionArgs = { String.valueOf(user.getId()) };
+            updatedRows = mDb.update("user", values, selection, selectionArgs);
+        }
+        catch(Exception e){
+            Log.e("updateUser",e.getMessage());
+        }
+        finally {
+            mDb.endTransaction();
+            mDb.close();
+        }
+        return updatedRows > 0;
+    }
+
+    public boolean removeUser(User user){
+        int deletedRows = 0;
+        mDb.beginTransaction();
+        try{
+            String selection = "id = ?";
+            String[] selectionArgs = { String.valueOf(user.getId()) };
+            deletedRows = mDb.delete("user", selection, selectionArgs);
+        }
+        catch(Exception e){
+            Log.e("removeUser",e.getMessage());
+        }
+        finally {
+            mDb.endTransaction();
+            mDb.close();
+        }
+        return deletedRows>0;
+    }
 }

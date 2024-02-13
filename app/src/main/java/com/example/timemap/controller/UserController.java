@@ -23,15 +23,17 @@ public class UserController {
         }
         return instance;
     }
-/*
-    public boolean removeUser(User user){
 
+    public boolean removeUser(User user){
+        dbController.open();
+        return dbController.removeUser(user);
     }
 
     public boolean updateUser(User user){
-
+        dbController.open();
+        return dbController.updateUser(user);
     }
-*/
+
     public boolean emailExists(String email){
         dbController.open();
         return dbController.queryEmailExists(email);
