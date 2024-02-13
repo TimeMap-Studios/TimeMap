@@ -8,21 +8,69 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.databinding.FragmentCalendarBinding;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.timemap.R;
+import com.example.timemap.databinding.FragmentCalendarBinding;
+import com.example.timemap.model.CustomDateTime;
+import com.example.timemap.model.Event;
+import com.example.timemap.model.EventList;
+import com.example.timemap.ui.eventList.EventListFragment;
+
+import java.util.Calendar;
+import java.util.Set;
 
 /**
  * (View) Calendar with the events
  **/
 public class CalendarFragment extends Fragment {
-    FragmentCalendarBinding binding;
-
+    private FragmentCalendarBinding binding;
+    EventListFragment eventListFragment;
+    FragmentManager fragmentManager;
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CalendarViewModel calendarViewModel =
                 new ViewModelProvider(this).get(CalendarViewModel.class);
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
+        fragmentManager = getParentFragmentManager();
+        // Configuración del CalendarView para cargar eventos del día seleccionado
+        binding.calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, dayOfMonth);
+            loadAndDisplayEventsForSelectedDay(selectedDate);
+        });
+        // Create and add the EventListFragment to the layout
+        eventListFragment = new EventListFragment();
+
+        //eventListFragment.addEvents(EventList.getInstance().getTodayEvents());
+        fragmentManager.beginTransaction()
+                .add(R.id.eventsContainer, eventListFragment)
+                .commit();
+
         return binding.getRoot();
+    }
+
+    private void loadAndDisplayEventsForSelectedDay(Calendar date) {
+        EventList eventList = EventList.getInstance(); // Asume que EventList ya tiene los eventos cargados
+        Set<Event> eventsForSelectedDay = eventList.getEventsByDay(new CustomDateTime(date.getTimeInMillis()));
+
+        eventListFragment.clearEventList();
+        eventListFragment.addEvents(eventsForSelectedDay);
+
     }
 
     @Override
@@ -31,3 +79,4 @@ public class CalendarFragment extends Fragment {
         binding = null;
     }
 }
+
