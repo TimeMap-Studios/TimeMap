@@ -7,7 +7,7 @@ import com.example.timemap.model.Event;
 import java.util.Set;
 
 /*
-* Implementa métodos dao
+* Implementa métodos dao para evento interactuando con DatabaseController
 * */
 public class EventController {
     private static EventController instance;
@@ -26,23 +26,20 @@ public class EventController {
 
     public boolean addEvent(Event newEvent){
         dbController.open();
-        boolean result = dbController.addNewEvent(newEvent);
-        dbController.close();
-        return result;
+        return dbController.addNewEvent(newEvent);
     }
-/*
-    public boolean removeEvent(Event event){
 
+    public boolean removeEvent(Event event){
+        dbController.open();
+        return dbController.removeEvent(event);
     }
 
     public boolean updateEvent(Event event){
 
     }
-*/
+
     public Set<Event> getCurrentUserEvents(){
         dbController.open();
-        Set<Event> events = dbController.getUserEvents(UserController.getInstance().getCurrentUser());
-        dbController.close();
-        return events;
+        return dbController.getUserEvents(UserController.getInstance().getCurrentUser());
     }
 }

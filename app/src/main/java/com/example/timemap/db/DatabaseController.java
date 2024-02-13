@@ -51,7 +51,7 @@ public class DatabaseController {
         mDbHelper.close();
     }
 
-    // QUERIES DOWN BELOW
+    // EVENT QUERIES DOWN BELOW
     public Set<Event> getUserEvents(User currentUser) {
         try {
             String sql ="SELECT * FROM event WHERE 'user_id' = ?";
@@ -74,12 +74,15 @@ public class DatabaseController {
             Log.e("", "getUserEvents(User user) >>"+ ex.toString());
             throw ex;
         }
+        finally {
+            mDb.close();
+        }
         return null;
     }
 
     public boolean addNewEvent(Event newEvent){
         mDb.beginTransaction();
-        //review
+        //review date and filters
         try {
             ContentValues values = new ContentValues();
             values.put("name",newEvent.getName());
@@ -97,9 +100,52 @@ public class DatabaseController {
         }
         finally{
             mDb.endTransaction();
+            mDb.close();
         }
     }
 
+    public boolean removeEvent(Event event){
+        int deletedRows = 0;
+        mDb.beginTransaction();
+        try{
+            String selection = "id = ?";
+            String[] selectionArgs = { String.valueOf(event.getEventId()) };
+            deletedRows = mDb.delete("event", selection, selectionArgs);
+        }
+        catch(Exception e){
+            Log.e("removeEvent",e.getMessage());
+        }
+        finally {
+            mDb.endTransaction();
+            mDb.close();
+        }
+        return deletedRows>0;
+    }
+
+    public boolean updateEvent(Event event){
+        int updatedRows = 0;
+        mDb.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            values.put("name", event.getName());
+            values.put("description", event.getDescription());
+            values.put("limit", event.getRemainingTime());
+            values.put("tag", event.getFiltersAsString());
+            String selection = "id = ?";
+            String[] selectionArgs = { String.valueOf(event.getEventId()) };
+            updatedRows = mDb.update("event", values, selection, selectionArgs);
+        }
+        catch(Exception e){
+            Log.e("removeEvent",e.getMessage());
+        }
+        finally {
+            mDb.endTransaction();
+            mDb.close();
+        }
+        return updatedRows > 0;
+    }
+
+    // USER QUERIES DOWN BELOW
     public User queryGetUser(String pass, String username) {
         try{
             String sql = "SELECT * FROM user WHERE pass = ? AND username = ?";
@@ -116,6 +162,9 @@ public class DatabaseController {
             Log.e("queryGetUser", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
         }
+        finally {
+            mDb.close();
+        }
         return null;
     }
 
@@ -129,6 +178,9 @@ public class DatabaseController {
             Log.e("queryEmailExists", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
         }
+        finally {
+            mDb.close();
+        }
     }
 
     public boolean queryUserExists(String user){
@@ -140,6 +192,9 @@ public class DatabaseController {
         catch (Exception e){
             Log.e("queryUserExists", "getUserEvents(User user) >>"+ e.toString());
             throw new RuntimeException(e);
+        }
+        finally {
+            mDb.close();
         }
     }
 
@@ -154,6 +209,7 @@ public class DatabaseController {
             mDb.setTransactionSuccessful();
         } finally {
             mDb.endTransaction();
+            mDb.close();
         }
     }
 }

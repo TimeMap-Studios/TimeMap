@@ -68,7 +68,9 @@ public class EventList {
      */
     public boolean addEvent(Event e) {
         if (e == null) return false;
-        EventController.getInstance().addEvent(e);
+        if(!EventController.getInstance().addEvent(e)){
+            return false;
+        }
         if (events.add(e)) {
             if (!containsDate(e.getEndTime())) days.add(e.getEndTime());
             return true;
@@ -97,7 +99,7 @@ public class EventList {
      */
     public boolean removeEvent(Event e) {
         if (e == null) return false;
-        // TODO: Implement removing from the database
+        if (!EventController.getInstance().removeEvent(e)) return false;
         return events.remove(e);
     }
 
@@ -109,7 +111,7 @@ public class EventList {
      */
     public boolean editEvent(Event e) {
         if (e == null) return false;
-        // TODO: Implement editing in the database
+        if(!EventController.getInstance().removeEvent(e)) return false;
         if (removeEvent(e)) {
             return addEvent(e);
         }
