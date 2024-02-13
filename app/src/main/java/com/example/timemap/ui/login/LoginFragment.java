@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,8 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
     private Button registerButton;
     private User user;
+    private Toast timemapToast;
+    private TextView toastText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +35,12 @@ public class LoginFragment extends Fragment {
         loginButton = binding.btnLogin;
         registerButton = binding.btnRegister;
 
+        timemapToast = new Toast(MainActivity.instance.getApplicationContext());
+        timemapToast.setDuration(Toast.LENGTH_SHORT);
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
+
+        toastText = timemapToast.getView().findViewById(R.id.toastMessage);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +48,8 @@ public class LoginFragment extends Fragment {
                 // Consultar base de datos para verificar credenciales
                 User currentUser = UserController.getInstance().getLoginUser(binding.introducePass.getText().toString(), binding.introduceUser.getText().toString());
                 if(currentUser==null){
-                    Toast.makeText(MainActivity.instance.getApplicationContext(), "incorrect username or password", Toast.LENGTH_SHORT).show();
+                    toastText.setText("incorrect username or password");
+                    timemapToast.show();
                 }
                 else{
                     //setear currentUser

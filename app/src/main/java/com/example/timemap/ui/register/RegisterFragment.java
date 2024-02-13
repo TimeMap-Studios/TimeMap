@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,8 @@ public class RegisterFragment extends Fragment {
     private EditText email;
     private EditText firstPass;
     private EditText secondPass;
+    private Toast timemapToast;
+    private TextView toastText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +44,13 @@ public class RegisterFragment extends Fragment {
         email = binding.emailTextBox;
         firstPass = binding.firstPassTextBox;
         secondPass = binding.secondPassTextBox;
+
+        //Iniciar Toast
+        timemapToast = new Toast(MainActivity.instance.getApplicationContext());
+        timemapToast.setDuration(Toast.LENGTH_SHORT);
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
+        toastText = timemapToast.getView().findViewById(R.id.toastMessage);
+
         if(registerButton!=null){
             registerButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
@@ -58,23 +68,28 @@ public class RegisterFragment extends Fragment {
 
     private boolean checkEmptyFields(){
         if(username.getText().toString().isEmpty() || email.getText().toString().isEmpty() || firstPass.getText().toString().isEmpty() || secondPass.getText().toString().isEmpty()){
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "Fill the empty fields to continue", Toast.LENGTH_SHORT).show();
+            toastText.setText("Fill the empty fields to continue");
+            timemapToast.show();
             return false;
         }
         else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()){
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "Wrong e-mail format", Toast.LENGTH_SHORT).show();
+            toastText.setText("Wrong e-mail format");
+            timemapToast.show();
             return false;
         }
         else if(!firstPass.getText().toString().equalsIgnoreCase(secondPass.getText().toString())){
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "Passwords must match", Toast.LENGTH_SHORT).show();
+            toastText.setText("Passwords must match");
+            timemapToast.show();
             return false;
         }
         else if (UserController.getInstance().emailExists(email.getText().toString())) {
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "This e-mail is already registered", Toast.LENGTH_SHORT).show();
+            toastText.setText("This e-mail is already registered");
+            timemapToast.show();
             return false;
         }
         else if(UserController.getInstance().usernameExists(username.getText().toString())){
-            Toast.makeText(MainActivity.instance.getApplicationContext(), "Unavailable username", Toast.LENGTH_SHORT).show();
+            toastText.setText("Unavailable username");
+            timemapToast.show();
             return false;
         }
         return true;
