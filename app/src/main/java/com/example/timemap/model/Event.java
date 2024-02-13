@@ -254,7 +254,6 @@ public class Event implements Comparable<Event>, Serializable {
         }
         return this.name.compareTo(otherEvent.name);
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -262,4 +261,5 @@ public class Event implements Comparable<Event>, Serializable {
     public User getUser(){
         return user;
     }
+
 }
