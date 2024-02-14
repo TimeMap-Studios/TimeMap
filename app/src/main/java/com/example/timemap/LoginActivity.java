@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.ActivityLoginBinding;
 import com.example.timemap.ui.login.LoginFragment;
 import com.example.timemap.ui.register.RegisterFragment;
+import com.example.timemap.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,9 +40,17 @@ public class LoginActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction()
-                .add(R.id.loginContainer, new LoginFragment())
-                .commit();
+        //si no hay un usuario logueado muestra el fragmento de login
+        if(SessionManager.getInstance().emptySession()){
+            fragmentManager.beginTransaction()
+                    .add(R.id.loginContainer, new LoginFragment())
+                    .commit();
+        }
+        else{ //si hay un usuario logueado carga su sesion
+            UserController.getInstance().setCurrentUser(SessionManager.getInstance().getSessionUser());
+            Intent intent = new Intent(LoginActivity.getInstance().getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void loadRegisterFragment() {

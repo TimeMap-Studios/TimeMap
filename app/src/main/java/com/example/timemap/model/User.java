@@ -2,11 +2,12 @@ package com.example.timemap.model;
 
 import com.example.timemap.controller.UserController;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class User {
+public class User implements Serializable {
     private long id;
     private String username;
     private String email;
