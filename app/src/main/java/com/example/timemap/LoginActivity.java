@@ -48,4 +48,11 @@ public class LoginActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    public void loadLoginFragment(){
+        fragmentManager.beginTransaction()
+                .replace(R.id.loginContainer, new LoginFragment())
+                .addToBackStack(null)
+                .commit();
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.timemap.ui.register;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class RegisterFragment extends Fragment {
     private RegisterViewModel registerViewModel;
     FragmentRegisterBinding binding;
     private Button registerButton;
+    private Button backButton;
     private EditText username;
     private EditText email;
     private EditText firstPass;
@@ -45,6 +47,7 @@ public class RegisterFragment extends Fragment {
 
         // Get references to UI components
         registerButton = binding.registroButton;
+        backButton = binding.backToLoginButton;
         username = binding.newUserTextBox;
         email = binding.emailTextBox;
         firstPass = binding.firstPassTextBox;
@@ -56,18 +59,22 @@ public class RegisterFragment extends Fragment {
         timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) LoginActivity.getInstance().findViewById(R.id.toastContainer)));
         toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
-        if(registerButton!=null){
-            registerButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v) {
-                    // recoger datos y comprobar
-                    if(checkEmptyFields()){
-                        UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
-                        // proceder al login
-                    }
+        registerButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // recoger datos y comprobar
+                if(checkEmptyFields()){
+                    UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
+                    // proceder al login
                 }
-            });
-        }
+            }
+        });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.getInstance().loadLoginFragment();
+            }
+        });
         return binding.getRoot();
     }
 

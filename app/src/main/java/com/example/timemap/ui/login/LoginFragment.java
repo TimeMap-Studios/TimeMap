@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
                     //set currentUser in UserController to currentUser
                     UserController.getInstance().setCurrentUser(currentUser);
                     //abrir ventana de usuario--- la linea de abajo no funciona
-                    //MainActivity.instance.getNavController().navigate(R.id.homeView);
+                    MainActivity.instance.getNavController().navigate(R.id.homeView);
                 }
             }
         });
