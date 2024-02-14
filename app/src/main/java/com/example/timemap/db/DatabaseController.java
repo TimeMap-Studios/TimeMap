@@ -93,7 +93,7 @@ public class DatabaseController {
             ContentValues values = new ContentValues();
             values.put("name",newEvent.getName());
             values.put("description",newEvent.getDescription());
-            values.put("limit",newEvent.getRemainingTime());
+            values.put("time_limit",newEvent.getEndTime().getAsMilliseconds());
             values.put("user_id",newEvent.getUser().getId());
             values.put("tag", newEvent.getFiltersAsString());
             mDb.insert("event", null, values);
@@ -135,7 +135,7 @@ public class DatabaseController {
             ContentValues values = new ContentValues();
             values.put("name", event.getName());
             values.put("description", event.getDescription());
-            values.put("limit", event.getRemainingTime());
+            values.put("time_limit", event.getRemainingTime());
             values.put("tag", event.getFiltersAsString());
             String selection = "id = ?";
             String[] selectionArgs = { String.valueOf(event.getEventId()) };
