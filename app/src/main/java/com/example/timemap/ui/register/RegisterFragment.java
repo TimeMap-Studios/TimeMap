@@ -20,6 +20,7 @@ import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.databinding.FragmentRegisterBinding;
+import com.example.timemap.model.User;
 
 /*
 * Fragment for the registration view.
@@ -65,6 +66,9 @@ public class RegisterFragment extends Fragment {
                 if(checkEmptyFields()){
                     UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
                     // proceder al login
+                    toastText.setText("New user registered. Please login to continue");
+                    timemapToast.show();
+                    LoginActivity.getInstance().loadLoginFragment();
                 }
             }
         });
