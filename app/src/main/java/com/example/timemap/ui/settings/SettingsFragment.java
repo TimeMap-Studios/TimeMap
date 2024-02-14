@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.LoginActivity;
+import com.example.timemap.MainActivity;
 import com.example.timemap.databinding.FragmentSettingsBinding;
+import com.example.timemap.utils.ConfirmationDialog;
+import com.example.timemap.utils.SessionManager;
 
 /**
  * A Fragment that represents the settings screen in the application.
@@ -19,6 +24,8 @@ import com.example.timemap.databinding.FragmentSettingsBinding;
 public class SettingsFragment extends Fragment{
     // View Binding variable for the fragment's layout
     FragmentSettingsBinding binding;
+
+    private Button logoutButton;
 
     /**
      * Called to create and return the view hierarchy associated with the fragment.
@@ -35,6 +42,24 @@ public class SettingsFragment extends Fragment{
 
         // Inflate the layout for this fragment using View Binding
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
+
+        logoutButton = binding.buttonLogout;
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmationDialog.askForConfirmation(requireContext(), "Are you sure you want to log out?", new ConfirmationDialog.ConfirmationCallback() {
+                    @Override
+                    public void onConfirmation(boolean confirmed) {
+                        if (confirmed) {
+                            SessionManager.getInstance().clearCurrentSession();
+                            // Load the login fragment
+                            LoginActivity.getInstance().loadLoginFragment();
+                        }
+                    }
+                });
+            }
+        });
 
         // Return the root view of the inflated layout
         return binding.getRoot();
