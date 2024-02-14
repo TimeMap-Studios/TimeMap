@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.example.timemap.controller.UserController;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{ //si hay un usuario logueado carga su sesion
             UserController.getInstance().setCurrentUser(SessionManager.getInstance().getSessionUser());
+            Log.e("LoginActivity","logged user: "+UserController.getInstance().getCurrentUser().getUsername());
             Intent intent = new Intent(LoginActivity.getInstance().getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

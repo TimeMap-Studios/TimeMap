@@ -19,6 +19,7 @@ import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.model.User;
 import com.example.timemap.ui.register.RegisterFragment;
+import com.example.timemap.utils.SessionManager;
 
 /*
 * Fragment representing the login screen of the application.
@@ -59,6 +60,7 @@ public class LoginFragment extends Fragment {
                 else{
                     //set currentUser in UserController to currentUser
                     UserController.getInstance().setCurrentUser(currentUser);
+                    SessionManager.getInstance().saveCurrentSession(currentUser);
                     //abrir ventana de usuario
                     Intent intent = new Intent(LoginActivity.getInstance().getApplicationContext(), MainActivity.class);
                     startActivity(intent);

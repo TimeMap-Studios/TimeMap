@@ -63,7 +63,7 @@ public class SessionManager {
     public boolean emptySession() {
         try {
             File file = new File(context.getFilesDir(), FILENAME);
-            if (file.exists() && file.length() == 0) {
+            if (!file.exists() || file.length() == 0) {
                 Log.d("SessionManager", "User session is empty");
                 return true;
             } else {
