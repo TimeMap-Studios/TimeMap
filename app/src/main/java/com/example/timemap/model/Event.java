@@ -221,7 +221,6 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     /**
-     *
      * @param obj the object to be compared
      * @return true if have the same id, false if obj its null, a different class or have a different id
      */

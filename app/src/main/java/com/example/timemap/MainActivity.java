@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
     // Instance variable for singleton pattern
     public static MainActivity instance;
-
     // Flag indicating whether a new event is being created
     public boolean creatingEvent;
 
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
                 }
             });
         }
-        navController.navigate(R.id.loginFragment);
     }
 
     /**

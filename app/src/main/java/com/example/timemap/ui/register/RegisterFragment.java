@@ -1,6 +1,7 @@
 package com.example.timemap.ui.register;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,13 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.databinding.FragmentRegisterBinding;
+import com.example.timemap.model.User;
 
 /*
 * Fragment for the registration view.
@@ -26,6 +29,7 @@ public class RegisterFragment extends Fragment {
     private RegisterViewModel registerViewModel;
     FragmentRegisterBinding binding;
     private Button registerButton;
+    private Button backButton;
     private EditText username;
     private EditText email;
     private EditText firstPass;
@@ -44,29 +48,37 @@ public class RegisterFragment extends Fragment {
 
         // Get references to UI components
         registerButton = binding.registroButton;
+        backButton = binding.backToLoginButton;
         username = binding.newUserTextBox;
         email = binding.emailTextBox;
         firstPass = binding.firstPassTextBox;
         secondPass = binding.secondPassTextBox;
 
         // Set up the toast for displaying messages
-        timemapToast = new Toast(MainActivity.instance.getApplicationContext());
+        timemapToast = new Toast(LoginActivity.getInstance().getApplicationContext());
         timemapToast.setDuration(Toast.LENGTH_SHORT);
-        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) MainActivity.instance.findViewById(R.id.toastContainer)));
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) LoginActivity.getInstance().findViewById(R.id.toastContainer)));
         toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
-        if(registerButton!=null){
-            registerButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v) {
-                    // recoger datos y comprobar
-                    if(checkEmptyFields()){
-                        UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
-                        // proceder al login
-                    }
+        registerButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // recoger datos y comprobar
+                if(checkEmptyFields()){
+                    UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
+                    // proceder al login
+                    toastText.setText("New user registered. Please login to continue");
+                    timemapToast.show();
+                    LoginActivity.getInstance().loadLoginFragment();
                 }
-            });
-        }
+            }
+        });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.getInstance().loadLoginFragment();
+            }
+        });
         return binding.getRoot();
     }
 

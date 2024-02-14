@@ -1,5 +1,6 @@
 package com.example.timemap.controller;
 
+import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.db.DatabaseController;
 import com.example.timemap.model.User;
@@ -19,7 +20,7 @@ public class UserController {
     private User currentUser;
     // Private constructor to prevent instantiation from outside the class
     private UserController(){
-        dbController = new DatabaseController(MainActivity.instance.getApplicationContext());
+        dbController = new DatabaseController(LoginActivity.getInstance().getApplicationContext());
         dbController.createDatabase();
     }
     // Gets the singleton instance of UserController
