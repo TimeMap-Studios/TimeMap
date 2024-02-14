@@ -1,6 +1,7 @@
 package com.example.timemap.model;
 
 import com.example.timemap.controller.EventController;
+import com.example.timemap.controller.UserController;
 
 import java.util.Collection;
 import java.util.Random;
@@ -39,7 +40,7 @@ public class EventList {
      * Loads test data into the event list.
      */
     private void loadTestData() {
-        User user = new User("test", "test@test.com", "test");
+        User user = UserController.getInstance().getCurrentUser();
         addEvents(
                 new Event("Chemistry Exam", "", CustomDateTime.now().subtractDays(1), "exam;chemistry",user).setEventId(1),
                 new Event("Mathematics Exam", "", CustomDateTime.now().addHours(2).addSeconds(17), "exam;mathematics",user).setEventId(2),
