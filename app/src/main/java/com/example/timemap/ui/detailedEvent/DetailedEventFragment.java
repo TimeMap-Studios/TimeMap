@@ -18,9 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
+import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
 import com.example.timemap.model.Event;
 import com.example.timemap.model.EventList;
@@ -40,6 +43,7 @@ public class DetailedEventFragment extends Fragment {
     private Calendar selectedDate;
     private Event event;
     private boolean eventCreationMode;
+    private NavController navController;
     ImageButton btnAdd;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class DetailedEventFragment extends Fragment {
         eventCreationMode = true;
 
         btnAdd = getActivity().findViewById(R.id.action_add);
+        navController = NavHostFragment.findNavController(this);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,20 +235,18 @@ public class DetailedEventFragment extends Fragment {
     }
 
     public boolean saveEvent() {
-        Log.e("Error","no llega validate");
         if (!validate()) return false;
-        Log.e("Error"," llega validate");
         if (event == null) return false;
-        System.out.println("guardado solicitado");
         event.setName(String.valueOf(binding.editTittle.getText()));
         event.setFilters(String.valueOf(binding.editFilter.getText()));
         event.setDescription(String.valueOf(binding.editDescription.getText()));
-        Log.e("Error","no llega2");
         event.setEndTime(selectedDate);
+        event.setUser(UserController.getInstance().getCurrentUser());
         if (eventCreationMode) {
-            Log.e("Error","no llega");
-            return EventList.getInstance().addEvent(event.setEventId(EventList.getInstance().getNewEventId()));
-        } else return EventList.getInstance().editEvent(event);
+            return EventList.getInstance().addEvent(event);
+        } else {
+            return EventList.getInstance().editEvent(event);
+        }
     }
 
     @Override
