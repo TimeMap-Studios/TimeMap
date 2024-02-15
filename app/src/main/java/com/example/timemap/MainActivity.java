@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
      */
     public void clickExitLateralMenu(View v) {
         // Cierra el menú lateral
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        binding.drawerLayout.closeDrawers();
     }
 
 
