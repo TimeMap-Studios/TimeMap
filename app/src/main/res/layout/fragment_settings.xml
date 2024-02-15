@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
+        
         <TextView
             android:id="@+id/accountSettingsTitle"
             android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:id="@+id/buttonSave"
+            android:id="@+id/removeUserButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DELETE USER"
@@ -85,6 +86,15 @@
             android:textSize="22sp"
             android:padding="4dp"
             android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/downloadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DOWNLOAD DATABASE"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
