@@ -8,9 +8,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/tuiowkhh"
+        android:icon="@mipmap/ic_time_map"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/tuiowkhh"
+        android:roundIcon="@mipmap/ic_time_map"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeMap"
         tools:targetApi="31" >
