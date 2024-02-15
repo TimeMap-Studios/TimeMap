@@ -18,8 +18,6 @@ import com.example.timemap.utils.SessionManager;
 public class LoginActivity extends AppCompatActivity {
 
     private static LoginActivity instance;
-    private ActivityLoginBinding binding;
-    private LinearLayout container;
     private FragmentManager fragmentManager;
 
     public static LoginActivity getInstance() {
@@ -34,10 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
 
-        container = binding.loginContainer;
+        setContentView(binding.getRoot());
 
         fragmentManager = getSupportFragmentManager();
 

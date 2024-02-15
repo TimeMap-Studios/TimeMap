@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     public static MainActivity instance;
     // Flag indicating whether a new event is being created
     public boolean creatingEvent;
-
     // UI components and variables
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -140,9 +139,5 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     public void onConfirmation(boolean confirmed) {
         if (confirmed)
             navController.navigate(R.id.deatiledEvent);
-    }
-
-    public NavController getNavController(){
-        return navController;
     }
 }
