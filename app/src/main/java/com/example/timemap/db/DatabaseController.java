@@ -88,23 +88,27 @@ public class DatabaseController {
 
     public boolean addNewEvent(Event newEvent){
         mDb.beginTransaction();
-        //review date and filters
         try {
             ContentValues values = new ContentValues();
-            values.put("name",newEvent.getName());
-            values.put("description",newEvent.getDescription());
-            values.put("time_limit",newEvent.getEndTime().getAsMilliseconds());
-            values.put("user_id",newEvent.getUser().getId());
+            values.put("name", newEvent.getName());
+            values.put("description", newEvent.getDescription());
+            values.put("time_limit", newEvent.getEndTime().getAsMilliseconds());
+            values.put("user_id", newEvent.getUser().getId());
             values.put("tag", newEvent.getFiltersAsString());
-            mDb.insert("event", null, values);
-            mDb.setTransactionSuccessful();
-            return true;
-        }
-        catch(Exception e){
-            Log.e("addNewEvent",e.getMessage());
+            long eventId = mDb.insert("event", null, values);
+
+            if(eventId == -1) {
+                Log.e("addNewEvent", "Error adding the event");
+                return false;
+            } else {
+                newEvent.setEventId(eventId);
+                mDb.setTransactionSuccessful();
+                return true;
+            }
+        } catch(Exception e) {
+            Log.e("addNewEvent", e.getMessage());
             return false;
-        }
-        finally{
+        } finally {
             mDb.endTransaction();
             mDb.close();
         }
