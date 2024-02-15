@@ -5,8 +5,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,11 +65,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /***
     * Copia la base de datos desde la carpeta assets hasta el directorio virtual.
     * */
-    public void copyDataBase() throws IOException {
+    public void copyDataBaseFromAssets() throws IOException {
         try {
             InputStream myInput = context.getAssets().open(DATABASE_NAME);
             String outputFileName = DATABASE_PATH + DATABASE_NAME;
             OutputStream myOutput = new FileOutputStream(outputFileName);
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while((length = myInput.read(buffer))>0){
+                myOutput.write(buffer, 0, length);
+            }
+
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+        } catch (Exception e) {
+            Log.e("timemap - copyDatabase", e.getMessage());
+        }
+    }
+
+    public void copyDataBaseToDownloads() throws IOException {
+        try {
+            InputStream myInput = new FileInputStream(DATABASE_PATH + DATABASE_NAME);
+            OutputStream myOutput = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+
 
             byte[] buffer = new byte[1024];
             int length;
@@ -101,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (!dbExist) {
             this.getReadableDatabase();
             try {
-                copyDataBase();
+                copyDataBaseFromAssets();
                 Log.e("timemap - create", "base de datos copiada en el dispositivo virtual");
             } catch (IOException e) {
                 Log.e("timemap - create", e.getMessage());

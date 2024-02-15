@@ -8,60 +8,92 @@
     android:padding="25dp"
     android:gravity="top">
 
-    <!-- Título del fragmento -->
-    <TextView
-        android:id="@+id/textViewTitle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Configuraciones"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/brown"
-        android:padding="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="22dp"/> <!-- Márgen inferior de 16dp -->
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        
+        <TextView
+            android:id="@+id/accountSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Settings"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/brown"
+            android:padding="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="22dp"/>
 
-    <!-- Switch para mostrar eventos pasados -->
-    <Switch
-        android:id="@+id/switchShowPastEvents"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mostrar eventos pasados"
-        android:textSize="22sp"
-        android:padding="4dp"
-        android:layout_marginBottom="12dp"/> <!-- Márgen inferior de 8dp -->
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:id="@+id/editPassButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT PASSWORD"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:id="@+id/removeUserButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DELETE USER"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 
-    <!-- Switch para activar/desactivar notificaciones -->
-    <Switch
-        android:id="@+id/switchNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notificaciones"
-        android:textSize="22sp"
-        android:padding="4dp"
-        android:layout_marginBottom="12dp"/> <!-- Márgen inferior de 8dp -->
+    <View
+        android:id="@+id/lineSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/brown"
+        app:layout_constraintTop_toTopOf="@+id/nameContainer"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp">
-        <Button
-            android:id="@+id/buttonSave"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/appSetingsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="App Settings"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/brown"
+            android:padding="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="22dp"/>
+
+        <Switch
+            android:id="@+id/switchShowPastEvents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostrar eventos pasados"
+            android:textSize="22sp"
+            android:padding="4dp"
+            android:layout_marginBottom="12dp"/>
 
         <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="wrap_content"
+            android:id="@+id/downloadButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="DOWNLOAD DATABASE"
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
