@@ -1,5 +1,9 @@
 package com.example.timemap.ui.settings;
 
+import android.app.ActivityManager;
+import android.app.ActivityOptions;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
+import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentSettingsBinding;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.example.timemap.utils.SessionManager;
+
+import java.util.List;
 
 /**
  * A Fragment that represents the settings screen in the application.
@@ -53,8 +60,10 @@ public class SettingsFragment extends Fragment{
                     public void onConfirmation(boolean confirmed) {
                         if (confirmed) {
                             SessionManager.getInstance().clearCurrentSession();
-                            // Load the login fragment
-                            LoginActivity.getInstance().loadLoginFragment();
+                            Intent intent = new Intent(MainActivity.instance.getApplicationContext(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            ActivityOptions options = ActivityOptions.makeCustomAnimation(MainActivity.instance.getApplicationContext(), R.anim.login_activity_enter, 0);
+                            MainActivity.instance.getApplicationContext().startActivity(intent, options.toBundle());
                         }
                     }
                 });

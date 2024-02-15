@@ -33,7 +33,7 @@
         android:id="@+id/nav_information"
         android:name="com.example.timemap.ui.information.InfoFragment"
         android:label="Information"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info"/>
 
     <fragment
         android:id="@+id/nav_cofee"
