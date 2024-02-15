@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.timemap.controller.UserController;
 import com.example.timemap.model.CustomDateTime;
 import com.example.timemap.model.Event;
 import com.example.timemap.model.EventList;
@@ -144,5 +145,20 @@ public class ExampleUnitTest {
         assertFalse("Event should not be removed", result);
     }
 
+    @Test
+    public void testGetUserFromDatabase(){
+        String username, pass;
+        //user and pass must exists on db
+        username = "slimm1";
+        pass = "slimm1";
+        User user = UserController.getInstance().getLoginUser(pass, username);
+
+        assertNotNull("User exists on db", user);
+    }
+
+    @Test
+    public void testAddEventToDatabase(){
+        Event event = new Event();
+    }
 
 }

@@ -20,10 +20,8 @@ public class EventList {
      * Constructs an EventList instance, initializes sets, and loads test data.
      */
     public EventList() {
-        events = new TreeSet<>();
+        events = EventController.getInstance().getCurrentUserEvents();;
         days = new TreeSet<>();
-        loadTestData();
-        //EventController.getInstance().getCurrentUserEvents();
     }
 
     /**
