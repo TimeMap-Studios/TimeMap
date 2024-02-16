@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.ActivityLoginBinding;
@@ -31,11 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
-
         setContentView(binding.getRoot());
-
         fragmentManager = getSupportFragmentManager();
 
         //si no hay un usuario logueado muestra el fragmento de login
