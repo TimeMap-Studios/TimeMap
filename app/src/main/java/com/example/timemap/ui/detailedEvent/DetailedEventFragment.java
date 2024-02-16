@@ -196,8 +196,8 @@ public class DetailedEventFragment extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         // Aquí puedes hacer algo con la hora seleccionada, por ejemplo, mostrarla en el EditText
                         editTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute));
-                        CustomDateTime custom = new CustomDateTime(selectedDate);
-
+                        selectedDate.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        selectedDate.set(Calendar.MINUTE,minute);
                     }
                 }, hour, minute, false);
         timePickerDialog.show();

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +22,11 @@ import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentSettingsBinding;
+import com.example.timemap.db.DatabaseController;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.example.timemap.utils.SessionManager;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,9 +37,9 @@ public class SettingsFragment extends Fragment{
     // View Binding variable for the fragment's layout
     FragmentSettingsBinding binding;
 
-    private Button logoutButton;
-    private Button removeAccountButton;
-    private Button changePassword;
+    private Button logoutButton, removeAccountButton, changePassword, copyDb;
+    private Toast timemapToast;
+    private TextView toastText;
 
     /**
      * Called to create and return the view hierarchy associated with the fragment.
@@ -56,6 +60,13 @@ public class SettingsFragment extends Fragment{
         logoutButton = binding.buttonLogout;
         removeAccountButton = binding.removeUserButton;
         changePassword = binding.editPassButton;
+        copyDb = binding.downloadButton;
+
+        // Set up the toast for displaying messages
+        timemapToast = new Toast(LoginActivity.getInstance().getApplicationContext());
+        timemapToast.setDuration(Toast.LENGTH_SHORT);
+        timemapToast.setView(inflater.inflate(R.layout.timemap_toast, (ViewGroup) LoginActivity.getInstance().findViewById(R.id.toastContainer)));
+        toastText = timemapToast.getView().findViewById(R.id.toastMessage);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +109,20 @@ public class SettingsFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 MainActivity.instance.getNavController().navigate(R.id.changePassFragment);
+            }
+        });
+
+        copyDb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    UserController.getInstance().getDbController().getHelper().copyDataBaseToDownloads();
+                    toastText.setText("Database downloaded. Check your device downloads folder");
+                    timemapToast.show();
+                } catch (IOException e) {
+                    toastText.setText("Couldn't download Database");
+                    timemapToast.show();
+                }
             }
         });
 

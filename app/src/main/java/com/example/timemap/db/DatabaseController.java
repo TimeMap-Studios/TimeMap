@@ -273,4 +273,8 @@ public class DatabaseController {
         }
         return deletedRows>0;
     }
+
+    public DatabaseHelper getHelper(){
+        return mDbHelper;
+    }
 }

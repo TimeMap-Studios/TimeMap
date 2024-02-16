@@ -89,8 +89,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void copyDataBaseToDownloads() throws IOException {
         try {
             InputStream myInput = new FileInputStream(DATABASE_PATH + DATABASE_NAME);
-            OutputStream myOutput = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-
+            OutputStream myOutput = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()+"/"+DATABASE_NAME);
+            Log.e("ruta",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()+"/"+DATABASE_NAME);
 
             byte[] buffer = new byte[1024];
             int length;

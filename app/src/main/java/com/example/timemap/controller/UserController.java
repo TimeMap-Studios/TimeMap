@@ -86,4 +86,7 @@ public class UserController {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+    public DatabaseController getDbController(){
+        return dbController;
+    }
 }
