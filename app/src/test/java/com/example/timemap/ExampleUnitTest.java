@@ -1,13 +1,27 @@
 package com.example.timemap;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import static org.junit.Assert.*;
 
+import android.content.Context;
+
+import com.example.timemap.controller.EventController;
+import com.example.timemap.controller.UserController;
 import com.example.timemap.model.CustomDateTime;
 import com.example.timemap.model.Event;
 import com.example.timemap.model.EventList;
 import com.example.timemap.model.User;
+import com.example.timemap.ui.login.LoginFragment;
+
+import androidx.test.core.app.ApplicationProvider;
+
 
 import java.util.Set;
 
@@ -16,8 +30,23 @@ import java.util.Set;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+@RunWith(RobolectricTestRunner.class)
 public class ExampleUnitTest {
-    User test = new User("test","test@test.com","1234");
+    User u;
+    Context c;
+    EventController ec;
+    UserController uc;
+    EventList el;
+    @Before
+    public void setUp(){
+        u = new User("test","test@test.com","1234");
+        c = ApplicationProvider.getApplicationContext();
+        if(c!=null){
+            ec = EventController.getTestInstance(c);
+            uc = UserController.getTestInstance(c);
+        }
+    }
 
     /**
      * CustomDateTime Tests
@@ -88,7 +117,7 @@ public class ExampleUnitTest {
 
         EventList eventList = new EventList();
         CustomDateTime eventDateTime = CustomDateTime.now().addDays(3);
-        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",test).setEventId(69);
+        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",u).setEventId(69);
 
         boolean result = eventList.addEvent(event);
 
@@ -101,9 +130,9 @@ public class ExampleUnitTest {
         EventList eventList = new EventList();
         CustomDateTime eventDateTime = CustomDateTime.now().addDays(3);
 
-        Event event1 = new Event("Event 1", "", eventDateTime, "exam;chemistry",test).setEventId(70);
-        Event event2 = new Event("Event 2", "", eventDateTime, "homework;mathematics",test).setEventId(71);
-        Event event3 = new Event("Event 3", "", eventDateTime, "project;philosophy",test).setEventId(72);
+        Event event1 = new Event("Event 1", "", eventDateTime, "exam;chemistry",u).setEventId(70);
+        Event event2 = new Event("Event 2", "", eventDateTime, "homework;mathematics",u).setEventId(71);
+        Event event3 = new Event("Event 3", "", eventDateTime, "project;philosophy",u).setEventId(72);
 
         boolean result1 = eventList.addEvent(event1);
         boolean result2 = eventList.addEvent(event2);
@@ -124,7 +153,7 @@ public class ExampleUnitTest {
     public void testRemoveEvent() {
         EventList eventList = new EventList();
         CustomDateTime eventDateTime = CustomDateTime.now().addDays(3);
-        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",test).setEventId(73);
+        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",u).setEventId(73);
 
         eventList.addEvent(event);
         boolean result = eventList.removeEvent(event);
@@ -137,7 +166,7 @@ public class ExampleUnitTest {
     public void testRemoveNonexistentEvent() {
         EventList eventList = new EventList();
         CustomDateTime eventDateTime = CustomDateTime.now().addDays(3);
-        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",test).setEventId(74);
+        Event event = new Event("Test Event", "", eventDateTime, "exam;chemistry",u).setEventId(74);
 
         boolean result = eventList.removeEvent(event); // Attempt to remove an event not in the list
 

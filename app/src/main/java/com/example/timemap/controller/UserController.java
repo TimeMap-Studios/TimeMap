@@ -1,5 +1,7 @@
 package com.example.timemap.controller;
 
+import android.content.Context;
+
 import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.db.DatabaseController;
@@ -23,6 +25,14 @@ public class UserController {
     private UserController(){
         dbController = new DatabaseController(LoginActivity.getInstance().getApplicationContext());
         dbController.createDatabase();
+    }
+    private UserController(Context c){
+        dbController = new DatabaseController(c);
+        dbController.createDatabase();
+    }
+    public static UserController getTestInstance(Context c){
+        instance = new UserController(c);
+        return instance;
     }
     // Gets the singleton instance of UserController
     public static UserController getInstance(){
@@ -63,7 +73,7 @@ public class UserController {
         dbController.addNewUser(newUser);
     }
     // hash the password using SHA-256
-    public String hashSha256(String pass) {
+    public static String hashSha256(String pass) {
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             sha256.update(pass.getBytes("UTF-8"));

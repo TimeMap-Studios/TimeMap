@@ -1,5 +1,6 @@
 package com.example.timemap.controller;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.timemap.MainActivity;
@@ -22,6 +23,15 @@ public class EventController {
         if(instance==null){
             instance = new EventController();
         }
+        return instance;
+    }
+
+    private EventController(Context c){
+        dbController = new DatabaseController(c);
+        dbController.createDatabase();
+    }
+    public static EventController getTestInstance(Context c){
+        instance = new EventController(c);
         return instance;
     }
 

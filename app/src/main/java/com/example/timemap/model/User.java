@@ -16,7 +16,7 @@ public class User implements Serializable {
     public User(String username, String email, String pass) {
         this.username = username;
         this.email = email;
-        this.pass = UserController.getInstance().hashSha256(pass);
+        this.pass = UserController.hashSha256(pass);
     }
 
     public User(){}
@@ -42,7 +42,7 @@ public class User implements Serializable {
     }
 
     public void setPass(String pass) {
-        this.pass = UserController.getInstance().hashSha256(pass);
+        this.pass = UserController.hashSha256(pass);
     }
 
     public long getId() {
