@@ -4,6 +4,7 @@ import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.db.DatabaseController;
 import com.example.timemap.model.User;
+import com.example.timemap.utils.SessionManager;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

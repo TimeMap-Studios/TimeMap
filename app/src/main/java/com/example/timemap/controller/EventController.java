@@ -1,5 +1,7 @@
 package com.example.timemap.controller;
 
+import android.util.Log;
+
 import com.example.timemap.MainActivity;
 import com.example.timemap.db.DatabaseController;
 import com.example.timemap.model.Event;
@@ -42,6 +44,7 @@ public class EventController {
     // recoge current user desde UserController. se obvia que currentUser ya está seteado
     public Set<Event> getCurrentUserEvents(){
         dbController.open();
+        Log.e("current user",UserController.getInstance().getCurrentUser().getUsername());
         return dbController.getUserEvents(UserController.getInstance().getCurrentUser());
     }
 }

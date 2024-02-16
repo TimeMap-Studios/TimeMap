@@ -1,5 +1,7 @@
 package com.example.timemap.ui.changePass;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentChangepasswordBinding;
+import com.example.timemap.utils.SessionManager;
 
 public class ChangePassFragement extends Fragment {
     FragmentChangepasswordBinding binding;
@@ -50,9 +53,13 @@ public class ChangePassFragement extends Fragment {
                 if(validateDone()){
                     UserController.getInstance().getCurrentUser().setPass(newPass.getText().toString());
                     UserController.getInstance().updateUser(UserController.getInstance().getCurrentUser());
+                    SessionManager.getInstance().clearCurrentSession();
+                    Intent intent = new Intent(MainActivity.instance.getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(MainActivity.instance.getApplicationContext(), R.anim.login_activity_enter, 0);
+                    MainActivity.instance.getApplicationContext().startActivity(intent, options.toBundle());
                     toastText.setText("New password has been set");
                     timemapToast.show();
-                    MainActivity.instance.getNavController().navigate(R.id.settings);
                 }
             }
         });
