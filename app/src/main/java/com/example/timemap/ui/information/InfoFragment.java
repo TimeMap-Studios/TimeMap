@@ -17,7 +17,7 @@ import com.example.timemap.R;
 import com.example.timemap.databinding.FragmentInfoBinding;
 
 /**
- * (View) Info of the app
+ * Fragmento con utilidades y métodos para la vista de Informacion
  **/
 public class InfoFragment extends Fragment {
 

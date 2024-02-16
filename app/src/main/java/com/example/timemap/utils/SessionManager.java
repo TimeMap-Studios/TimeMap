@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Clase encargada de la serializacion de 
+ */
 public class SessionManager {
     private static final String FILENAME = "user_session.ser";
     private Context context;

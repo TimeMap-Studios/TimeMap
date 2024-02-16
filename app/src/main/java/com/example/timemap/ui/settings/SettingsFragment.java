@@ -86,6 +86,7 @@ public class SettingsFragment extends Fragment{
                     .apply();
             }
         });
+        // Evento click para botón de logout. Limpia la sesion de usuario y vuelve a la ventana de Login tras confirmar
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +104,7 @@ public class SettingsFragment extends Fragment{
                 });
             }
         });
-
+        // Evento click para boton de eliminar cuenta. Limpia la sesion de usuario, elimina el user de la base de datos y carga la vista de Login
         removeAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,14 +123,14 @@ public class SettingsFragment extends Fragment{
                 });
             }
         });
-
+        // Evento click para boton de cambiar contraseña. Abre ventana de cambiar contraseña
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.instance.getNavController().navigate(R.id.changePassFragment);
             }
         });
-
+        // Evento click para boton de descargar base de datos. Copia el archivo db desde la app hasta la carpeta de descargas del dispositivo.
         copyDb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +145,6 @@ public class SettingsFragment extends Fragment{
             }
         });
 
-        // Return the root view of the inflated layout
         return binding.getRoot();
     }
 
