@@ -65,7 +65,6 @@ public class DatabaseController {
             Cursor cursor = mDb.rawQuery(sql, new String[]{String.valueOf(currentUser.getId())});
             if (cursor != null && cursor.moveToFirst()) {
                 do{
-                    Log.e("it","iterando");
                     Event e = new Event();
                     e.setEventId(cursor.getLong(0));
                     e.setName(cursor.getString(1));
@@ -76,7 +75,6 @@ public class DatabaseController {
                     dbEvents.add(e);
                 }
                 while(cursor.moveToNext());
-                Log.e("", "getUserEvents(User user) >>"+ dbEvents.size());
                 return dbEvents;
             }
         } catch (Exception ex) {
