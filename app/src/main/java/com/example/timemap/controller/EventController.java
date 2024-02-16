@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.timemap.MainActivity;
 import com.example.timemap.db.DatabaseController;
 import com.example.timemap.model.Event;
+import com.example.timemap.model.User;
 
 import java.util.Set;
 
@@ -46,5 +47,10 @@ public class EventController {
         dbController.open();
         Log.e("current user",UserController.getInstance().getCurrentUser().getUsername());
         return dbController.getUserEvents(UserController.getInstance().getCurrentUser());
+    }
+    public Set<Event> getUserEvents(User user){
+        dbController.open();
+        Log.e("current user",UserController.getInstance().getCurrentUser().getUsername());
+        return dbController.getUserEvents(user);
     }
 }

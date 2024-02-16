@@ -49,9 +49,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //si no hay un usuario logueado muestra el fragmento de login
         if(SessionManager.getInstance().emptySession()){
+            Log.e("user empty session:", (UserController.getInstance().getCurrentUser()==null)+"");
             fragmentManager.beginTransaction()
                     .add(R.id.loginContainer, new LoginFragment())
                     .commit();
+
         }
         else{ //si hay un usuario logueado carga su sesion
             UserController.getInstance().setCurrentUser(SessionManager.getInstance().getSessionUser());

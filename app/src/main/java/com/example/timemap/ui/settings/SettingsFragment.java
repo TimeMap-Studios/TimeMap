@@ -30,6 +30,7 @@ import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentSettingsBinding;
 import com.example.timemap.db.DatabaseController;
+import com.example.timemap.model.EventList;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.example.timemap.utils.SessionManager;
 
@@ -95,10 +96,13 @@ public class SettingsFragment extends Fragment{
                     public void onConfirmation(boolean confirmed) {
                         if (confirmed) {
                             SessionManager.getInstance().clearCurrentSession();
+                            UserController.getInstance().setCurrentUser(null);
+                            EventList.resetInstance();
                             Intent intent = new Intent(MainActivity.instance.getApplicationContext(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             ActivityOptions options = ActivityOptions.makeCustomAnimation(MainActivity.instance.getApplicationContext(), R.anim.login_activity_enter, 0);
                             MainActivity.instance.getApplicationContext().startActivity(intent, options.toBundle());
+
                         }
                     }
                 });
@@ -113,6 +117,7 @@ public class SettingsFragment extends Fragment{
                     public void onConfirmation(boolean confirmed) {
                         if (confirmed) {
                             UserController.getInstance().removeUser(UserController.getInstance().getCurrentUser());
+                            UserController.getInstance().setCurrentUser(null);
                             SessionManager.getInstance().clearCurrentSession();
                             Intent intent = new Intent(MainActivity.instance.getApplicationContext(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

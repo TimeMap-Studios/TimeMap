@@ -87,6 +87,7 @@ public class DatabaseController {
                     e.setName(cursor.getString(1));
                     e.setDescription(cursor.getString(2));
                     e.setEndTime(cursor.getLong(3));
+                    Log.e("User setter",currentUser.getUsername());
                     e.setUser(currentUser);
                     e.setFilters(cursor.getString(5));
                     dbEvents.add(e);
