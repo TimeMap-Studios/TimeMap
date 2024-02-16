@@ -1,6 +1,7 @@
 package com.example.timemap.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class LoginFragment extends Fragment {
                     //set currentUser in UserController to currentUser
                     UserController.getInstance().setCurrentUser(currentUser);
                     SessionManager.getInstance().saveCurrentSession(currentUser);
+                    Log.e("LoginActivity","logged user: "+UserController.getInstance().getCurrentUser().getUsername());
                     //abrir ventana de usuario
                     Intent intent = new Intent(LoginActivity.getInstance().getApplicationContext(), MainActivity.class);
                     startActivity(intent);

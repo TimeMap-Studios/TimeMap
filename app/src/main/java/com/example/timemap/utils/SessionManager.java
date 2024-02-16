@@ -45,7 +45,7 @@ public class SessionManager {
             objectOutputStream.writeObject(user);
             objectOutputStream.close();
             fileOutputStream.close();
-            Log.d("SessionManager", "User session saved successfully");
+            Log.e("SessionManager", "User session saved successfully");
             return true;
         } catch (IOException e) {
             Log.e("SessionManager", "Error saving user session: " + e.getMessage());
@@ -63,7 +63,7 @@ public class SessionManager {
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.getChannel().truncate(0);
             fileOutputStream.close();
-            Log.d("SessionManager", "User session cleared successfully");
+            Log.e("SessionManager", "User session cleared successfully");
             return true;
         } catch (IOException e) {
             Log.e("SessionManager", "Error clearing user session: " + e.getMessage());
