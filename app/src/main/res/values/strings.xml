@@ -23,9 +23,9 @@
     <string name="martin_name">Martín Ramonda</string>
     <string name="jose_name">José García</string>
     <string name="manuel_name">Manuel Martín</string>
-    <string name="subtitle_string">Aplicación desarrollada por:</string>
-    <string name="title_string">Información</string>
+    <string name="subtitle_string">This app has been developed by:</string>
+    <string name="title_string">Information</string>
 
-    <string name="sign_string">Somos programadores independientes. Dependemos de las donaciones para mantener la aplicación</string>
+    <string name="sign_string">We are independent developers reliant on donations to sustain the app.</string>
 
 </resources>
