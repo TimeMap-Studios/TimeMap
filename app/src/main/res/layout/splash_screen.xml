@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/beige">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,33 +14,39 @@
 
         <TextView
             android:id="@+id/textViewCarga1"
-            android:layout_width="321dp"
-            android:layout_height="57dp"
+            android:layout_width="395dp"
+            android:layout_height="200dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="267dp"
             android:layout_marginEnd="78dp"
-            android:text="Organiza tu Tiempo"
+            android:fontFamily="@font/valentine"
+            android:text="Secure Your Success"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="80sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textViewCarga2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-        android:id="@+id/textViewCarga2"
-        android:layout_width="321dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="366dp"
-        android:text="Organiza tu Éxisto"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCarga1" />
+            android:id="@+id/textViewCarga2"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="142dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="366dp"
+            android:fontFamily="@font/valentine"
+            android:text="Manage Your Time"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCarga1" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

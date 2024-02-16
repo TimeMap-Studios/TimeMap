@@ -1,5 +1,6 @@
 package com.example.timemap;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,9 +30,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 // Cuando el tiempo se acabe, inicia LoginActivity
                 Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                //ActivityOptions options = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.login_activity_enter, 0);
+                //startActivity(intent,options.toBundle());
                 startActivity(intent);
                 finish(); // Finaliza SplashScreenActivity para que el usuario no pueda volver a ella
             }
-        }, 3000); // Por ejemplo, espera 3 segundos antes de pasar a la siguiente actividad
+        }, 4000);
     }
 }

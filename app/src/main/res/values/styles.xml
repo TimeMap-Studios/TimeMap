@@ -4,5 +4,7 @@
     <style name="AppTheme.NavItem" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/beige</item>
     </style>
-    
+    <style name="ActivityWithoutActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
 </resources>
