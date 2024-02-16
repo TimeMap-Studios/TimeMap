@@ -27,7 +27,6 @@ public class EventList {
         } else {
             setDayList(events);
         }
-        loadTestData();
     }
 
     /**
