@@ -121,6 +121,7 @@ public class DatabaseController {
             String selection = "id = ?";
             String[] selectionArgs = { String.valueOf(event.getEventId()) };
             deletedRows = mDb.delete("event", selection, selectionArgs);
+            mDb.setTransactionSuccessful();
         }
         catch(Exception e){
             Log.e("removeEvent",e.getMessage());
@@ -144,6 +145,7 @@ public class DatabaseController {
             String selection = "id = ?";
             String[] selectionArgs = { String.valueOf(event.getEventId()) };
             updatedRows = mDb.update("event", values, selection, selectionArgs);
+            mDb.setTransactionSuccessful();
         }
         catch(Exception e){
             Log.e("removeEvent",e.getMessage());
@@ -208,15 +210,22 @@ public class DatabaseController {
         }
     }
 
-    public void addNewUser(User newUser){
+    public boolean addNewUser(User newUser){
         mDb.beginTransaction();
         try {
             ContentValues values = new ContentValues();
             values.put("username", newUser.getUsername());
             values.put("email", newUser.getEmail());
             values.put("pass", newUser.getPass());
-            mDb.insert("user", null, values);
-            mDb.setTransactionSuccessful();
+            long userId = mDb.insert("user", null, values);
+            if(userId == -1) {
+                Log.e("addNewUser", "Error adding the user");
+                return false;
+            } else {
+                newUser.setId(userId);
+                mDb.setTransactionSuccessful();
+                return true;
+            }
         } finally {
             mDb.endTransaction();
             mDb.close();
@@ -234,6 +243,7 @@ public class DatabaseController {
             String selection = "id = ?";
             String[] selectionArgs = { String.valueOf(user.getId()) };
             updatedRows = mDb.update("user", values, selection, selectionArgs);
+            mDb.setTransactionSuccessful();
         }
         catch(Exception e){
             Log.e("updateUser",e.getMessage());
@@ -252,6 +262,7 @@ public class DatabaseController {
             String selection = "id = ?";
             String[] selectionArgs = { String.valueOf(user.getId()) };
             deletedRows = mDb.delete("user", selection, selectionArgs);
+            mDb.setTransactionSuccessful();
         }
         catch(Exception e){
             Log.e("removeUser",e.getMessage());

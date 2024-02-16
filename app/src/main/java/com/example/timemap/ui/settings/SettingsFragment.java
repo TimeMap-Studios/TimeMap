@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
+import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentSettingsBinding;
 import com.example.timemap.utils.ConfirmationDialog;
 import com.example.timemap.utils.SessionManager;
@@ -33,6 +34,8 @@ public class SettingsFragment extends Fragment{
     FragmentSettingsBinding binding;
 
     private Button logoutButton;
+    private Button removeAccountButton;
+    private Button changePassword;
 
     /**
      * Called to create and return the view hierarchy associated with the fragment.
@@ -51,6 +54,8 @@ public class SettingsFragment extends Fragment{
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
 
         logoutButton = binding.buttonLogout;
+        removeAccountButton = binding.removeUserButton;
+        changePassword = binding.editPassButton;
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +72,32 @@ public class SettingsFragment extends Fragment{
                         }
                     }
                 });
+            }
+        });
+
+        removeAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmationDialog.askForConfirmation(requireContext(), "ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT? THIS ACTION CANNOT BE UNDONE", new ConfirmationDialog.ConfirmationCallback() {
+                    @Override
+                    public void onConfirmation(boolean confirmed) {
+                        if (confirmed) {
+                            UserController.getInstance().removeUser(UserController.getInstance().getCurrentUser());
+                            SessionManager.getInstance().clearCurrentSession();
+                            Intent intent = new Intent(MainActivity.instance.getApplicationContext(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            ActivityOptions options = ActivityOptions.makeCustomAnimation(MainActivity.instance.getApplicationContext(), R.anim.login_activity_enter, 0);
+                            MainActivity.instance.getApplicationContext().startActivity(intent, options.toBundle());
+                        }
+                    }
+                });
+            }
+        });
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.instance.getNavController().navigate(R.id.changePassFragment);
             }
         });
 
