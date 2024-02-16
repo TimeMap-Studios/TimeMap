@@ -63,9 +63,9 @@ public class DatabaseController {
             String sql ="SELECT * FROM event WHERE user_id = ?";
             Set<Event> dbEvents = new TreeSet<>();
             Cursor cursor = mDb.rawQuery(sql, new String[]{String.valueOf(currentUser.getId())});
-            //Log.e("", "getUserEvents(User user) >>"+ String.valueOf(cursor.moveToFirst()));
             if (cursor != null && cursor.moveToFirst()) {
-                while(cursor.moveToNext()){
+                do{
+                    Log.e("it","iterando");
                     Event e = new Event();
                     e.setEventId(cursor.getLong(0));
                     e.setName(cursor.getString(1));
@@ -75,6 +75,7 @@ public class DatabaseController {
                     e.setFilters(cursor.getString(5));
                     dbEvents.add(e);
                 }
+                while(cursor.moveToNext());
                 Log.e("", "getUserEvents(User user) >>"+ dbEvents.size());
                 return dbEvents;
             }

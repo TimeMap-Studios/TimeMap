@@ -180,6 +180,9 @@ public class DetailedEventFragment extends Fragment {
                         String formattedYear = String.valueOf(year % 100);
                         // Mostrar la fecha seleccionada en el EditText
                         editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + formattedYear);
+                        selectedDate.set(Calendar.YEAR, year);
+                        selectedDate.set(Calendar.MONTH, monthOfYear);
+                        selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                     }
                 }, year, month, day);
         datePickerDialog.show();
