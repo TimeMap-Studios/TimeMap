@@ -20,9 +20,24 @@ public class EventList {
      * Constructs an EventList instance, initializes sets, and loads test data.
      */
     public EventList() {
-        events = EventController.getInstance().getCurrentUserEvents();
-        if(events ==null) events = new TreeSet<>();
         days = new TreeSet<>();
+        events = EventController.getInstance().getCurrentUserEvents();
+        if(events ==null){
+            events = new TreeSet<>();
+        } else {
+            setDayList(events);
+        }
+        loadTestData();
+    }
+
+    /**
+     * Adds the days from a set of events
+     * @param events The event set to get the days from
+     */
+    private void setDayList(Set<Event> events){
+        events.forEach( e -> {
+            if (!containsDate(e.getEndTime())) days.add(e.getEndTime());
+        });
     }
 
     /**

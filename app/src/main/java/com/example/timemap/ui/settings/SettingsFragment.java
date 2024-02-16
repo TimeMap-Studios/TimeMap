@@ -1,14 +1,18 @@
 package com.example.timemap.ui.settings;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +56,17 @@ public class SettingsFragment extends Fragment{
 
         logoutButton = binding.buttonLogout;
 
+        SharedPreferences sp = getContext().getSharedPreferences("appPreferences", MODE_PRIVATE);
+
+        binding.switchShowPastEvents.setChecked(sp.getBoolean("loadPastEvents", true));
+        binding.switchShowPastEvents.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sp.edit()
+                    .putBoolean("loadPastEvents", isChecked)
+                    .apply();
+            }
+        });
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
