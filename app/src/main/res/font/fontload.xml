@@ -4,6 +4,6 @@
         <font
             android:fontStyle="normal"
             android:fontWeight="400"
-            android:font="@font/valentine" /> <!-- Referencia a tu archivo .ttf o .otf -->
+            android:font="@font/molot" /> <!-- Referencia a tu archivo .ttf o .otf -->
     </font-family>
 </font-family>

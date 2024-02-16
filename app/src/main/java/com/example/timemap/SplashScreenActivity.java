@@ -2,8 +2,10 @@ package com.example.timemap;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
@@ -14,27 +16,50 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen); // Asegúrate de usar el layout correcto
+        setContentView(R.layout.splash_screen);
 
         // Encuentra las vistas por ID
-        TextView textView1 = findViewById(R.id.textViewCarga1);
-        TextView textView2 = findViewById(R.id.textViewCarga2);
+        final TextView textView1 = findViewById(R.id.textViewCarga1);
+        final TextView textView2 = findViewById(R.id.textViewCarga2);
 
-        // Inicia las animaciones
+        // Inicia las animaciones iniciales
         textView1.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_left_to_center));
         textView2.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_right_to_center));
 
-        // Continúa con el resto de tu lógica de SplashScreen, como un temporizador para pasar a LoginActivity
+        // Prepara una animación de desvanecimiento para ser usada más tarde
+        final Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+
+        // Handler para retrasar la transición a LoginActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Cuando el tiempo se acabe, inicia LoginActivity
-                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
-                //ActivityOptions options = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.login_activity_enter, 0);
-                //startActivity(intent,options.toBundle());
-                startActivity(intent);
-                finish(); // Finaliza SplashScreenActivity para que el usuario no pueda volver a ella
+                // Aplica la animación de desvanecimiento al final del temporizador
+                Animation.AnimationListener fadeOutListener = new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        // Cambia el color a transparente (esto podría no ser visible si inmediatamente se inicia otra actividad)
+                        textView1.setTextColor(Color.TRANSPARENT);
+                        textView2.setTextColor(Color.TRANSPARENT);
+
+                        // Inicia LoginActivity después de que el texto se haya desvanecido
+                        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                };
+
+                // Establece el listener a la animación y comienza la animación de desvanecimiento
+                fadeOut.setAnimationListener(fadeOutListener);
+                textView1.startAnimation(fadeOut);
+                textView2.startAnimation(fadeOut);
             }
-        }, 4000);
+        }, 3000); // Este tiempo incluye la duración de tus animaciones iniciales más cualquier retraso deseado
     }
 }
