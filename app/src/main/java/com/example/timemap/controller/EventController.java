@@ -26,12 +26,12 @@ public class EventController {
         return instance;
     }
 
-    private EventController(Context c){
-        dbController = new DatabaseController(c);
+    private EventController(Context c, String path){
+        dbController = new DatabaseController(c, path);
         dbController.createDatabase();
     }
-    public static EventController getTestInstance(Context c){
-        instance = new EventController(c);
+    public static EventController getTestInstance(Context c, String path){
+        instance = new EventController(c, path);
         return instance;
     }
 

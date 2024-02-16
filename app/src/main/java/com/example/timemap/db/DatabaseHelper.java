@@ -28,6 +28,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.context = context;
         DATABASE_PATH = "/data/data/"+context.getPackageName()+"/databases/";
     }
+    public DatabaseHelper(Context context, String databasePath) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
+        DATABASE_PATH = databasePath;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -55,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase tempDB = null;
         try {
             String myPath = DATABASE_PATH + DATABASE_NAME;
+            System.out.println(myPath);
             tempDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
             Log.e("timemap - error", e.getMessage());
@@ -122,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         boolean dbExist = tryCreate();
         if (!dbExist) {
-            this.getReadableDatabase();
+            //this.getReadableDatabase();
             try {
                 copyDataBaseFromAssets();
                 Log.e("timemap - create", "base de datos copiada en el dispositivo virtual");

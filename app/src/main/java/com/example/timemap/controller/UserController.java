@@ -26,12 +26,12 @@ public class UserController {
         dbController = new DatabaseController(LoginActivity.getInstance().getApplicationContext());
         dbController.createDatabase();
     }
-    private UserController(Context c){
-        dbController = new DatabaseController(c);
+    private UserController(Context c, String path){
+        dbController = new DatabaseController(c, path);
         dbController.createDatabase();
     }
-    public static UserController getTestInstance(Context c){
-        instance = new UserController(c);
+    public static UserController getTestInstance(Context c, String path){
+        instance = new UserController(c, path);
         return instance;
     }
     // Gets the singleton instance of UserController

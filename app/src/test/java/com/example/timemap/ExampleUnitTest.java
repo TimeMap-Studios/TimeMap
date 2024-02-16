@@ -37,21 +37,20 @@ public class ExampleUnitTest {
     Context c;
     EventController ec;
     UserController uc;
-    EventList el;
     @Before
     public void setUp(){
         u = new User("test","test@test.com","1234");
         c = ApplicationProvider.getApplicationContext();
         if(c!=null){
-            ec = EventController.getTestInstance(c);
-            uc = UserController.getTestInstance(c);
+            String path = "D:\\Proyectos\\TimeMap\\app\\src\\main\\assets\\test.db";
+            ec = EventController.getTestInstance(c, path);
+            uc = UserController.getTestInstance(c, path);
         }
     }
 
     /**
      * CustomDateTime Tests
      */
-
     @Test
     public void testConstructorWithValidDateTime() {
         CustomDateTime dateTime = new CustomDateTime(2022, 1, 30, 12, 0, 0);

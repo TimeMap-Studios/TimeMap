@@ -29,6 +29,11 @@ public class DatabaseController {
         mDbHelper = new DatabaseHelper(mContext);
     }
 
+    public DatabaseController(Context context, String path) {
+        this.mContext = context;
+        mDbHelper = new DatabaseHelper(mContext, path);
+    }
+
     // Crea la base de datos a través de la instancia de DatabaseHelper
     public DatabaseController createDatabase() throws SQLException {
         try {
