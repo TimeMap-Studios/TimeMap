@@ -305,7 +305,7 @@ public class DetailedEventFragment extends Fragment {
      * */
     private void deleteEvent() {
         if (event != null && event.getEventId()!=0) {
-            ConfirmationDialog.askForConfirmation(requireContext(), "¿Estás seguro de que deseas eliminar este evento?", new ConfirmationDialog.ConfirmationCallback() {
+            ConfirmationDialog.askForConfirmation(requireContext(), "Are you sure you want to delete this event?", new ConfirmationDialog.ConfirmationCallback() {
                 @Override
                 public void onConfirmation(boolean confirmed) {
                     if (confirmed) {
@@ -315,7 +315,7 @@ public class DetailedEventFragment extends Fragment {
                             requireActivity().getSupportFragmentManager().popBackStack();
                         } else {
                             // Si no se pudo eliminar el evento, puedes mostrar un mensaje de error o realizar otras acciones necesarias
-                            Toast.makeText(requireContext(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Error deleting the event", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
