@@ -38,7 +38,7 @@
             android:id="@+id/userField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username: "
+            android:text="Username: "
             android:textSize="18sp" />
 
         <EditText
@@ -67,7 +67,7 @@
             android:id="@+id/emailField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="e-mail: "
+            android:text="E-mail: "
             android:textSize="18sp" />
 
         <EditText
@@ -99,7 +99,7 @@
             android:id="@+id/firstPassField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="password: "
+            android:text="Password: "
             android:textSize="18sp" />
 
         <EditText
@@ -126,7 +126,7 @@
             android:id="@+id/secondPassField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="repeat: "
+            android:text="Repeat: "
             android:textSize="18sp" />
 
         <EditText
