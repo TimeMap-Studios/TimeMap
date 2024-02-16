@@ -47,6 +47,11 @@ public class DetailedEventFragment extends Fragment {
     private NavController navController;
     ImageButton btnAdd;
 
+    /**
+    * onCreateView:
+     * Inflates the fragment layout, initializes UI elements, and sets up event handling.
+     It returns the root view of the fragment.
+    * */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (MainActivity.instance != null) MainActivity.instance.creatingEvent = true;
         DetailedEventViewModel WeekViewModel =
@@ -159,12 +164,18 @@ public class DetailedEventFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Cleans up resources when the fragment's view is destroyed.
+     * */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
+    /**
+     * Displays a DatePickerDialog to pick a date.
+     * */
     private void showDatePickerDialog() {
         selectedDate = Calendar.getInstance();
         int year = selectedDate.get(Calendar.YEAR);
@@ -188,6 +199,9 @@ public class DetailedEventFragment extends Fragment {
         datePickerDialog.show();
     }
 
+    /**
+     * Displays a TimePickerDialog to pick a time.
+     * */
     private void showTimePickerDialog() {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -205,7 +219,9 @@ public class DetailedEventFragment extends Fragment {
                 }, hour, minute, false);
         timePickerDialog.show();
     }
-
+/**
+ * Loads event data into UI elements for editing.
+ * */
     public void loadEvent(Event event) {
         if (event == null) return;
         this.event = event;
@@ -217,7 +233,9 @@ public class DetailedEventFragment extends Fragment {
         binding.editDate.setText(event.getEndTime().getDay() + "/" + event.getEndTime().getMonth() + "/" + formatYear.substring(formatYear.length() - 2));
         binding.editTime.setText(event.getEndTime().getHour() + ":" + event.getEndTime().getMinute());
     }
-
+/**
+ * Enables or disables UI elements based on the provided parameter.
+ * */
     public void setEnebled(boolean activo) {
         binding.editTittle.setEnabled(activo);
         binding.editFilter.setEnabled(activo);
@@ -227,11 +245,17 @@ public class DetailedEventFragment extends Fragment {
         setEditMode(activo);
     }
 
+    /**
+     *Enables or disables edit mode for UI elements based on the provided parameter.
+     * */
     public void setEditMode(boolean activo) {
         binding.btnEdit.setEnabled(!activo);
         binding.btnSave.setEnabled(activo);
     }
 
+    /**
+     * Validates user input fields.
+     * */
     public boolean validate() {
         return !(binding.editTittle.getText().toString().isEmpty() ||
                 binding.editFilter.getText().toString().isEmpty() ||
@@ -240,6 +264,9 @@ public class DetailedEventFragment extends Fragment {
 
     }
 
+    /**
+     * Saves the event data entered by the user.
+     * */
     public boolean saveEvent() {
         if (!validate()) return false;
         if (event == null) return false;
@@ -255,6 +282,9 @@ public class DetailedEventFragment extends Fragment {
         }
     }
 
+    /**
+     * Releases resources and handles actions when the fragment is detached from its hosting activity.
+     * */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -270,6 +300,9 @@ public class DetailedEventFragment extends Fragment {
 
     }
 
+    /**
+     * Displays a confirmation dialog and deletes the event if confirmed.
+     * */
     private void deleteEvent() {
         if (event != null && event.getEventId()!=0) {
             ConfirmationDialog.askForConfirmation(requireContext(), "Are you sure you want to delete this event?", new ConfirmationDialog.ConfirmationCallback() {
@@ -290,6 +323,9 @@ public class DetailedEventFragment extends Fragment {
         }
     }
 
+    /**
+     * Checks if all input fields are empty.
+     * */
     public boolean todosLosCamposEstanVacios() {
         String title = binding.editTittle.getText().toString().trim();
         String filters = binding.editFilter.getText().toString().trim();
@@ -301,7 +337,9 @@ public class DetailedEventFragment extends Fragment {
     }
 
 
-    //comprobar que todos los campos son iguales al nuevo evento que estas creando
+    /**
+     * Compares input fields with the current event to check if they are equal.
+     * */
     public boolean camposIgualAlEvento(){
 
         String descriptionText = binding.editDescription.getText().toString();
@@ -313,7 +351,9 @@ public class DetailedEventFragment extends Fragment {
                 event.getEndTimeAsCalendar().equals(selectedDate);
 
     }
-
+    /**
+     *  Resets the form to its initial state.
+     * */
     public void resetForm(){
         setEditMode(true);
         setEnebled(true);
