@@ -22,7 +22,10 @@ import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentChangepasswordBinding;
 import com.example.timemap.utils.SessionManager;
 
-public class ChangePassFragement extends Fragment {
+/**
+ * Fragmento que contiene eventos y lógica para la vista de Cambiar Contraseña
+ */
+public class ChangePassFragment extends Fragment {
     FragmentChangepasswordBinding binding;
 
     private Button done;
@@ -67,6 +70,10 @@ public class ChangePassFragement extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Validacion del formulario de cambio de contraseña
+     * @return true si ha superado la validacion
+     */
     public boolean validateDone(){
         if(oldPass.getText().toString().isEmpty() || newPass.getText().toString().isEmpty() || repeatPass.getText().toString().isEmpty()){
             toastText.setText("Fill the empty fields to continue");
