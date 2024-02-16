@@ -23,13 +23,20 @@ public class DatabaseController {
     private SQLiteDatabase mDb;
     private DatabaseHelper mDbHelper;
 
-    // Constructor. Recibe el contexto de la aplicacion e instancia un DatabaseHelper
+    /**
+     * Constructor. Recibe el contexto de la aplicacion e instancia un DatabaseHelper
+     * @param context
+     */
     public DatabaseController(Context context) {
         this.mContext = context;
         mDbHelper = new DatabaseHelper(mContext);
     }
 
-    // Crea la base de datos a través de la instancia de DatabaseHelper
+    /**
+     * Crea la base de datos a través de la instancia de DatabaseHelper
+     * @return
+     * @throws SQLException
+     */
     public DatabaseController createDatabase() throws SQLException {
         try {
             mDbHelper.createDataBase();
@@ -40,7 +47,11 @@ public class DatabaseController {
         return this;
     }
 
-    // Abre la base de datos a través de la instancia de DatabaseHelper
+    /**
+     * Intenta abrir la conexion a través de DatabaseHelper
+     * @return
+     * @throws SQLException
+     */
     public DatabaseController open() throws SQLException {
         try {
             mDbHelper.openDataBase();
@@ -58,6 +69,12 @@ public class DatabaseController {
     }
 
     // EVENT QUERIES DOWN BELOW
+
+    /**
+     * Devuelve un Set con los eventos relacionados con un usuario.
+     * @param currentUser
+     * @return
+     */
     public Set<Event> getUserEvents(User currentUser) {
         try {
             String sql ="SELECT * FROM event WHERE user_id = ?";
@@ -87,6 +104,12 @@ public class DatabaseController {
         return null;
     }
 
+    /**
+     * Inicia una transacción e inserta la información relacionada con el evento en la base de datos.
+     * Además, setea el id del evento en memoria según el asignado en la base de datos.
+     * @param newEvent
+     * @return true si se añadio el evento, false de lo contrario
+     */
     public boolean addNewEvent(Event newEvent){
         mDb.beginTransaction();
         try {
@@ -115,6 +138,11 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Elimina las referencias en la base de datos que coincidan con el evento.
+     * @param event
+     * @return true si se eliminó el registro. false de lo contrario
+     */
     public boolean removeEvent(Event event){
         int deletedRows = 0;
         mDb.beginTransaction();
@@ -134,6 +162,11 @@ public class DatabaseController {
         return deletedRows>0;
     }
 
+    /***
+     * Actualiza las referencias a un determinado evento en la base de datos.
+     * @param event
+     * @return true si el evento fue editado, false de lo contrario
+     */
     public boolean updateEvent(Event event){
         int updatedRows = 0;
         mDb.beginTransaction();
@@ -159,6 +192,13 @@ public class DatabaseController {
     }
 
     // USER QUERIES DOWN BELOW
+    /**
+     * REALIZA UNA CONSULTA A LA BASE DE DATOS para comprobar si la contraseña y usuario
+     * proporcionados coinciden con algún registro.
+     * @param pass
+     * @param username
+     * @return Objeto usuario si se encontró coincidencia, null de lo contrario
+     */
     public User queryGetUser(String pass, String username) {
         try{
             String sql = "SELECT * FROM user WHERE pass = ? AND username = ?";
@@ -181,6 +221,11 @@ public class DatabaseController {
         return null;
     }
 
+    /**
+     * Realiza una consulta a la base de datos para comprobar si el email coincide con algun registro.
+     * @param email
+     * @return true si coincide, false si no coincide
+     */
     public boolean queryEmailExists(String email){
         try{
             String query = "SELECT * from user WHERE email = ?";
@@ -196,6 +241,11 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Determina si el username coincide con algún registro en la base de datos
+     * @param user
+     * @return true si coincide, false de lo contrario.
+     */
     public boolean queryUserExists(String user){
         try{
             String query = "SELECT * from user WHERE username = ?";
@@ -211,6 +261,12 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Agraga un nuevo usuario a la base de datos a través de la info extraida del objeto User.
+     * Además, asigna a dicho objeto en memoria el id asignado en la base de datos.
+     * @param newUser
+     * @return true si se añadio, false de lo contrario
+     */
     public boolean addNewUser(User newUser){
         mDb.beginTransaction();
         try {
@@ -233,6 +289,11 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Actualiza el regiistro de usuario en la base de datos que coincida con el de params
+     * @param user
+     * @return true si se actualizo el registro, false de lo contrario
+     */
     public boolean updateUser(User user){
         int updatedRows = 0;
         mDb.beginTransaction();
@@ -256,6 +317,11 @@ public class DatabaseController {
         return updatedRows > 0;
     }
 
+    /***
+     * Elimina cualquier registro en la base de datos que coincida con el id del user pasado por params
+     * @param user
+     * @return true si se elimino algun registro, false de lo contrario
+     */
     public boolean removeUser(User user){
         int deletedRows = 0;
         mDb.beginTransaction();

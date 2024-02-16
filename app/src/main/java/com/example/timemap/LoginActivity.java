@@ -15,6 +15,9 @@ import com.example.timemap.ui.login.LoginFragment;
 import com.example.timemap.ui.register.RegisterFragment;
 import com.example.timemap.utils.SessionManager;
 
+/**
+ * Activity que agrupa las vistas de Login y registro. Realiza lógica de sesión.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static LoginActivity instance;
@@ -24,6 +27,13 @@ public class LoginActivity extends AppCompatActivity {
         return instance;
     }
 
+    /**
+     * On create redirige a MainActivity si hay un suario logeado. De lo contrario carga fragment de login para pedir credenciales de acceso.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,13 +62,18 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sustituye el fragmento actual por el fragmento de registro
+     */
     public void loadRegisterFragment() {
         fragmentManager.beginTransaction()
                 .replace(R.id.loginContainer, new RegisterFragment())
                 .addToBackStack(null)
                 .commit();
     }
-
+    /**
+     * Sustituye el fragmento actual por el fragmento de login
+     */
     public void loadLoginFragment(){
         fragmentManager.beginTransaction()
                 .replace(R.id.loginContainer, new LoginFragment())

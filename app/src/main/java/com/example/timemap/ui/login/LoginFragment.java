@@ -21,15 +21,29 @@ import com.example.timemap.model.User;
 import com.example.timemap.ui.register.RegisterFragment;
 import com.example.timemap.utils.SessionManager;
 
-/*
-* Fragment representing the login screen of the application.
-* */
+/**
+ * Fragment representing the login screen of the application.
+ * */
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private Button loginButton;
     private Button registerButton;
     private Toast timemapToast;
     private TextView toastText;
+
+    /**
+     * Carga el fragmento de registro, recoge componentes UI del xml y asigna eventos.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return view del fragmento
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

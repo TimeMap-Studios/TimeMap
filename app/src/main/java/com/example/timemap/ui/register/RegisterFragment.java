@@ -34,6 +34,19 @@ public class RegisterFragment extends Fragment {
     private Toast timemapToast;
     private TextView toastText;
 
+    /**
+     * Carga el fragmento de registro, recoge componentes UI del xml y asigna eventos.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,7 +92,10 @@ public class RegisterFragment extends Fragment {
         return binding.getRoot();
     }
 
-    // Validation for the registration form fields
+    /**
+     * Método que recoge la validación del formulario de registro. Muestra mensajes a través del toast personalizado.
+     * @return true si supera la validacion
+     */
     private boolean validateSubmit(){
         if(username.getText().toString().isEmpty() || email.getText().toString().isEmpty() || firstPass.getText().toString().isEmpty() || secondPass.getText().toString().isEmpty()){
             toastText.setText("Fill the empty fields to continue");

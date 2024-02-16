@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Clase encargada de la logica de sesion de usuario
+ */
 public class SessionManager {
     private static final String FILENAME = "user_session.ser";
     private Context context;
@@ -30,6 +33,11 @@ public class SessionManager {
         return instance;
     }
 
+    /***
+     * Salva la sesion actual del usuario serializando el objeto en un fichero.
+     * @param user
+     * @return true si la sesion se guardo correctamente
+     */
     public boolean saveCurrentSession(User user) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -46,6 +54,10 @@ public class SessionManager {
         }
     }
 
+    /**
+     * Limpia la sesion del usuario actual eliminando el contenido del fichero.
+     * @return true si se elimino la sesiond e usuario
+     */
     public boolean clearCurrentSession() {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -60,6 +72,10 @@ public class SessionManager {
         }
     }
 
+    /**
+     * Determina si la sesion actual está vacia o iniciada preguntando si el fichero está o no vacio
+     * @return true si no hay sesion iniciada.
+     */
     public boolean emptySession() {
         try {
             File file = new File(context.getFilesDir(), FILENAME);

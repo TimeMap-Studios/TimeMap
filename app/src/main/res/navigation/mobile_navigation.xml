@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/changePassFragment"
-        android:name="com.example.timemap.ui.changePass.ChangePassFragement"
+        android:name="com.example.timemap.ui.changePass.ChangePassFragment"
         android:label="Change Password"
         tools:layout="@layout/fragment_changepassword"/>
 
