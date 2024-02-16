@@ -25,6 +25,7 @@ import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
 import com.example.timemap.databinding.FragmentDetailedEventBinding;
+import com.example.timemap.model.CustomDateTime;
 import com.example.timemap.model.Event;
 import com.example.timemap.model.EventList;
 import com.example.timemap.utils.ConfirmationDialog;
@@ -195,6 +196,8 @@ public class DetailedEventFragment extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         // Aquí puedes hacer algo con la hora seleccionada, por ejemplo, mostrarla en el EditText
                         editTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute));
+                        selectedDate.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        selectedDate.set(Calendar.MINUTE,minute);
                     }
                 }, hour, minute, false);
         timePickerDialog.show();

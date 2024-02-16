@@ -1,7 +1,6 @@
 package com.example.timemap.ui.register;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,7 @@ import com.example.timemap.LoginActivity;
 import com.example.timemap.MainActivity;
 import com.example.timemap.R;
 import com.example.timemap.controller.UserController;
-import com.example.timemap.databinding.FragmentLoginBinding;
 import com.example.timemap.databinding.FragmentRegisterBinding;
-import com.example.timemap.model.User;
 
 /*
 * Fragment for the registration view.
@@ -63,7 +60,7 @@ public class RegisterFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 // recoger datos y comprobar
-                if(checkEmptyFields()){
+                if(validateSubmit()){
                     UserController.getInstance().registerNewUser(username.getText().toString(),email.getText().toString(),firstPass.getText().toString());
                     // proceder al login
                     toastText.setText("New user registered. Please login to continue");
@@ -83,7 +80,7 @@ public class RegisterFragment extends Fragment {
     }
 
     // Validation for the registration form fields
-    private boolean checkEmptyFields(){
+    private boolean validateSubmit(){
         if(username.getText().toString().isEmpty() || email.getText().toString().isEmpty() || firstPass.getText().toString().isEmpty() || secondPass.getText().toString().isEmpty()){
             toastText.setText("Fill the empty fields to continue");
             timemapToast.show();

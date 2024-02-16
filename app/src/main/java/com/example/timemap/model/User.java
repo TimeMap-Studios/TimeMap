@@ -42,7 +42,7 @@ public class User implements Serializable {
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.pass = UserController.getInstance().hashSha256(pass);
     }
 
     public long getId() {
