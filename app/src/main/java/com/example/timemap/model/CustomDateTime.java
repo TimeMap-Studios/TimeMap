@@ -155,6 +155,15 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
         return (Calendar) this.calendar.clone();
     }
 
+    public Calendar getDate() {
+        Calendar temp = (Calendar) this.calendar.clone();
+        temp.set(Calendar.HOUR_OF_DAY, 0);
+        temp.set(Calendar.MINUTE, 0);
+        temp.set(Calendar.SECOND, 0);
+        temp.set(Calendar.MILLISECOND, 1);
+        return temp;
+    }
+
     /**
      * Gets a formatted string representing the full date, including the day of the week.
      *
@@ -311,6 +320,25 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
     }
 
     /**
+     * Checks if one Calendar object is earlier in date than another.
+     *
+     * @param calendar1 The first Calendar object to compare.
+     * @param calendar2 The second Calendar object to compare.
+     * @return true if calendar1 is earlier than calendar2; otherwise, false.
+     */
+    public static boolean isAnyDayBefore(Calendar calendar1, Calendar calendar2) {
+        Calendar cal1 = (Calendar) calendar1.clone();
+        Calendar cal2 = (Calendar) calendar2.clone();
+
+        cal2.set(Calendar.HOUR_OF_DAY, 0);
+        cal2.set(Calendar.MINUTE, 0);
+        cal2.set(Calendar.SECOND, 0);
+        cal2.set(Calendar.MILLISECOND, 0);
+
+        return cal1.before(cal2);
+    }
+
+    /**
      * Gets a set of CustomDateTime objects representing the next week.
      *
      * @return The set of CustomDateTime objects for the next week.
@@ -419,5 +447,10 @@ public class CustomDateTime implements Comparable<CustomDateTime>, Serializable 
     @Override
     public int compareTo(CustomDateTime otherDateTime) {
         return this.calendar.compareTo(otherDateTime.calendar);
+    }
+
+    @Override
+    public CustomDateTime clone(){
+        return new CustomDateTime(CustomDateTime.cloneCalendar(calendar));
     }
 }

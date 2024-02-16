@@ -1,5 +1,7 @@
 package com.example.timemap.ui.eventList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.example.timemap.model.EventList;
 import com.example.timemap.ui.eventDiv.DayLabelFragment;
 import com.example.timemap.ui.eventDiv.EventDivFragment;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -50,12 +53,14 @@ public class EventListFragment extends Fragment {
     private Set<CustomDateTime> days;
     private View root;
     private Set<Fragment> dayLabels;
+    private boolean loadPastEvents;
 
     /**
      * Initializes the fragment's UI components and sets up event handling.
      */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        loadPastEvents = getContext().getSharedPreferences("appPreferences", MODE_PRIVATE).getBoolean("loadPastEvents", true);
         // Initialization
         events = new HashMap<>();
         dayLabels = new HashSet<>();
@@ -182,6 +187,9 @@ public class EventListFragment extends Fragment {
      */
     public boolean addEvent(Event e) {
         if (events.containsKey(e)) return false;
+        if(!loadPastEvents){
+            if (CustomDateTime.isAnyDayBefore(e.getEndTimeAsCalendar(), Calendar.getInstance())) return false;
+        }
         EventDivFragment eventDivFragment = new EventDivFragment(e);
         try {
             fragmentManager.beginTransaction()
